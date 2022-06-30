@@ -18,6 +18,7 @@ DATA_PATH = os.path.join(DESKTOP_PATH, "shared")
 
 
 # problems with data
-# count number of
-# number of overlaps
-# number of 
+# count number of X
+# count number of y
+# count number of overlaps
+# number of
