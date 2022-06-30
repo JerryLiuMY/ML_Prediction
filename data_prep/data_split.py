@@ -38,7 +38,7 @@ def split_X():
     for X_idx in X_index:
         # adjacent slicing the quickest
         iloc = [i for i, _ in enumerate(X_index_0 == X_idx) if _]
-        X_sub = X.iloc[iloc[0]: iloc[-1] + 1]
+        X_sub = X.iloc[iloc[0]: iloc[-1] + 1].droplevel("date")
         date = datetime.strftime(X_idx, "%Y-%m-%d")
         X_sub.to_pickle(os.path.join(X_path, f"{date}.pkl"))
 
