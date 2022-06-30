@@ -24,19 +24,22 @@ if not os.path.isdir(y_path):
 # save indices
 def save_indices():
     """Save indices for X and y"""
-    with open(os.path.join(X_path, "X_index.pkl"), 'wb') as f:
+    with open(os.path.join(X_path, "X_index.pkl"), "wb") as f:
         pickle.dump(X_index, f)
 
-    with open(os.path.join(y_path, "y_index.pkl"), 'wb') as f:
+    with open(os.path.join(y_path, "y_index.pkl"), "wb") as f:
         pickle.dump(y_index, f)
 
 
 # split X
 def split_X():
     """Split X based on date"""
+    X_index_0 = X.index.get_level_values(0)
     for X_idx in X_index:
+        # adjacent slicing the quickest
+        iloc = [i for i, _ in enumerate(X_index_0 == X_idx) if _]
+        X_sub = X.iloc[iloc[0]: iloc[-1] + 1]
         date = datetime.strftime(X_idx, "%Y-%m-%d")
-        X_sub = X.loc[X_idx]
         X_sub.to_pickle(os.path.join(X_path, f"{date}.pkl"))
 
 
@@ -44,6 +47,6 @@ def split_X():
 def split_y():
     """Split y based on date"""
     for y_idx in y_index:
-        date = datetime.strftime(y_idx, "%Y-%m-%d")
         y_sub = y.loc[y_idx]
+        date = datetime.strftime(y_idx, "%Y-%m-%d")
         y_sub.to_pickle(os.path.join(y_path, f"{date}.pkl"))
