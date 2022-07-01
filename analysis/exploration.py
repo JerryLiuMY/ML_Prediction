@@ -1,9 +1,12 @@
-import os
-import glob
-import pickle
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from global_settings import DATA_PATH
 from global_settings import LOG_PATH
+import pickle
+import glob
+import os
+sns.set()
 
 
 def check_overlap():
@@ -53,3 +56,9 @@ def plot_cusip():
     cusip_df.index.name = "date"
     cusip_df.reset_index(drop=False, inplace=True)
     cusip_df.to_csv(os.path.join(LOG_PATH, "cusip.csv"))
+
+    fig, ax = plt.subplots()
+    ax.bar(cusip_df["date"], cusip_df["y"], color="b")
+    ax.bar(cusip_df["date"], cusip_df["X"], color="orange")
+    ax.bar(cusip_df["date"], cusip_df["common"], color="red")
+    ax.set_title("A single plot")
