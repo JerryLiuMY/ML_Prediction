@@ -5,5 +5,3 @@ window_dict = {
     "horizon": 1,
     "data_len": 30,
 }
-
-

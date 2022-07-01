@@ -75,8 +75,8 @@ def plot_count(count_df):
     sns.barplot(x=index, y=count_df["y"], color="#3F00FF", linewidth=0, label="y", ax=ax)
     sns.barplot(x=index, y=count_df["X"], color="green", linewidth=0, label="X", ax=ax)
     sns.barplot(x=index, y=count_df["common"], color="#E34234", linewidth=0, label="common", ax=ax)
-    ax.set_xlabel("date")
-    ax.set_ylabel("count")
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Count")
     ax.set_xticks(xticks)
     ax.set_xticklabels(xticklables)
     ax.legend(loc="upper right")
@@ -91,6 +91,5 @@ def plot_count(count_df):
 #
 #
 # if __name__ == "__main__":
-#     with open(os.path.join(LOG_PATH, "count.csv"), "rb") as f:
-#         count_df = pickle.load(f)
+#     count_df = pd.read_csv(os.path.join(LOG_PATH, "count.csv"))
 #     plot_count(count_df)
