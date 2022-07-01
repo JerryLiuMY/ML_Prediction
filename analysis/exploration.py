@@ -1,6 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import numpy as np
 from global_settings import DATA_PATH
 from global_settings import LOG_PATH
 import pickle
@@ -39,12 +40,13 @@ def check_overlap():
         pickle.dump(y_unique, f)
 
 
-def plot_cusip():
+def build_cusip():
     """Count for the number of unique cusip in the X and y dataframes"""
 
     with open(os.path.join(LOG_PATH, "overlap.pkl"), "rb") as f:
         overlap = pickle.load(f)
 
+    # build cusip_df
     cusip_df = pd.DataFrame(columns=["X", "y", "common"], index=overlap)
     for date in overlap:
         X_cusip = list(pd.read_pickle(os.path.join(DATA_PATH, "X", f"{date}.pkl")).index)
@@ -57,8 +59,28 @@ def plot_cusip():
     cusip_df.reset_index(drop=False, inplace=True)
     cusip_df.to_csv(os.path.join(LOG_PATH, "cusip.csv"))
 
-    fig, ax = plt.subplots()
-    ax.bar(cusip_df["date"], cusip_df["y"], color="b")
-    ax.bar(cusip_df["date"], cusip_df["X"], color="orange")
-    ax.bar(cusip_df["date"], cusip_df["common"], color="red")
-    ax.set_title("A single plot")
+
+def plot_cusip(cusip_df):
+    """Plot the number of unique cusip in the X and y dataframes"""
+
+    # define xticks and xticklabels
+    xticks = [0]
+    years_s0 = [date.split("-")[0] for date in cusip_df["date"]]
+    years_s1 = [date.split("-")[0] for date in cusip_df["date"].shift(periods=-1).iloc[:-1]]
+    for tick, (y_s0, y_s1) in enumerate(zip(years_s0, years_s1)):
+        if y_s0 != y_s1:
+            xticks.append(tick + 1)
+    xticklables = [list(cusip_df["date"])[_] for _ in xticks]
+
+    # plot the number of stocks
+    index = np.arange(len(cusip_df["date"]))
+    fig, ax = plt.subplots(figsize=(15, 8))
+    col_0, col_1, col_2 = sns.color_palette()[0], sns.color_palette()[1], sns.color_palette()[2]
+    sns.barplot(x=index, y=cusip_df["y"], color=col_0, linewidth=0, label="y", ax=ax)
+    sns.barplot(x=index, y=cusip_df["X"], color=col_2, linewidth=0, label="X", ax=ax)
+    sns.barplot(x=index, y=cusip_df["common"], color=col_1, linewidth=0, label="common", ax=ax)
+    ax.set_xticks(xticks)
+    ax.set_xticklabels(xticklables)
+    ax.legend(loc="upper right")
+    fig.tight_layout()
+    fig.savefig(os.path.join(LOG_PATH, "cusip.pdf"), bbox_inches="tight")
