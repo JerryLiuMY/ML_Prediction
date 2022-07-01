@@ -4,7 +4,7 @@ import glob
 import os
 
 
-def build_date():
+def build_trddt():
     """Check for dates overlap in the X and y dataframes"""
 
     X_dates = []
@@ -21,14 +21,6 @@ def build_date():
 
     X_dates, y_dates = sorted(X_dates), sorted(y_dates)
     trddt_all = sorted(set(X_dates) & set(y_dates))
-    X_unique = sorted(set(X_dates) - set(trddt_all))
-    y_unique = sorted(set(y_dates) - set(trddt_all))
 
     with open(os.path.join(DATA_PATH, "trddt_all.pkl"), "wb") as f:
         pickle.dump(trddt_all, f)
-
-    with open(os.path.join(DATA_PATH, "X_unique.pkl"), "wb") as f:
-        pickle.dump(X_unique, f)
-
-    with open(os.path.join(DATA_PATH, "y_unique.pkl"), "wb") as f:
-        pickle.dump(y_unique, f)

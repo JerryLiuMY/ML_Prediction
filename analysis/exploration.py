@@ -53,9 +53,7 @@ def plot_count(count_df):
 
 
 # if __name__ == "__main__":
-#     import pickle
-#     with open(os.path.join(LOG_PATH, "trddt_all.pkl"), "rb") as f:
-#         trddt_all = pickle.load(f)
+#     trddt_all = pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl"))
 #     build_count(trddt_all)
 #
 #
