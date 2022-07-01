@@ -1,29 +1,27 @@
 from global_settings import trddt_all
 
 
-def generate_window(window_dict, date0_min, date0_max):
+def generate_window(window_dict, horizon, date0_min, date0_max):
     """ generate rolling windows for a set of experiments
     :param window_dict: dictionary of window related parameters
+    :param horizon: predictive horizon
     :param date0_min: earliest date in the enriched data
     :param date0_max: latest date in the enriched data
     """
 
     trddt = trddt_all[(trddt_all >= date0_min) & (trddt_all <= date0_max)].tolist()
-    trdmt = sorted(set([_[:-3] for _ in trddt]))
-    trddt_chunck = [[d for d in trddt if d[:-3] == m] for m in trdmt]
 
     train_win = window_dict["train_win"]
     valid_win = window_dict["valid_win"]
     test_win = window_dict["test_win"]
 
-    def flatten(chunck): return [item for sub_list in chunck for item in sub_list]
+    for i in range(0, len(trddt) - test_win - horizon + 1, test_win - valid_win):
+        trddt_train_X = trddt[i: i + train_win]
+        trddt_valid_X = trddt[i + train_win: i + valid_win]
+        trddt_test_X = trddt[i + valid_win: i + test_win]
+        trddt_train_y = trddt[i + horizon: i + horizon + train_win]
+        trddt_valid_y = trddt[i + horizon + train_win: i + horizon + valid_win]
+        trddt_test_y = trddt[i + horizon + valid_win: i + horizon + test_win]
 
-    for i in range(len(trddt_chunck) - test_win + 1):
-        trddt_train_chunck = trddt_chunck[i: i + train_win]
-        trddt_valid_chunck = trddt_chunck[i + train_win: i + valid_win]
-        trddt_test_chunck = trddt_chunck[i + valid_win: i + test_win]
-        trddt_train = flatten(trddt_train_chunck)
-        trddt_valid = flatten(trddt_valid_chunck)
-        trddt_test = flatten(trddt_test_chunck)
-
-        yield [trddt_train, trddt_valid, trddt_test]
+        yield {"X": [trddt_train_X, trddt_valid_X, trddt_test_X],
+               "y": [trddt_train_y, trddt_valid_y, trddt_test_y]}

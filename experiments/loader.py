@@ -4,15 +4,22 @@ import os
 
 
 def load_data(trddt_X, trddt_y, data_type):
+    """ Load data for experiment
+    :param trddt_X: trading dates for X
+    :param trddt_y: trading dates for y
+    :param data_type: data type
+    """
 
-    pass
+    if isinstance(data_type, pd.DataFrame):
+        df = load_df(trddt_X, trddt_y)
+        return df
 
 
-def join_df(trddt_X, trddt_y):
+def load_df(trddt_X, trddt_y):
     """ Prepare dataframes corresponding to trddt_X and trddt_y
     :param trddt_X: trading dates for X
     :param trddt_y: trading dates for y
-    :return: joined dataframe
+    :return: combined dataframe
     """
 
     df = pd.DataFrame(columns=[f"x{num}" for num in range(798)] + ["target"])
