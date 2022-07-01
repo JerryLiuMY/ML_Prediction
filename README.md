@@ -10,12 +10,12 @@
 
 
 - Ensemble learning
-  - different types of modified transformers
   - Different models
-  - different window sizes
-  - different predictive horizons 
-  - Select models to incldue / exclude the ensemble model (or weights) based on volatility
-
-- average correlation
-- cumulative correlation
+  - Different predictive horizons 
+  - Select models to include / exclude the ensemble model (or weights) based on volatility
+- Transformers 
+  - Different modifications
+  - Different window sizes
+- Average correlation / cumulative correlation
 - variable importance
+- Random effect model
