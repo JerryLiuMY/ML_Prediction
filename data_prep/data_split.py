@@ -24,7 +24,7 @@ if not os.path.isdir(y_path):
 # save indices
 def save_indices():
     """Save indices for X and y"""
-    
+
     with open(os.path.join(X_path, "X_index.pkl"), "wb") as f:
         pickle.dump(X_index, f)
 

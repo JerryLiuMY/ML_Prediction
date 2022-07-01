@@ -72,9 +72,9 @@ def plot_count(count_df):
     # plot the number of stocks
     index = np.arange(len(count_df["date"]))
     fig, ax = plt.subplots(figsize=(16, 10))
-    sns.barplot(x=index, y=count_df["y"], color="#3F00FF", linewidth=0, label="y", ax=ax)
-    sns.barplot(x=index, y=count_df["X"], color="green", linewidth=0, label="X", ax=ax)
-    sns.barplot(x=index, y=count_df["common"], color="#E34234", linewidth=0, label="common", ax=ax)
+    sns.barplot(x=index, y=count_df["y"], color="#3F00FF", linewidth=0.0, label="y", ax=ax)
+    sns.barplot(x=index, y=count_df["X"], color="green", linewidth=0.0, label="X", ax=ax)
+    sns.barplot(x=index, y=count_df["common"], color="#FF3131", linewidth=0.0, label="common", ax=ax)
     ax.set_xlabel("Date")
     ax.set_ylabel("Count")
     ax.set_xticks(xticks)
