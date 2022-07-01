@@ -10,14 +10,10 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
 
 # TODO
-# linear regression
-# Tree based methods
 # AutoGluon
 
 # window size
 # horizons
-# horizons
-
 
 # problems with data
 # count number of X

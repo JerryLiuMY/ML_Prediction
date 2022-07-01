@@ -4,48 +4,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from global_settings import DATA_PATH
 from global_settings import LOG_PATH
-import pickle
-import glob
 import os
 sns.set()
 
 
-def check_overlap():
-    """Check for dates overlap in the X and y dataframes"""
-
-    X_dates = []
-    for file in glob.glob(os.path.join(DATA_PATH, "X", "*.pkl")):
-        name = file.split("/")[-1].split(".")[0]
-        if "index" not in name:
-            X_dates.append(name)
-
-    y_dates = []
-    for file in glob.glob(os.path.join(DATA_PATH, "y", "*.pkl")):
-        name = file.split("/")[-1].split(".")[0]
-        if "index" not in name:
-            y_dates.append(name)
-
-    X_dates, y_dates = sorted(X_dates), sorted(y_dates)
-    overlap = sorted(set(X_dates) & set(y_dates))
-    X_unique = sorted(set(X_dates) - set(overlap))
-    y_unique = sorted(set(y_dates) - set(overlap))
-
-    with open(os.path.join(LOG_PATH, "overlap.pkl"), "wb") as f:
-        pickle.dump(overlap, f)
-
-    with open(os.path.join(LOG_PATH, "X_unique.pkl"), "wb") as f:
-        pickle.dump(X_unique, f)
-
-    with open(os.path.join(LOG_PATH, "y_unique.pkl"), "wb") as f:
-        pickle.dump(y_unique, f)
-
-
-def build_count(overlap):
+def build_count(trddt_all):
     """Count for the number of unique cusip in the X and y dataframes"""
 
     # build count_df
-    count_df = pd.DataFrame(columns=["X", "y", "common"], index=overlap)
-    for date in overlap:
+    count_df = pd.DataFrame(columns=["X", "y", "common"], index=trddt_all)
+    for date in trddt_all:
         X_cusip = list(pd.read_pickle(os.path.join(DATA_PATH, "X", f"{date}.pkl")).index)
         y_cusip = list(pd.read_pickle(os.path.join(DATA_PATH, "y", f"{date}.pkl")).index)
         common_cusip = list(set(X_cusip) & set(y_cusip))
@@ -85,9 +53,10 @@ def plot_count(count_df):
 
 
 # if __name__ == "__main__":
-#     with open(os.path.join(LOG_PATH, "overlap.pkl"), "rb") as f:
-#         overlap = pickle.load(f)
-#     build_count(overlap)
+#     import pickle
+#     with open(os.path.join(LOG_PATH, "trddt_all.pkl"), "rb") as f:
+#         trddt_all = pickle.load(f)
+#     build_count(trddt_all)
 #
 #
 # if __name__ == "__main__":
