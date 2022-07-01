@@ -74,13 +74,15 @@ def plot_cusip(cusip_df):
 
     # plot the number of stocks
     index = np.arange(len(cusip_df["date"]))
-    fig, ax = plt.subplots(figsize=(15, 8))
+    fig, ax = plt.subplots(figsize=(12, 7))
     col_0, col_1, col_2 = sns.color_palette()[0], sns.color_palette()[1], sns.color_palette()[2]
     sns.barplot(x=index, y=cusip_df["y"], color=col_0, linewidth=0, label="y", ax=ax)
     sns.barplot(x=index, y=cusip_df["X"], color=col_2, linewidth=0, label="X", ax=ax)
     sns.barplot(x=index, y=cusip_df["common"], color=col_1, linewidth=0, label="common", ax=ax)
+    ax.set_xlabel("date")
+    ax.set_ylabel("count")
     ax.set_xticks(xticks)
-    ax.set_xticklabels(xticklables)
+    ax.set_xticklabels(xticklables, rotation=45, ha="right")
     ax.legend(loc="upper right")
     fig.tight_layout()
     fig.savefig(os.path.join(LOG_PATH, "cusip.pdf"), bbox_inches="tight")
