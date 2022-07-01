@@ -1,0 +1,25 @@
+import pandas as pd
+from global_settings import DATA_PATH
+import os
+
+
+def load_data(trddt_X, trddt_y, data_type):
+
+    pass
+
+
+def join_df(trddt_X, trddt_y):
+    """ Prepare dataframes corresponding to trddt_X and trddt_y
+    :param trddt_X: trading dates for X
+    :param trddt_y: trading dates for y
+    :return: joined dataframe
+    """
+
+    df = pd.DataFrame(columns=[f"x{num}" for num in range(798)] + ["target"])
+    for t_X, t_y in zip(trddt_X, trddt_y):
+        X_sub = pd.read_pickle(os.path.join(DATA_PATH, "X", f"{t_X}.pkl"))
+        y_sub = pd.read_pickle(os.path.join(DATA_PATH, "y", f"{t_y}.pkl"))
+        df_sub = pd.concat([X_sub, y_sub], axis=1, join="inner")
+        df = pd.concat([df, df_sub], axis=0)
+
+    return df
