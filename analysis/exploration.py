@@ -40,49 +40,57 @@ def check_overlap():
         pickle.dump(y_unique, f)
 
 
-def build_cusip():
+def build_count(overlap):
     """Count for the number of unique cusip in the X and y dataframes"""
 
-    with open(os.path.join(LOG_PATH, "overlap.pkl"), "rb") as f:
-        overlap = pickle.load(f)
-
-    # build cusip_df
-    cusip_df = pd.DataFrame(columns=["X", "y", "common"], index=overlap)
+    # build count_df
+    count_df = pd.DataFrame(columns=["X", "y", "common"], index=overlap)
     for date in overlap:
         X_cusip = list(pd.read_pickle(os.path.join(DATA_PATH, "X", f"{date}.pkl")).index)
         y_cusip = list(pd.read_pickle(os.path.join(DATA_PATH, "y", f"{date}.pkl")).index)
         common_cusip = list(set(X_cusip) & set(y_cusip))
-        cusip_df.loc[date, "X"] = len(X_cusip)
-        cusip_df.loc[date, "y"] = len(y_cusip)
-        cusip_df.loc[date, "common"] = len(common_cusip)
-    cusip_df.index.name = "date"
-    cusip_df.reset_index(drop=False, inplace=True)
-    cusip_df.to_csv(os.path.join(LOG_PATH, "cusip.csv"))
+        count_df.loc[date, "X"] = len(X_cusip)
+        count_df.loc[date, "y"] = len(y_cusip)
+        count_df.loc[date, "common"] = len(common_cusip)
+    count_df.index.name = "date"
+    count_df.reset_index(drop=False, inplace=True)
+    count_df.to_csv(os.path.join(LOG_PATH, "count.csv"))
 
 
-def plot_cusip(cusip_df):
+def plot_count(count_df):
     """Plot the number of unique cusip in the X and y dataframes"""
 
     # define xticks and xticklabels
     xticks = [0]
-    years_s0 = [date.split("-")[0] for date in cusip_df["date"]]
-    years_s1 = [date.split("-")[0] for date in cusip_df["date"].shift(periods=-1).iloc[:-1]]
+    years_s0 = [date.split("-")[0] for date in count_df["date"]]
+    years_s1 = [date.split("-")[0] for date in count_df["date"].shift(periods=-1).iloc[:-1]]
     for tick, (y_s0, y_s1) in enumerate(zip(years_s0, years_s1)):
         if y_s0 != y_s1:
             xticks.append(tick + 1)
-    xticklables = [list(cusip_df["date"])[_] for _ in xticks]
+    xticklables = [list(count_df["date"])[_] for _ in xticks]
 
     # plot the number of stocks
-    index = np.arange(len(cusip_df["date"]))
-    fig, ax = plt.subplots(figsize=(12, 7))
-    col_0, col_1, col_2 = sns.color_palette()[0], sns.color_palette()[1], sns.color_palette()[2]
-    sns.barplot(x=index, y=cusip_df["y"], color=col_0, linewidth=0, label="y", ax=ax)
-    sns.barplot(x=index, y=cusip_df["X"], color=col_2, linewidth=0, label="X", ax=ax)
-    sns.barplot(x=index, y=cusip_df["common"], color=col_1, linewidth=0, label="common", ax=ax)
+    index = np.arange(len(count_df["date"]))
+    fig, ax = plt.subplots(figsize=(16, 10))
+    sns.barplot(x=index, y=count_df["y"], color="#3F00FF", linewidth=0, label="y", ax=ax)
+    sns.barplot(x=index, y=count_df["X"], color="green", linewidth=0, label="X", ax=ax)
+    sns.barplot(x=index, y=count_df["common"], color="#E34234", linewidth=0, label="common", ax=ax)
     ax.set_xlabel("date")
     ax.set_ylabel("count")
     ax.set_xticks(xticks)
-    ax.set_xticklabels(xticklables, rotation=45, ha="right")
+    ax.set_xticklabels(xticklables)
     ax.legend(loc="upper right")
     fig.tight_layout()
-    fig.savefig(os.path.join(LOG_PATH, "cusip.pdf"), bbox_inches="tight")
+    fig.savefig(os.path.join(LOG_PATH, "count.pdf"), bbox_inches="tight")
+
+
+# if __name__ == "__main__":
+#     with open(os.path.join(LOG_PATH, "overlap.pkl"), "rb") as f:
+#         overlap = pickle.load(f)
+#     build_count(overlap)
+#
+#
+# if __name__ == "__main__":
+#     with open(os.path.join(LOG_PATH, "count.csv"), "rb") as f:
+#         count_df = pickle.load(f)
+#     plot_count(count_df)
