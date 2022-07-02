@@ -5,6 +5,7 @@ from experiments.loader import load_data
 from models.gluon import fit_autogluon, pre_autogluon
 from global_settings import OUTPUT_PATH
 from tools.utils import save_model
+from datetime import datetime
 
 
 def experiment(model_name, horizon, window):
@@ -27,17 +28,20 @@ def experiment(model_name, horizon, window):
     [trddt_train_X, trddt_valid_X, trddt_test_X] = window["X"]
     [trddt_train_y, trddt_valid_y, trddt_test_y] = window["y"]
     horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
-
     window_path = os.path.join(horizon_path, trddt_train_X[0])
     if not os.path.isdir(window_path):
         os.mkdir(window_path)
 
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on {model_name} "
+          f"with horizon={horizon} and window={trddt_train_X[0]}")
+
+    # train model and perform validation
     with open(os.path.join(window_path, "window.pkl"), "wb") as handle:
         pickle.dump(window, handle)
 
-    # train model and perform validation
     train_data = load_data(trddt_train_X, trddt_train_y, data_type)
     valid_data = load_data(trddt_valid_X, trddt_valid_y, data_type)
+
     model, metric = fit_func(train_data, valid_data)
     save_model(model, model_name, window_path)
     with open(os.path.join(window_path, "metric.pkl"), "wb") as handle:

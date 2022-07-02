@@ -8,6 +8,7 @@ from pathlib import Path
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 DATA_PATH = os.path.join(DESKTOP_PATH, "shared")
 OUTPUT_PATH = os.path.join(DESKTOP_PATH, "result")
+TEMP_PATH = os.path.join(DESKTOP_PATH, "temp")
 LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))

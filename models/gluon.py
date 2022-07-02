@@ -1,5 +1,6 @@
 import pandas as pd
 from autogluon.tabular import TabularPredictor
+from global_settings import TEMP_PATH
 
 
 def fit_autogluon(train_data, valid_data):
@@ -10,7 +11,8 @@ def fit_autogluon(train_data, valid_data):
     """
 
     # missing data handled automatically
-    model = TabularPredictor(label="target").fit(train_data, tuning_data=valid_data, presets="medium_quality")
+    predictor = TabularPredictor(label="target", path=TEMP_PATH)
+    model = predictor.fit(train_data, tuning_data=valid_data, presets="medium_quality")
     perf = model.evaluate(valid_data, auxiliary_metrics=True, silent=True)
     metric = {"pearsonr": perf["pearsonr"], "RMSE": -perf["root_mean_squared_error"], "r2": perf["r2"]}
 

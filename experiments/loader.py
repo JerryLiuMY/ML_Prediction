@@ -10,7 +10,7 @@ def load_data(trddt_X, trddt_y, data_type):
     :param data_type: data type
     """
 
-    if isinstance(data_type, pd.DataFrame):
+    if data_type == pd.DataFrame:
         df = load_df(trddt_X, trddt_y)
         return df
 
