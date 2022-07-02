@@ -1,5 +1,6 @@
 import pandas as pd
 from experiments.loader import load_data
+from models.gluon import fit_autogluon, pre_autogluon
 
 
 def experiment(window, model_name):
@@ -14,9 +15,13 @@ def experiment(window, model_name):
 
     if model_name == "autogluon":
         data_type = pd.DataFrame
+        model_func = fit_autogluon
     else:
         raise ValueError("Invalid model name")
 
-    train_df = load_data(trddt_train_X, trddt_train_y, data_type)
-    valid_df = load_data(trddt_valid_X, trddt_valid_y, data_type)
-    test_df = load_data(trddt_test_X, trddt_test_y, data_type)
+    train_data = load_data(trddt_train_X, trddt_train_y, data_type)
+    valid_data = load_data(trddt_valid_X, trddt_valid_y, data_type)
+    test_data = load_data(trddt_test_X, trddt_test_y, data_type)
+
+    model = model_func(train_data, valid_data)
+    pre_target = pre_autogluon(model, test_data)
