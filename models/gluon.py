@@ -1,8 +1,9 @@
+import pandas as pd
 from autogluon.tabular import TabularPredictor
 
 
 def fit_autogluon(train_data, valid_data):
-    """ Fit autogluon model
+    """ Fit autogluon model and report evaluation metric
     :param train_data: dataframe of training data
     :param valid_data: dataframe of validation data
     :return model: fitted model
@@ -10,10 +11,10 @@ def fit_autogluon(train_data, valid_data):
 
     # missing data handled automatically
     model = TabularPredictor(label="target").fit(train_data, tuning_data=valid_data, presets="medium_quality")
-    y_pred = model.predict(valid_data)
-    perf = model.evaluate_predictions(y_true=valid_data["target"], y_pred=y_pred, auxiliary_metrics=True, silent=True)
+    perf = model.evaluate(valid_data, auxiliary_metrics=True, silent=True)
+    metric = {"pearsonr": perf["pearsonr"], "RMSE": -perf["root_mean_squared_error"], "r2": perf["r2"]}
 
-    return model, perf
+    return model, metric
 
 
 def pre_autogluon(model, test_data):
@@ -21,6 +22,6 @@ def pre_autogluon(model, test_data):
     :return target: predicted target
     """
 
-    target = model.predict(test_data)
+    target = pd.DataFrame(model.predict(test_data))
 
     return target

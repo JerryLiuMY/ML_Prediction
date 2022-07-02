@@ -1,12 +1,12 @@
 from global_settings import trddt_all
 
 
-def generate_window(window_dict, horizon, date0_min, date0_max):
+def generate_window(window_dict, date0_min, date0_max, horizon):
     """ generate rolling windows for a set of experiments
     :param window_dict: dictionary of window related parameters
-    :param horizon: predictive horizon
     :param date0_min: earliest date in the enriched data
     :param date0_max: latest date in the enriched data
+    :param horizon: predictive horizon
     """
 
     trddt = trddt_all[(trddt_all >= date0_min) & (trddt_all <= date0_max)].tolist()
