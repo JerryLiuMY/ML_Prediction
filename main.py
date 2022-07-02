@@ -24,10 +24,14 @@ def run_experiment(model_name, horizons):
         if not os.path.isdir(horizon_path):
             os.mkdir(horizon_path)
 
-        # generate window
+        # generate windows
         window_gen = generate_window(window_dict, date0_min, date0_max, horizon)
         for window in window_gen:
-            experiment(model_name, horizon, window)
+            # make directory for the window
+            window_path = os.path.join(horizon_path, window["X"][0][0])
+            if not os.path.isdir(window_path):
+                os.mkdir(window_path)
+                experiment(model_name, horizon, window)
 
 
 if __name__ == "__main__":

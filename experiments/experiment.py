@@ -29,8 +29,6 @@ def experiment(model_name, horizon, window):
     [trddt_train_y, trddt_valid_y, trddt_test_y] = window["y"]
     horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
     window_path = os.path.join(horizon_path, trddt_train_X[0])
-    if not os.path.isdir(window_path):
-        os.mkdir(window_path)
 
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on {model_name} "
           f"with horizon={horizon} and window={trddt_train_X[0]}")
