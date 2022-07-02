@@ -28,3 +28,7 @@ def run_experiment(model_name, horizons):
         window_gen = generate_window(window_dict, date0_min, date0_max, horizon)
         for window in window_gen:
             experiment(model_name, horizon, window)
+
+
+if __name__ == "__main__":
+    run_experiment("autogluon", [1])
