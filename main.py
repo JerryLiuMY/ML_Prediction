@@ -7,6 +7,10 @@ import os
 
 
 def run_experiment(model_name, horizons):
+    """ Perform experiment for a particular model
+    :param model_name: model name
+    :param horizons: list of horizons
+    """
 
     # make directory for the model
     model_path = os.path.join(OUTPUT_PATH, model_name)
@@ -20,9 +24,7 @@ def run_experiment(model_name, horizons):
         if not os.path.isdir(horizon_path):
             os.mkdir(horizon_path)
 
+        # generate window
         window_gen = generate_window(window_dict, date0_min, date0_max, horizon)
         for window in window_gen:
             experiment(model_name, horizon, window)
-
-    # calculate correlation score
-    pass
