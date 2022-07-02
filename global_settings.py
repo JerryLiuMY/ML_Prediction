@@ -17,13 +17,5 @@ date0_max = "2022-06-14"
 
 
 # TODO
-# AutoGluon
-
-# window size
-# horizons
-
 # problems with data
-# count number of X
-# count number of y
-# count number of overlaps
 # plot the predictive accuracy for each stock
