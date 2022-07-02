@@ -12,10 +12,10 @@
 - Ensemble learning
   - Different models
   - Different predictive horizons 
-  - Select models to include / exclude the ensemble model (or weights) based on volatility
+  - Ensemble the models weighted by metric (e.g. pearsonr, r2, volatility)
 - Transformers 
   - Different modifications
   - Different window sizes
-- Average correlation / cumulative correlation
-- variable importance
+- Backtest / cumulative correlation
+- Variable importance
 - Random effect model
