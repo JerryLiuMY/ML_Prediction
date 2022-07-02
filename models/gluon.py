@@ -11,6 +11,8 @@ def fit_autogluon(train_data, valid_data):
     """
 
     # missing data handled automatically
+    train_data.reset_index(drop=True, inplace=True)
+    valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=TEMP_PATH)
     model = predictor.fit(train_data, tuning_data=valid_data, presets="medium_quality")
     perf = model.evaluate(valid_data, auxiliary_metrics=True, silent=True)
