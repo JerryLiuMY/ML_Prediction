@@ -20,5 +20,7 @@
 - Random effect model
 
 
+Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
+
 ## AutoGluon
 <a href="https://drive.google.com/drive/folders/1FwhAPcm-WGfaGBCA_0WJiNgRayQ5eMd3?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
