@@ -1,11 +1,16 @@
 from global_settings import DATA_PATH
 from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
+from tools.utils import ignore_warnings
 import pandas as pd
 import glob
+import json
 import os
+import warnings
+warnings.simplefilter("ignore")
 
 
+@ignore_warnings
 def summarize(model_name, horizon, window):
     """ Build summary statistics for ML prediction results
     :param model_name: model name
@@ -43,25 +48,23 @@ def summarize(model_name, horizon, window):
         pred_df_row = pred_df.loc[cusip, pred_df.columns != "industry"]
         cusip_corr[cusip] = true_df_row.corr(pred_df_row)
 
-    # get correlation for each industry
+    # get cross-sectional correlation for each industry
     daily_corr_ind = {}
-    cusip_corr_ind = {}
-
     for ind in sorted(set(industry)):
         daily_corr_temp = {}
-        cusip_corr_temp = {}
         true_df_ind = true_df.loc[true_df["industry"] == ind]
         pred_df_ind = pred_df.loc[pred_df["industry"] == ind]
 
         for date in dates:
             daily_corr_temp[date] = true_df_ind[date].corr(pred_df_ind[date])
 
-        for cusip in true_df_ind.index.values:
-            true_df_ind_row = true_df_ind.loc[cusip, true_df.columns != "industry"]
-            pred_df_ind_row = pred_df_ind.loc[cusip, pred_df.columns != "industry"]
-            cusip_corr_temp[cusip] = true_df_ind_row.corr(pred_df_ind_row)
-
         daily_corr_ind[str(ind)] = daily_corr_temp
-        cusip_corr_ind[str(ind)] = cusip_corr_temp
 
-    
+    with open(os.path.join(window_path, "summary", "daily_corr.json"), "w") as handle:
+        json.dump(daily_corr, handle)
+
+    with open(os.path.join(window_path, "summary", "cusip_corr.json"), "w") as handle:
+        json.dump(cusip_corr, handle)
+
+    with open(os.path.join(window_path, "summary", "daily_corr_ind.json"), "w") as handle:
+        json.dump(daily_corr_ind, handle)
