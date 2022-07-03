@@ -12,8 +12,8 @@ sns.set()
 
 def build_correlation(model_name, horizon):
     """ Build industry correlation and daily correlation for each industry
-    :param model_name:
-    :param horizon:
+    :param model_name: model name
+    :param horizon: predictive horizon
     :return:
     """
 
@@ -48,22 +48,22 @@ def build_correlation(model_name, horizon):
     return corr_ind_df, corr_df
 
 
-def plot_correlation(corr_ind_df, corr_df, horizon_path):
+def plot_correlation(model_name, horizon, corr_ind_df, corr_df):
     """ Plot daily & cumulative correlation and heatmap for each industry
+    :param model_name: model name
+    :param horizon: predictive horizon
     :param corr_ind_df: correlation df for each industry
     :param corr_df: correlation df
-    :param horizon_path: horizon path
     :return:
     """
 
     # initialize correlation plot
     fig = plt.figure(figsize=(18, 16))
-    gs = fig.add_gridspec(8, 10)
+    gs = fig.add_gridspec(7, 10)
     ax = fig.add_subplot(gs[0:4, :])
     ax1 = fig.add_subplot(gs[4:5, :8])
     ax2 = fig.add_subplot(gs[5:6, :8])
     ax3 = fig.add_subplot(gs[6:7, :8])
-    ax4 = fig.add_subplot(gs[7:8, :8])
 
     # ax: industrial correlation
     yticks = np.arange(len(corr_ind_df.index))
@@ -73,33 +73,41 @@ def plot_correlation(corr_ind_df, corr_df, horizon_path):
     ax.set_yticks(yticks)
     ax.set_yticklabels(ylabels)
     ax.set_ylabel("SIC Industrial Code")
+    ax.set_title(f"Model {model_name} with horizon={horizon}" + "\n", fontsize=13)
 
     # define indices
     index = range(len(corr_df.index))
-    # test_size = window_dict["test_win"] - window_dict["valid_win"]
-    # xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
-    # xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
-    # ax_.set_xticks(xticks)
-    # ax_.set_xticklabels(xlabels, rotation=30)
+    test_size = window_dict["test_win"] - window_dict["valid_win"]
+    xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
+    xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
+    xticks = xticks + [len(corr_df.index) - 1]
+    xlabels = xlabels + [corr_df.index[-1]]
 
     # ax1: pearson correlation
     ax1.stem(index, corr_df["pearson"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax1.scatter(index, corr_df["pearson"].values, color="#899499", marker=".")
-    ax1.get_xaxis().set_visible(False)
+    ax1.set_xticklabels([])
     ax1.set_ylabel("Pearson")
+    ax1.set_ylim([-0.30, 0.40])
 
-    # ax2: cumulative pearson correlation
+    # ax2: spearman correlation
+    ax2.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax2.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
+    ax2.set_xticklabels([])
+    ax2.set_ylabel("Spearman")
+    ax2.set_ylim([-0.25, 0.25])
 
-    # ax3: spearman correlation
-    ax3.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax3.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
-    ax3.get_xaxis().set_visible(False)
-    ax3.set_ylabel("Spearman")
-
-    # ax4: cumulative spearman correlation
+    # ax3: cumulative spearman correlation
+    ax3.plot(index, np.log(np.cumprod(corr_df["pearson"].values + 1)), color="#6E6E6E", label="pearson")
+    ax3.plot(index, np.log(np.cumprod(corr_df["spearman"].values + 1)), color="#808080", label="spearman")
+    ax3.legend(loc="upper right")
+    ax3.set_xticks(xticks)
+    ax3.set_xticklabels(xlabels, rotation=25)
+    ax3.set_ylabel("log(1+corr)")
+    ax3.grid(True)
 
     # save plotted figure
-    plt.tight_layout()
+    horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
     corr_path = os.path.join(horizon_path, "correlation")
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
