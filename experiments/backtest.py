@@ -52,5 +52,4 @@ def plot_correlation(model_name, horizon):
     # ax2.set_xlabel("Dates")
     # ax2.set_ylabel("Correlation")
 
-
     return daily_corr_df, corr_ind_df
