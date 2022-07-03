@@ -6,8 +6,6 @@ import pandas as pd
 import glob
 import json
 import os
-import warnings
-warnings.simplefilter("ignore")
 
 
 @ignore_warnings
