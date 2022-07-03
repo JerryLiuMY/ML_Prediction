@@ -50,13 +50,3 @@ def plot_count(count_df):
     ax.legend(loc="upper right")
     fig.tight_layout()
     fig.savefig(os.path.join(LOG_PATH, "count.pdf"), bbox_inches="tight")
-
-
-# if __name__ == "__main__":
-#     trddt_all = pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl"))
-#     build_count(trddt_all)
-#
-#
-# if __name__ == "__main__":
-#     count_df = pd.read_csv(os.path.join(LOG_PATH, "count.csv"))
-#     plot_count(count_df)
