@@ -30,11 +30,20 @@ def summarize(model_name, horizon, window):
         true_df = true_df.join(true_sub_df, how="left")
         pred_df = pred_df.join(pred_sub_df, how="left")
 
-    return true_df, pred_df
-
     # get cross-sectional correlation
+    daily_corr = {}
+    for date in dates:
+        daily_corr[date] = true_df[date].pred_df[date]
 
-    # get time series correlation
+    # get time-series correlation
+    cusip_corr = {}
+    for cusip in cusip_sic["cusip"].values:
+        cusip_corr[cusip] = true_df.loc[cusip, :].corr(pred_df.loc[cusip, :])
+
+    # introduce industry
+    industry = list(cusip_sic["sic"].apply(lambda _: str(_)[:2]))
+    true_df["industry"] = industry
+    pred_df["industry"] = industry
 
     # get cross-sectional correlation for each industry
 

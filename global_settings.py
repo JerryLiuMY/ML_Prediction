@@ -24,5 +24,4 @@ date0_max = "2022-06-14"
 
 
 # TODO
-# problems with data
-# plot the predictive accuracy for each stock
+# plot the predictive accuracy for industry
