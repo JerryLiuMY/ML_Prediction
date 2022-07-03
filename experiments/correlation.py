@@ -1,13 +1,13 @@
-import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
 from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
 from params.params import window_dict
+import matplotlib.pyplot as plt
 import seaborn as sns
 import json
 import os
-sns.set_theme()
+sns.set()
 
 
 def plot_correlation(model_name, horizon):
@@ -20,6 +20,7 @@ def plot_correlation(model_name, horizon):
     # define windows and industries
     horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
     windows = sorted([_[1] for _ in os.walk(horizon_path)][0])
+    windows = [_ for _ in windows if "correlation" not in _]
     inds = sorted(set([_ for _ in list(cusip_sic["sic"].apply(lambda _: str(_)[:2]))]))
 
     # daily correlation
@@ -53,17 +54,20 @@ def plot_correlation(model_name, horizon):
     ax1.set_yticklabels(ylabels)
     ax1.set_ylabel("SIC Industrial Code")
 
-    xticks = range(len(daily_corr_df.index))
     test_size = window_dict["test_win"] - window_dict["valid_win"]
-    xlabels = [_ if idx % test_size == 0 else "" for idx, _ in enumerate(daily_corr_df.index)]
-    ax2.stem(xticks, daily_corr_df["corr"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax2.scatter(xticks, daily_corr_df["corr"].values, color="#899499", marker=".")
+    index = range(len(daily_corr_df.index))
+    xticks = [idx for idx, _ in enumerate(daily_corr_df.index) if idx % test_size == 0]
+    xlabels = [_ for idx, _ in enumerate(daily_corr_df.index) if idx % test_size == 0 ]
+    ax2.stem(index, daily_corr_df["corr"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax2.scatter(index, daily_corr_df["corr"].values, color="#899499", marker=".")
+    print(xticks)
     ax2.set_xticks(xticks)
     ax2.set_xticklabels(xlabels, rotation=30)
     ax2.set_xlabel("Dates")
     ax2.set_ylabel("Correlation")
     plt.tight_layout()
 
+    # save plotted figure
     corr_path = os.path.join(horizon_path, "correlation")
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
