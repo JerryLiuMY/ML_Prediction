@@ -66,5 +66,5 @@ def summarize(model_name, horizon, window):
     with open(os.path.join(window_path, "summary", "cusip_corr.json"), "w") as handle:
         json.dump(cusip_corr, handle)
 
-    with open(os.path.join(window_path, "summary", "daily_corr_ind.json"), "w") as handle:
+    with open(os.path.join(window_path, "summary", "corr_ind.json"), "w") as handle:
         json.dump(daily_corr_ind, handle)
