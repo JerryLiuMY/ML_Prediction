@@ -47,4 +47,5 @@ def experiment(model_name, horizon, window):
     for t_test_X, t_test_y in zip(trddt_test_X, trddt_test_y):
         test_data = load_data([t_test_X], [t_test_y], data_type)
         target = pre_func(model, test_data)
+        target.index.name = "cusip"
         target.to_pickle(os.path.join(window_path, "predict", f"{t_test_y}.pkl"))
