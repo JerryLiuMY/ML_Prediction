@@ -40,12 +40,13 @@ def plot_correlation(model_name, horizon):
         for ind in inds:
             corr_ind_df.loc[ind, window] = np.nanmean(list(corr_ind[ind].values()))
 
-    # plot correlation
+    # initialize correlation plot
     fig = plt.figure(figsize=(15, 12))
     gs = fig.add_gridspec(7, 10)
     ax1 = fig.add_subplot(gs[0:5, :])
     ax2 = fig.add_subplot(gs[5:7, :8])
 
+    # upper plot: industrial correlation
     yticks = np.arange(len(corr_ind_df.index))
     ylabels = [_ if int(_) % 10 == 0 else "" for _ in corr_ind_df.index]
     sns.heatmap(corr_ind_df.values, cmap="YlGnBu", ax=ax1)
@@ -54,6 +55,7 @@ def plot_correlation(model_name, horizon):
     ax1.set_yticklabels(ylabels)
     ax1.set_ylabel("SIC Industrial Code")
 
+    # lower plot: daily correlation
     test_size = window_dict["test_win"] - window_dict["valid_win"]
     index = range(len(daily_corr_df.index))
     xticks = [idx for idx, _ in enumerate(daily_corr_df.index) if idx % test_size == 0]
