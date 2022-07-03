@@ -7,6 +7,7 @@ from params.params import window_dict
 import seaborn as sns
 import json
 import os
+sns.set_theme()
 
 
 def plot_correlation(model_name, horizon):
@@ -38,7 +39,7 @@ def plot_correlation(model_name, horizon):
         for ind in inds:
             corr_ind_df.loc[ind, window] = np.nanmean(list(corr_ind[ind].values()))
 
-    # initialize figure
+    # plot correlation
     fig = plt.figure(figsize=(15, 12))
     gs = fig.add_gridspec(7, 10)
     ax1 = fig.add_subplot(gs[0:5, :])
@@ -50,10 +51,10 @@ def plot_correlation(model_name, horizon):
     ax1.get_xaxis().set_visible(False)
     ax1.set_yticks(yticks)
     ax1.set_yticklabels(ylabels)
-    ax1.set_ylabel("CIS Industrial Code")
+    ax1.set_ylabel("SIC Industrial Code")
 
-    test_size = window_dict["test_win"] - window_dict["valid_win"]
     xticks = range(len(daily_corr_df.index))
+    test_size = window_dict["test_win"] - window_dict["valid_win"]
     xlabels = [_ if idx % test_size == 0 else "" for idx, _ in enumerate(daily_corr_df.index)]
     ax2.stem(xticks, daily_corr_df["corr"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(xticks, daily_corr_df["corr"].values, color="#899499", marker=".")
@@ -62,3 +63,8 @@ def plot_correlation(model_name, horizon):
     ax2.set_xlabel("Dates")
     ax2.set_ylabel("Correlation")
     plt.tight_layout()
+
+    corr_path = os.path.join(horizon_path, "correlation")
+    if not os.path.isdir(corr_path):
+        os.mkdir(corr_path)
+    fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
