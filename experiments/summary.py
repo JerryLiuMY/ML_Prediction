@@ -34,35 +34,39 @@ def summarize(model_name, horizon, window):
         true_df = true_df.join(true_sub_df, how="left")
         pred_df = pred_df.join(pred_sub_df, how="left")
 
-    # get cross-sectional correlation
-    daily_corr = {}
-    for date in dates:
-        daily_corr[date] = true_df[date].corr(pred_df[date])
-
-    # get time-series correlation
-    cusip_corr = {}
-    for cusip in cusip_sic["cusip"].values:
-        true_df_row = true_df.loc[cusip, true_df.columns != "industry"]
-        pred_df_row = pred_df.loc[cusip, pred_df.columns != "industry"]
-        cusip_corr[cusip] = true_df_row.corr(pred_df_row)
-
     # get cross-sectional correlation for each industry
     daily_corr_ind = {}
     for ind in sorted(set(industry)):
         daily_corr_temp = {}
         true_df_ind = true_df.loc[true_df["industry"] == ind]
         pred_df_ind = pred_df.loc[pred_df["industry"] == ind]
-
         for date in dates:
-            daily_corr_temp[date] = true_df_ind[date].corr(pred_df_ind[date])
+            daily_corr_temp[date] = true_df_ind[date].corr(pred_df_ind[date], method="pearson")
 
         daily_corr_ind[str(ind)] = daily_corr_temp
 
-    with open(os.path.join(window_path, "summary", "daily_corr.json"), "w") as handle:
-        json.dump(daily_corr, handle)
+    # get cross-sectional correlation
+    pearson_corr = {}
+    spearman_corr = {}
+    for date in dates:
+        pearson_corr[date] = true_df[date].corr(pred_df[date], method="pearson")
+        spearman_corr[date] = true_df[date].corr(pred_df[date], method="spearman")
 
-    with open(os.path.join(window_path, "summary", "cusip_corr.json"), "w") as handle:
-        json.dump(cusip_corr, handle)
+    # get time-series correlation
+    cusip_corr = {}
+    for cusip in cusip_sic["cusip"].values:
+        true_df_row = true_df.loc[cusip, true_df.columns != "industry"]
+        pred_df_row = pred_df.loc[cusip, pred_df.columns != "industry"]
+        cusip_corr[cusip] = true_df_row.corr(pred_df_row, method="pearson")
 
     with open(os.path.join(window_path, "summary", "corr_ind.json"), "w") as handle:
         json.dump(daily_corr_ind, handle)
+
+    with open(os.path.join(window_path, "summary", "pearson_corr.json"), "w") as handle:
+        json.dump(pearson_corr, handle)
+
+    with open(os.path.join(window_path, "summary", "spearman_corr.json"), "w") as handle:
+        json.dump(spearman_corr, handle)
+
+    with open(os.path.join(window_path, "summary", "cusip_corr.json"), "w") as handle:
+        json.dump(cusip_corr, handle)
