@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
+from params.params import window_dict
 import seaborn as sns
 import json
 import os
@@ -37,19 +38,27 @@ def plot_correlation(model_name, horizon):
         for ind in inds:
             corr_ind_df.loc[ind, window] = np.nanmean(list(corr_ind[ind].values()))
 
-    # plot correlation
-    # fig = plt.figure(figsize=(14, 9))
-    # gs = fig.add_gridspec(7, 10)
-    # ax1 = fig.add_subplot(gs[0:5, :])
-    # ax2 = fig.add_subplot(gs[5:7, :8])
-    #
-    # sns.heatmap(corr_ind_df.values, cmap="YlGnBu", ax=ax1)
-    # index = range(len(daily_corr_df.index))
-    # ax2.stem(index, daily_corr_df["corr"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    # ax2.scatter(index, daily_corr_df["corr"].values, color="#899499", marker=".")
-    # ax2.set_xticks(index)
-    # ax2.set_xticklabels([""] * len(index))
-    # ax2.set_xlabel("Dates")
-    # ax2.set_ylabel("Correlation")
+    # initialize figure
+    fig = plt.figure(figsize=(15, 12))
+    gs = fig.add_gridspec(7, 10)
+    ax1 = fig.add_subplot(gs[0:5, :])
+    ax2 = fig.add_subplot(gs[5:7, :8])
 
-    return daily_corr_df, corr_ind_df
+    yticks = np.arange(len(corr_ind_df.index))
+    ylabels = [_ if int(_) % 10 == 0 else "" for _ in corr_ind_df.index]
+    sns.heatmap(corr_ind_df.values, cmap="YlGnBu", ax=ax1)
+    ax1.get_xaxis().set_visible(False)
+    ax1.set_yticks(yticks)
+    ax1.set_yticklabels(ylabels)
+    ax1.set_ylabel("CIS Industrial Code")
+
+    test_size = window_dict["test_win"] - window_dict["valid_win"]
+    xticks = range(len(daily_corr_df.index))
+    xlabels = [_ if idx % test_size == 0 else "" for idx, _ in enumerate(daily_corr_df.index)]
+    ax2.stem(xticks, daily_corr_df["corr"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax2.scatter(xticks, daily_corr_df["corr"].values, color="#899499", marker=".")
+    ax2.set_xticks(xticks)
+    ax2.set_xticklabels(xlabels, rotation=30)
+    ax2.set_xlabel("Dates")
+    ax2.set_ylabel("Correlation")
+    plt.tight_layout()

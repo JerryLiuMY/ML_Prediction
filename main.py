@@ -39,7 +39,7 @@ def run_experiment(model_name, horizons):
                 summarize(model_name, horizon, window)
 
 
-if __name__ == "__main__":
-    model_name = "autogluon"
-    horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
-    run_experiment(model_name, horizons)
+# if __name__ == "__main__":
+#     model_name = "autogluon"
+#     horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
+#     run_experiment(model_name, horizons)
