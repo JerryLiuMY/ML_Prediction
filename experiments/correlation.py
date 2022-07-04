@@ -58,7 +58,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, corr_df):
     """
 
     # initialize correlation plot
-    fig = plt.figure(figsize=(18, 16))
+    fig = plt.figure(figsize=(15, 12))
     gs = fig.add_gridspec(7, 10)
     ax = fig.add_subplot(gs[0:4, :])
     ax1 = fig.add_subplot(gs[4:5, :8])
