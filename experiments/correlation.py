@@ -78,8 +78,8 @@ def plot_correlation(model_name, horizon, corr_ind_df, corr_df):
     # define indices
     index = range(len(corr_df.index))
     test_size = window_dict["test_win"] - window_dict["valid_win"]
-    xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
-    xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % test_size == 0]
+    xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
+    xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
     xticks = xticks + [len(corr_df.index) - 1]
     xlabels = xlabels + [corr_df.index[-1]]
 

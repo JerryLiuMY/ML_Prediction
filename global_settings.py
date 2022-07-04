@@ -3,12 +3,11 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 
-
 # define directories
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 SEAGATE_PATH = "/Volumes/Sumsung_1T/5_Projects/ML_Prediction"
-DATA_PATH = os.path.join(SEAGATE_PATH, "data")
-OUTPUT_PATH = os.path.join(SEAGATE_PATH, "output")
+DATA_PATH = os.path.join(SEAGATE_PATH, "shared")
+OUTPUT_PATH = os.path.join(SEAGATE_PATH, "result")
 LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
 # load necessary files
