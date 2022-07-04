@@ -17,7 +17,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 ![alt text](./__resources__/autogluon.jpg?raw=true "Title")
 
 ## TODO
-- Ensemble learning: Multiple ML models
+- Ensemble learning: multiple ML models
 - Ensemble based on particular by metric (e.g. pearsonr, r2, volatility)
 - Multiple ML predictive horizons
 - Transformers 
