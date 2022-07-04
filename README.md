@@ -8,6 +8,15 @@
 ## Data Information
 <a href="https://drive.google.com/drive/folders/1zTstEjVfHdTy9NceaAKjjqXkIUiHdzAo?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/1eOXBtTcMw2lJvcpGtjyBni4qC6K1zaE9?usp=sharing" target="_blank">Folder</a> for data information.
 
+![alt text](./__resources__/count.jpg?raw=true "Title")
+
+Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
+
+## AutoGluon
+<a href="https://drive.google.com/drive/folders/1eY4yBGFdcVbqcNYVAXP9mTcUOXxWZFU2?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+![alt text](./__resources__/autogluon.jpg?raw=true "Title")
+
+## TODO
 - Ensemble learning: Multiple ML models
 - Ensemble based on particular by metric (e.g. pearsonr, r2, volatility)
 - Multiple ML predictive horizons
@@ -17,8 +26,4 @@
 - Backtest / cumulative correlation
 - Variable importance
 - Random effect model
-
-Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
-
-## AutoGluon
-<a href="https://drive.google.com/drive/folders/1eY4yBGFdcVbqcNYVAXP9mTcUOXxWZFU2?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+- 

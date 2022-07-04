@@ -23,8 +23,6 @@ date0_max = "2022-06-14"
 
 
 # TODO
-# plot the predictive accuracy for industry
-
 # US daily alpha / ETF
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
