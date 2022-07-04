@@ -6,9 +6,9 @@ from pathlib import Path
 
 # define directories
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
-DATA_PATH = os.path.join(DESKTOP_PATH, "shared")
-OUTPUT_PATH = os.path.join(DESKTOP_PATH, "result")
-TEMP_PATH = os.path.join(DESKTOP_PATH, "temp")
+SEAGATE_PATH = "/Volumes/Sumsung_1T/5_Projects/ML_Prediction"
+DATA_PATH = os.path.join(SEAGATE_PATH, "data")
+OUTPUT_PATH = os.path.join(SEAGATE_PATH, "output")
 LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
 # load necessary files
