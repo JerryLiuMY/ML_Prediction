@@ -6,7 +6,7 @@
 </p>
 
 ## Data Information
-<a href="https://drive.google.com/drive/folders/1POBAD1JIJ7Ab1oI9FXQfJKs8XegPJAXx?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/191fLnoGSo8cmf8NajE7j8oci6gmWoJ5P?usp=sharing" target="_blank">Folder</a> for data information.
+<a href="https://drive.google.com/drive/folders/1TOy8jXXlF9qi6qxZmZ8S8tP5oeq2fbGQ?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/17WN0bJze-TuExiZMAA1Y_uw4lZWkQX6n?usp=sharing" target="_blank">Folder</a> for data information.
 
 - Ensemble learning: Multiple ML models
 - Ensemble based on particular by metric (e.g. pearsonr, r2, volatility)
@@ -21,4 +21,4 @@
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/1FwhAPcm-WGfaGBCA_0WJiNgRayQ5eMd3?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/1iPgNcbns3A4nziWSWoizexYKD1w6lnTC?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
