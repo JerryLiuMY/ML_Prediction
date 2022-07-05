@@ -14,6 +14,7 @@ else:
     OUTPUT_PATH = os.path.join(DESKTOP_PATH, "result")
 LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
+
 # load necessary files
 # trddt_all: intersection between X and y
 # cusip_all: intersection between union(X) and union(y)
