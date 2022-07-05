@@ -2,6 +2,7 @@ from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
 import matplotlib.pyplot as plt
 from params.params import window_dict
+import matplotlib.patches as mpatches
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -84,15 +85,21 @@ def plot_correlation(model_name, horizon, corr_ind_df, corr_df):
     xlabels = xlabels + [corr_df.index[-1]]
 
     # ax1: pearson correlation
+    pearson_mean = round(corr_df["pearson"].mean() * 100, 2)
+    ax1_legend = mpatches.Patch(color="#A9A9A9", label=f"ave={pearson_mean:.2f}%")
     ax1.stem(index, corr_df["pearson"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax1.scatter(index, corr_df["pearson"].values, color="#899499", marker=".")
+    ax1.legend(handles=[ax1_legend], loc="upper right")
     ax1.set_xticklabels([])
     ax1.set_ylabel("Pearson")
     ax1.set_ylim([-0.30, 0.40])
 
     # ax2: spearman correlation
+    spearman_mean = round(corr_df["spearman"].mean() * 100, 2)
+    ax2_legend = mpatches.Patch(color="#A9A9A9", label=f"ave={spearman_mean:.2f}%")
     ax2.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
+    ax2.legend(handles=[ax2_legend], loc="upper right")
     ax2.set_xticklabels([])
     ax2.set_ylabel("Spearman")
     ax2.set_ylim([-0.25, 0.25])
