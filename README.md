@@ -8,7 +8,7 @@
 ## Data Information
 <a href="https://drive.google.com/drive/folders/1zTstEjVfHdTy9NceaAKjjqXkIUiHdzAo?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/1eOXBtTcMw2lJvcpGtjyBni4qC6K1zaE9?usp=sharing" target="_blank">Folder</a> for data information. Number of stocks in `X`, `y` and shared between `X & y` from *Jan 2010* to *Jun 2022*.
 
-![alt text](./__resources__/count.jpg?raw=true "Title")
+[//]: # (![alt text]&#40;./__resources__/count.jpg?raw=true "Title"&#41;)
 
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
 
