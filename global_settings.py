@@ -32,3 +32,7 @@ date0_max = "2022-06-14"
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
 # Ultra high frequency
+
+# Check if there is correlation
+# Correlation -- reduce validation window
+# Check GPU usage
