@@ -96,7 +96,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     axb.get_xaxis().set_visible(False)
     axb.set_yticks(yticks)
     axb.set_yticklabels(ylabels)
-    axb.set_ylabel("Corr Decay")
+    axb.set_ylabel("Decay")
 
     # define indices
     index = range(len(corr_df.index))
@@ -133,7 +133,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     ax3.plot(index, np.log(np.cumprod(corr_df["pearson"].values + 1)), color="#6E6E6E", label="pearson")
     ax3.plot(index, np.log(np.cumprod(corr_df["spearman"].values + 1)), color="#808080", label="spearman")
     ax3.legend(loc="upper right")
-    ax2.set_xticklabels([])
+    ax3.set_xticklabels([])
     ax3.set_ylabel("log(1+corr)")
     ax3.grid(True)
 
