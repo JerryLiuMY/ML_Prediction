@@ -33,6 +33,6 @@ date0_max = "2022-06-14"
 # Crypto statistical arbitrage
 # Ultra high frequency
 
-# Check if there is correlation
-# Correlation -- reduce validation window
+# Reduce validation window
+# Sample from training window
 # Check GPU usage
