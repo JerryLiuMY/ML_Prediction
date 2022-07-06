@@ -95,7 +95,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     sns.heatmap(decay_df.values, cmap="coolwarm", ax=axb)
     axb.get_xaxis().set_visible(False)
     axb.set_yticks(yticks)
-    axb.set_yticklabels(ylabels)
+    axb.set_yticklabels(ylabels, rotation=0)
     axb.set_ylabel("Decay")
 
     # define indices
