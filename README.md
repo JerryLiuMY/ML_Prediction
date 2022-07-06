@@ -6,14 +6,14 @@
 </p>
 
 ## Data Information
-<a href="https://drive.google.com/drive/folders/1zTstEjVfHdTy9NceaAKjjqXkIUiHdzAo?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/1eOXBtTcMw2lJvcpGtjyBni4qC6K1zaE9?usp=sharing" target="_blank">Folder</a> for data information. Number of stocks in `X`, `y` and shared between `X & y` from *Jan 2010* to *Jun 2022*.
+<a href="https://drive.google.com/drive/folders/1Ha_viwpfKjF9OKcxVGTOlt8ZTtLkTJZo?usp=sharing" target="_blank">Repository</a> for the processed data. <a href="https://drive.google.com/drive/folders/1c1UBirLc1OhzoqG7O4ipa92F4YwEG43R?usp=sharing" target="_blank">Folder</a> for data information. Number of stocks in `X`, `y` and shared between `X & y` from *Jan 2010* to *Jun 2022*.
 
 [//]: # (![alt text]&#40;./__resources__/count.jpg?raw=true "Title"&#41;)
 
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/1eY4yBGFdcVbqcNYVAXP9mTcUOXxWZFU2?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/1elTNSDXkk9FjIR_8WyOvj1yvwk0LbNPM?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
 ![alt text](./__resources__/autogluon.jpg?raw=true "Title")
 
 ## TODO
