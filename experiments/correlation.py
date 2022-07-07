@@ -70,7 +70,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
 
     # initialize correlation plot
     test_size = window_dict["test_win"] - window_dict["valid_win"]
-    fig = plt.figure(figsize=(15, 12))
+    fig = plt.figure(figsize=(18, 15))
     gs = fig.add_gridspec(9, 10)
     axa = fig.add_subplot(gs[0:4, :])
     axb = fig.add_subplot(gs[4:5, :])
