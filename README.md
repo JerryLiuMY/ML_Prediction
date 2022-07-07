@@ -12,7 +12,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 
 ## AutoGluon
 <a href="https://drive.google.com/drive/folders/1elTNSDXkk9FjIR_8WyOvj1yvwk0LbNPM?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
-![alt text](./__resources__/autogluon/window=1.jpg?raw=true "Title")
+![alt text](./__resources__/autogluon/horizon=1.jpg?raw=true "Title")
 
 **Correlation decay:** `0-6 days: 1.00%`, `6-12 days: 0.00%`, `12-18 days: -0.81%`, `18-24 days: 0.04%`, `24-30 days: 0.35%`, `30-36 days: 1.21%`, `36-42 days: 0.40%`, `42-48 days: 0.27%`, `48-54 days: 1.34%`, `54-60 days: 1.00%`
 
