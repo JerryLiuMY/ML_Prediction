@@ -15,7 +15,8 @@ def fit_autogluon(train_data, valid_data, window_path):
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
-    model = predictor.fit(train_data, tuning_data=valid_data, presets="medium_quality", ag_args_fit={"num_gpus": 1})
+    model = predictor.fit(train_data, tuning_data=valid_data, presets="medium_quality",
+                          ag_args_fit={"num_gpus": 1}, verbosity=4)
     model.save_space()
 
     perf = model.evaluate(valid_data, auxiliary_metrics=True, silent=True)
