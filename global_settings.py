@@ -1,7 +1,8 @@
-import os
+from pathlib import Path
 import numpy as np
 import pandas as pd
-from pathlib import Path
+import os
+
 
 # define directories
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())

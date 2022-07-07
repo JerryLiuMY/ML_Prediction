@@ -55,13 +55,13 @@ def experiment_proc(window, model_name, horizon):
         summarize(model_name, horizon, window)
 
 
-if __name__ == "__main__":
-    model_name = "autogluon"
-    # horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
-    horizons = [2, 3, 4, 5, 10, 20, 30, 50]
-    run_experiment(model_name, horizons)
-
-    from experiments.correlation import build_correlation
-    from experiments.correlation import plot_correlation
-    corr_ind_df, decay_df, corr_df = build_correlation("autogluon", 2)
-    plot_correlation("autogluon", 2, corr_ind_df, decay_df, corr_df)
+# if __name__ == "__main__":
+#     model_name = "autogluon"
+#     # horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
+#     horizons = [2, 3, 4, 5, 10, 20, 30, 50]
+#     run_experiment(model_name, horizons)
+#
+#     from experiments.correlation import build_correlation
+#     from experiments.correlation import plot_correlation
+#     corr_ind_df, decay_df, corr_df = build_correlation("autogluon", 2)
+#     plot_correlation("autogluon", 2, corr_ind_df, decay_df, corr_df)
