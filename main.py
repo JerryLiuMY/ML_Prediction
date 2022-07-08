@@ -35,7 +35,6 @@ def run_experiment(model_name, horizons):
 
     # perform experiments
     for horizon in horizons:
-        # make directory for the horizon
         horizon_path = os.path.join(model_path, f"horizon={horizon}")
         if not os.path.isdir(horizon_path):
             os.mkdir(horizon_path)

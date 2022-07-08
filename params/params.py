@@ -4,7 +4,6 @@ window_dict = {
     "test_win": 240 + 120 + 60,
 }
 
-# ["medium_quality", "good_quality", "high_quality", "best_quality"]
 params_dict = {
-    "autogluon": {"presets": "medium_quality"}
+    "autogluon": {"presets": "medium_quality"}  # ["medium", "good", "high", "best"]
 }
