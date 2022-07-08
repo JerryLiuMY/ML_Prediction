@@ -36,6 +36,5 @@ date0_max = "2022-06-14"
 
 # AutoGluon parameters
 # Increase training window
-# Reduce validation window
 # Sample from training window
 # Transformer model

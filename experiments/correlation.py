@@ -55,8 +55,6 @@ def build_correlation(model_name, horizon):
         decay_df = pd.concat([decay_df, decay_df_sub], axis=1)
     decay_df = decay_df.groupby(np.arange(decay_df.shape[0]) // 6).mean()
 
-    # filter results
-
     return corr_ind_df, decay_df, corr_df
 
 
@@ -69,6 +67,11 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     :param corr_df: correlation df
     :return:
     """
+
+    # filter results
+    corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
+    decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
+    corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
 
     # initialize correlation plot
     test_size = window_dict["test_win"] - window_dict["valid_win"]
@@ -154,19 +157,3 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
     fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
-
-
-def corr_filter(corr_ind_df, decay_df, corr_df):
-    """ Filter results to exclude results since 2020
-    :param corr_ind_df: correlation df for each industry
-    :param decay_df: decay correlation df
-    :param corr_df: correlation df
-    :return:
-    """
-
-    # data after 2020 are reserved for further testing
-    corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
-    decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
-    corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
-
-    return corr_ind_df, decay_df, corr_df
