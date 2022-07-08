@@ -39,3 +39,7 @@ date0_max = "2022-06-14"
 # Sample from training window
 # Transformer model
 # Resolve GPU issue
+
+# torch.version.cuda
+# torch.cuda.is_available()
+# torch.cuda.device_count()
