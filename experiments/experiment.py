@@ -8,10 +8,11 @@ import json
 import os
 
 
-def experiment(model_name, horizon, window):
+def experiment(model_name, horizon, params, window):
     """ Run experiment for ML prediction
     :param model_name: model name
     :param horizon: predictive horizon
+    :param params: dictionary of parameters
     :param window: [trddt_train, trddt_valid, trddt_test] window
     """
 
@@ -39,7 +40,7 @@ def experiment(model_name, horizon, window):
     train_data = load_data(trddt_train_X, trddt_train_y, data_type)
     valid_data = load_data(trddt_valid_X, trddt_valid_y, data_type)
 
-    model, metric = fit_func(train_data, valid_data, window_path)
+    model, metric = fit_func(train_data, valid_data, params, window_path)
     with open(os.path.join(window_path, "info", "metric.json"), "w") as handle:
         json.dump(metric, handle)
 

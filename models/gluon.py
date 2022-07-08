@@ -3,20 +3,21 @@ import pandas as pd
 from autogluon.tabular import TabularPredictor
 
 
-def fit_autogluon(train_data, valid_data, window_path):
+def fit_autogluon(train_data, valid_data, params, window_path):
     """ Fit autogluon model and report evaluation metric
     :param train_data: dataframe of training data
     :param valid_data: dataframe of validation data
+    :param params: dictionary of parameters
     :param window_path: path to the particular window
     :return model: fitted model
     """
 
     # missing data handled automatically
-    # ["medium_quality", "good_quality", "high_quality", "best_quality"]
+    presets = params["medium_quality"]
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
-    model = predictor.fit(train_data, tuning_data=valid_data, presets="medium_quality",
+    model = predictor.fit(train_data, tuning_data=valid_data, presets=presets,
                           ag_args_fit={"num_gpus": 1}, verbosity=2)
     model.save_space()
 

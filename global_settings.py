@@ -34,8 +34,8 @@ date0_max = "2022-06-14"
 # Crypto statistical arbitrage
 # Ultra high frequency
 
+# AutoGluon parameters
 # Increase training window
 # Reduce validation window
 # Sample from training window
 # Transformer model
-# Resolve GPU issue
