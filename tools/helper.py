@@ -7,13 +7,13 @@ import nvsmi
 # conda activate ml_prediction
 
 # check CUDA
-print(torch.version.cuda)
-print(torch.cuda.is_available())
-print(torch.cuda.device_count())
+print(f"CUDA version: {torch.version.cuda}")
+print(f"GPU availability: {torch.cuda.is_available()}")
+print(f"GPU counts: {torch.cuda.device_count()}")
 
 # check CPU and memory usage
-print(psutil.virtual_memory().percent)
-print(psutil.cpu_percent())
+print(f"Mem usage: {psutil.virtual_memory().percent}")
+print(f"CPU usage: {psutil.cpu_percent()}")
 
 # check GPU usage
 print(list(nvsmi.get_gpus())[0])
