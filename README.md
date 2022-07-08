@@ -18,11 +18,12 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 
 ## TODO
 - Ensemble learning: multiple ML models
+- Ensemble learning: multiple horizons
 - Ensemble based on particular by metric (e.g. pearsonr, r2, volatility)
-- Multiple ML predictive horizons
+- AutoGluon
+  - Predictive accuracy
 - Transformers 
   - Different modifications
   - Different window sizes
-- Backtest / cumulative correlation
 - Variable importance
 - Random effect model
