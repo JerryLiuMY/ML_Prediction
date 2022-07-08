@@ -55,6 +55,8 @@ def build_correlation(model_name, horizon):
         decay_df = pd.concat([decay_df, decay_df_sub], axis=1)
     decay_df = decay_df.groupby(np.arange(decay_df.shape[0]) // 6).mean()
 
+    # filter results
+
     return corr_ind_df, decay_df, corr_df
 
 
@@ -100,10 +102,10 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
 
     # define indices
     index = range(len(corr_df.index))
-    xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % (test_size * 3) == 0]
-    xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % (test_size * 3) == 0]
-    # xticks = xticks + [len(corr_df.index) - 1]
-    # xlabels = xlabels + [corr_df.index[-1]]
+    xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
+    xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
+    xticks = xticks + [len(corr_df.index) - 1]
+    xlabels = xlabels + [corr_df.index[-1]]
 
     # ax1: pearson correlation
     pearson_mean = round(corr_df["pearson"].mean() * 100, 2)
@@ -112,7 +114,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     ax1_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={pearson_sharpe:.3f}")
     ax1.stem(index, corr_df["pearson"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax1.scatter(index, corr_df["pearson"].values, color="#899499", marker=".")
-    ax1.legend(handles=[ax1_legend_mean, ax1_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
+    ax1.legend(handles=[ax1_legend_mean, ax1_legend_sharpe], loc="upper right", handlelength=0.2, handletextpad=0.5)
     ax1.set_xticklabels([])
     ax1.set_ylabel("Pearson")
     ax1.set_ylim([-0.30, 0.40])
@@ -124,7 +126,7 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     ax2_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={spearman_sharpe:.3f}")
     ax2.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
-    ax2.legend(handles=[ax2_legend_mean, ax2_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
+    ax2.legend(handles=[ax2_legend_mean, ax2_legend_sharpe], loc="upper right", handlelength=0.2, handletextpad=0.5)
     ax2.set_xticklabels([])
     ax2.set_ylabel("Spearman")
     ax2.set_ylim([-0.25, 0.25])
@@ -152,3 +154,19 @@ def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
     fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
+
+
+def corr_filter(corr_ind_df, decay_df, corr_df):
+    """ Filter results to exclude results since 2020
+    :param corr_ind_df: correlation df for each industry
+    :param decay_df: decay correlation df
+    :param corr_df: correlation df
+    :return:
+    """
+
+    # data after 2020 are reserved for further testing
+    corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
+    decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
+    corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
+
+    return corr_ind_df, decay_df, corr_df
