@@ -28,7 +28,7 @@ def run_experiment(model_name, horizons):
             os.mkdir(horizon_path)
 
         window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-        pool = multiprocessing.Pool(5)  # number of processes
+        pool = multiprocessing.Pool(2)  # number of processes
         pool.map(functools.partial(experiment_proc, model_name=model_name, horizon=horizon), window_gen, chunksize=1)
         pool.close()
         pool.join()
@@ -59,8 +59,3 @@ if __name__ == "__main__":
     model_name = "autogluon"
     horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
     run_experiment(model_name, horizons)
-
-#     from experiments.correlation import build_correlation
-#     from experiments.correlation import plot_correlation
-#     corr_ind_df, decay_df, corr_df = build_correlation("autogluon", 2)
-#     plot_correlation("autogluon", 2, corr_ind_df, decay_df, corr_df)
