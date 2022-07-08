@@ -36,4 +36,4 @@ date0_max = "2022-06-14"
 
 # Reduce validation window
 # Sample from training window
-# Check GPU usage
+# Resolve GPU issue

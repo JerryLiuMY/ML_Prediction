@@ -27,9 +27,9 @@ def run_experiment(model_name, horizons):
         if not os.path.isdir(horizon_path):
             os.mkdir(horizon_path)
 
-        window_gen = generate_window(window_dict, date0_min, date0_max, horizon)
+        window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
         pool = multiprocessing.Pool(5)  # number of processes
-        pool.map(functools.partial(experiment_proc, model_name=model_name, horizon=horizon), window_gen)
+        pool.map(functools.partial(experiment_proc, model_name=model_name, horizon=horizon), window_gen, chunksize=1)
         pool.close()
         pool.join()
 
