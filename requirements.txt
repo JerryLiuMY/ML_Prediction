@@ -18,6 +18,7 @@ torch==1.11.0
 tensorflow==2.8.2
 keras==2.8.0
 autogluon==0.5.0
+nvsmi==0.4.2
 
 # python3 -m pip install "mxnet_cu101<2.0.0, >=1.7.0"
 # conda install -c anaconda cudatoolkit=10.2
