@@ -72,11 +72,6 @@ def experiment_proc(window, model_name, horizon, params):
 
 
 if __name__ == "__main__":
-    # model_name = "autogluon"
-    # horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
-    # run_experiment(model_name, horizons)
-
-    from experiments.correlation import plot_correlation
     model_name = "autogluon"
-    horizons = 1
-    plot_correlation(model_name, horizons)
+    horizons = [1]
+    run_experiment(model_name, horizons)
