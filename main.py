@@ -39,12 +39,15 @@ def run_experiment(model_name, horizons):
         if not os.path.isdir(horizon_path):
             os.mkdir(horizon_path)
 
-        partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
         window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-        pool = multiprocessing.Pool(4)  # number of processes
-        pool.map(partial_func, window_gen, chunksize=1)
-        pool.close()
-        pool.join()
+        # partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
+        # pool = multiprocessing.Pool(2)  # number of processes
+        # pool.map(partial_func, window_gen, chunksize=1)
+        # pool.close()
+        # pool.join()
+
+        for window in window_gen:
+            experiment_proc(window, model_name, horizon, params)
 
 
 def experiment_proc(window, model_name, horizon, params):
@@ -69,7 +72,7 @@ def experiment_proc(window, model_name, horizon, params):
         summarize(model_name, horizon, window)
 
 
-# if __name__ == "__main__":
-#     model_name = "autogluon"
-#     horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
-#     run_experiment(model_name, horizons)
+if __name__ == "__main__":
+    model_name = "autogluon"
+    horizons = [1, 2, 3, 4, 5, 10, 20, 30, 50]
+    run_experiment(model_name, horizons)

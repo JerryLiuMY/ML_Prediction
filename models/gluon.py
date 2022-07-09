@@ -13,7 +13,7 @@ def fit_autogluon(train_data, valid_data, params, window_path):
     """
 
     # missing data handled automatically
-    presets = params["medium_quality"]
+    presets = params["presets"]
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
