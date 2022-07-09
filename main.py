@@ -22,7 +22,7 @@ def run_experiment(model_name, horizons):
         os.mkdir(model_path)
 
     # save parameter information
-    params = params_dict["model_name"]
+    params = params_dict[model_name]
     params_path = os.path.join(model_path, "params")
     if not os.path.isdir(params_path):
         os.mkdir(params_path)

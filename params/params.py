@@ -5,5 +5,5 @@ window_dict = {
 }
 
 params_dict = {
-    "autogluon": {"presets": "medium_quality"}  # ["medium", "good", "high", "best"]
+    "autogluon": {"presets": "high_quality"}  # ["medium", "good", "high", "best"]
 }
