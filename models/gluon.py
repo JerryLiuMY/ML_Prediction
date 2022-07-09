@@ -14,10 +14,11 @@ def fit_autogluon(train_data, valid_data, params, window_path):
 
     # missing data handled automatically
     presets = params["presets"]
+    excluded = params["excluded"]
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
-    model = predictor.fit(train_data, tuning_data=valid_data, presets=presets,
+    model = predictor.fit(train_data, tuning_data=valid_data, presets=presets, excluded_model_types=excluded,
                           ag_args_fit={"num_gpus": 1}, verbosity=2)
     model.save_space()
 

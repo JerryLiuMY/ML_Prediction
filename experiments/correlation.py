@@ -58,17 +58,15 @@ def build_correlation(model_name, horizon):
     return corr_ind_df, decay_df, corr_df
 
 
-def plot_correlation(model_name, horizon, corr_ind_df, decay_df, corr_df):
+def plot_correlation(model_name, horizon):
     """ Plot daily & cumulative correlation and heatmap for each industry
     :param model_name: model name
     :param horizon: predictive horizon
-    :param corr_ind_df: correlation df for each industry
-    :param decay_df: decay correlation df
-    :param corr_df: correlation df
     :return:
     """
 
-    # filter results
+    # build and filter correlation results
+    corr_ind_df, decay_df, corr_df = build_correlation(model_name, horizon)
     corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
     decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
     corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
