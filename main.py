@@ -4,8 +4,6 @@ from experiments.experiment import experiment
 from experiments.generator import generate_window
 from experiments.summary import summarize
 from global_settings import OUTPUT_PATH
-import multiprocessing
-import functools
 import json
 import os
 
@@ -40,11 +38,15 @@ def run_experiment(model_name, horizons):
             os.mkdir(horizon_path)
 
         window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-        partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
-        pool = multiprocessing.Pool(2)  # number of processes
-        pool.map(partial_func, window_gen, chunksize=1)
-        pool.close()
-        pool.join()
+        for window in window_gen:
+            experiment_proc(window, model_name, horizon, params)
+
+        # # CPU: better to use a single process; GPU: better to use two processes
+        # partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
+        # pool = multiprocessing.Pool(2)  # number of processes
+        # pool.map(partial_func, window_gen, chunksize=1)
+        # pool.close()
+        # pool.join()
 
 
 def experiment_proc(window, model_name, horizon, params):

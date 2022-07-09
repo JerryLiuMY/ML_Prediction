@@ -3,6 +3,7 @@ import torch
 import nvsmi
 
 # virtual env
+# ssh risklab.chicagobooth.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
 # conda activate ml_prediction
 
@@ -11,9 +12,10 @@ print(f"CUDA version: {torch.version.cuda}")
 print(f"GPU availability: {torch.cuda.is_available()}")
 print(f"GPU counts: {torch.cuda.device_count()}")
 
-# check CPU and memory usage
-print(f"Mem usage: {psutil.virtual_memory().percent}")
+# check memory and CPU usage
+# mpstat -P ALL 1
 print(f"CPU usage: {psutil.cpu_percent()}")
+print(f"Mem usage: {psutil.virtual_memory().percent}")
 
 # check GPU usage
 print(list(nvsmi.get_gpus())[0])
