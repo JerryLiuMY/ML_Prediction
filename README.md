@@ -17,8 +17,6 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Sample validation data from training window
 - Predictive horizon
 - Use correlation as loss
-- Change IC to portfolio
-- Kaggle reference
 
 ## AutoGluon
 <a href="https://drive.google.com/drive/folders/1elTNSDXkk9FjIR_8WyOvj1yvwk0LbNPM?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
@@ -34,5 +32,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Transformers 
   - Different modifications
   - Different window sizes
+- Change IC to portfolio
+- Kaggle reference
 - Variable importance
 - Random effect model

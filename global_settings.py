@@ -33,15 +33,3 @@ date0_max = "2022-06-14"
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
 # Ultra high frequency
-
-# AutoGluon parameters
-# Increase training window
-# Sample from training window
-# Transformer model
-
-# Increase training window
-# Increase testing frequency
-# Reduce validation window / sample from training
-# Use correlation as loss
-# Change IC to portfolio
-# Kaggle reference
