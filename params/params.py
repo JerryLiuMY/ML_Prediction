@@ -5,7 +5,7 @@ window_dict = {
 }
 
 params_dict = {
-    "autogluon": {"presets": "medium_quality", "excluded": ["RF"]}  # ["medium", "good", "high", "best"]
+    "autogluon": {"presets": "high_quality", "excluded": ["RF"]}  # ["medium", "good", "high", "best"]
 }
 
 horizon_dict = {"horizon": 1}
