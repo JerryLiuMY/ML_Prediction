@@ -11,24 +11,23 @@ import os
 sns.set()
 
 
-def build_correlation(model_name, horizon):
+def build_correlation(model_name):
     """ Build industry correlation and daily correlation for each industry
     :param model_name: model name
-    :param horizon: predictive horizon
     :return:
     """
 
     # define windows and industries
-    horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
+    model_path = os.path.join(OUTPUT_PATH, model_name)
     test_size = window_dict["test_win"] - window_dict["valid_win"]
-    windows = sorted([_[1] for _ in os.walk(horizon_path)][0])
-    windows = [_ for _ in windows if "correlation" not in _]
+    windows = sorted([_[1] for _ in os.walk(model_path)][0])
+    windows = [_ for _ in windows if "correlation" and "params" not in _]
     inds = sorted(set([_ for _ in list(cusip_sic["sic"].apply(lambda _: str(_)[:2]))]))
 
     # industry correlation
     corr_ind_df = pd.DataFrame(index=inds, columns=windows).astype("float32")
     for window in windows:
-        window_path = os.path.join(horizon_path, str(window))
+        window_path = os.path.join(model_path, str(window))
         with open(os.path.join(window_path, "summary", "corr_ind.json"), "r") as handle:
             corr_ind = json.load(handle)
         for ind in inds:
@@ -38,7 +37,7 @@ def build_correlation(model_name, horizon):
     pearson_corr = {}
     spearman_corr = {}
     for window in windows:
-        window_path = os.path.join(horizon_path, str(window))
+        window_path = os.path.join(model_path, str(window))
         with open(os.path.join(window_path, "summary", "pearson_corr.json"), "r") as handle:
             pearson_corr.update(json.load(handle))
         with open(os.path.join(window_path, "summary", "spearman_corr.json"), "r") as handle:
@@ -58,15 +57,21 @@ def build_correlation(model_name, horizon):
     return corr_ind_df, decay_df, corr_df
 
 
-def plot_correlation(model_name, horizon):
+def plot_correlation(model_name):
     """ Plot daily & cumulative correlation and heatmap for each industry
     :param model_name: model name
-    :param horizon: predictive horizon
     :return:
     """
 
+    # get predictive horizon
+    model_path = os.path.join(OUTPUT_PATH, model_name)
+    params_path = os.path.join(model_path, "params")
+    with open(os.path.join(params_path, "horizon.json"), "r") as handle:
+        horizon_dict = json.load(handle)
+    horizon = horizon_dict["horizon"]
+
     # build and filter correlation results
-    corr_ind_df, decay_df, corr_df = build_correlation(model_name, horizon)
+    corr_ind_df, decay_df, corr_df = build_correlation(model_name)
     corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
     decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
     corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
@@ -150,8 +155,8 @@ def plot_correlation(model_name, horizon):
     ax4.grid(True)
 
     # save plotted figure
-    horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
-    corr_path = os.path.join(horizon_path, "correlation")
+    model_path = os.path.join(OUTPUT_PATH, model_name)
+    corr_path = os.path.join(model_path, "correlation")
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
     fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")

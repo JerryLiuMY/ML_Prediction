@@ -1,17 +1,18 @@
 from global_settings import date0_min, date0_max
-from params.params import window_dict, params_dict
+from params.params import window_dict, params_dict, horizon_dict
 from experiments.experiment import experiment
 from experiments.generator import generate_window
 from experiments.summary import summarize
 from global_settings import OUTPUT_PATH
+import multiprocessing
+import functools
 import json
 import os
 
 
-def run_experiment(model_name, horizons):
+def run_experiment(model_name):
     """ Perform experiment for a particular model
     :param model_name: model name
-    :param horizons: list of horizons
     """
 
     # make directory for the model
@@ -31,22 +32,20 @@ def run_experiment(model_name, horizons):
     with open(os.path.join(params_path, "params.json"), "w") as handle:
         json.dump(params, handle)
 
+    with open(os.path.join(params_path, "horizon.json"), "w") as handle:
+        json.dump(horizon_dict, handle)
+
     # perform experiments
-    for horizon in horizons:
-        horizon_path = os.path.join(model_path, f"horizon={horizon}")
-        if not os.path.isdir(horizon_path):
-            os.mkdir(horizon_path)
+    horizon = horizon_dict["horizon"]
+    window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
+    partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
+    pool = multiprocessing.Pool(8)  # number of processes
+    pool.map(partial_func, window_gen, chunksize=1)
+    pool.close()
+    pool.join()
 
-        window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-        for window in window_gen:
-            experiment_proc(window, model_name, horizon, params)
-
-        # # CPU: better to use a single process; GPU: better to use two processes
-        # partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
-        # pool = multiprocessing.Pool(2)  # number of processes
-        # pool.map(partial_func, window_gen, chunksize=1)
-        # pool.close()
-        # pool.join()
+    # for window in window_gen:
+    #     experiment_proc(window, model_name, horizon, params)
 
 
 def experiment_proc(window, model_name, horizon, params):
@@ -59,8 +58,7 @@ def experiment_proc(window, model_name, horizon, params):
 
     # make directory for the window
     model_path = os.path.join(OUTPUT_PATH, model_name)
-    horizon_path = os.path.join(model_path, f"horizon={horizon}")
-    window_path = os.path.join(horizon_path, window["X"][0][0])
+    window_path = os.path.join(model_path, window["X"][0][0])
 
     if not os.path.isdir(window_path):
         os.mkdir(window_path)
@@ -68,10 +66,9 @@ def experiment_proc(window, model_name, horizon, params):
         os.mkdir(os.path.join(window_path, "predict"))
         os.mkdir(os.path.join(window_path, "summary"))
         experiment(model_name, horizon, params, window)
-        summarize(model_name, horizon, window)
+        summarize(model_name, window)
 
 
-if __name__ == "__main__":
-    model_name = "autogluon"
-    horizons = [1]
-    run_experiment(model_name, horizons)
+# if __name__ == "__main__":
+#     model_name = "autogluon"
+#     run_experiment(model_name)

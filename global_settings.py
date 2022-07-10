@@ -38,3 +38,10 @@ date0_max = "2022-06-14"
 # Increase training window
 # Sample from training window
 # Transformer model
+
+# Increase training window
+# Increase testing frequency
+# Reduce validation window / sample from training
+# Use correlation as loss
+# Change IC to portfolio
+# Kaggle reference

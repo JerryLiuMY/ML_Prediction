@@ -9,15 +9,14 @@ import os
 
 
 @ignore_warnings
-def summarize(model_name, horizon, window):
+def summarize(model_name, window):
     """ Build summary statistics for ML prediction results
     :param model_name: model name
-    :param horizon: predictive horizon
     :param window: [trddt_train, trddt_valid, trddt_test] window
     """
 
     # find dates in the directory
-    window_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}", window["X"][0][0])
+    window_path = os.path.join(OUTPUT_PATH, model_name, window["X"][0][0])
     file_names = [_.split("/")[-1] for _ in glob.glob(os.path.join(window_path, "predict", "*.pkl"))]
     dates = sorted([_.split(".")[0] for _ in file_names])
 

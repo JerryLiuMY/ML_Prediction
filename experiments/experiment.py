@@ -24,11 +24,11 @@ def experiment(model_name, horizon, params, window):
     else:
         raise ValueError("Invalid model name")
 
-    # get trddt, horizon_path and window_path
+    # get trddt and window_path
     [trddt_train_X, trddt_valid_X, trddt_test_X] = window["X"]
     [trddt_train_y, trddt_valid_y, trddt_test_y] = window["y"]
-    horizon_path = os.path.join(OUTPUT_PATH, model_name, f"horizon={horizon}")
-    window_path = os.path.join(horizon_path, trddt_train_X[0])
+    model_path = os.path.join(OUTPUT_PATH, model_name)
+    window_path = os.path.join(model_path, trddt_train_X[0])
 
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on {model_name} "
           f"with horizon={horizon} and window={trddt_train_X[0]}")
