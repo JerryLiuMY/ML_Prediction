@@ -3,6 +3,7 @@ from params.params import window_dict, params_dict, horizon_dict
 from experiments.experiment import experiment
 from experiments.generator import generate_window
 from experiments.summary import summarize
+from experiments.correlation import plot_correlation
 from global_settings import OUTPUT_PATH
 import multiprocessing
 import functools
@@ -47,6 +48,8 @@ def run_experiment(model_name):
     # for window in window_gen:
     #     experiment_proc(window, model_name, horizon, params)
 
+    plot_correlation(model_name)
+
 
 def experiment_proc(window, model_name, horizon, params):
     """ Multi-processing for experiments
@@ -69,6 +72,6 @@ def experiment_proc(window, model_name, horizon, params):
         summarize(model_name, window)
 
 
-# if __name__ == "__main__":
-#     model_name = "autogluon"
-#     run_experiment(model_name)
+if __name__ == "__main__":
+    model_name = "autogluon"
+    run_experiment(model_name)
