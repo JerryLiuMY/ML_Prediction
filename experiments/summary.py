@@ -2,6 +2,7 @@ from global_settings import DATA_PATH
 from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
 from tools.utils import ignore_warnings
+import pickle5 as pickle
 import pandas as pd
 import glob
 import json
@@ -26,8 +27,10 @@ def summarize(model_name, window):
     pred_df = pd.DataFrame(data={"industry": industry}, index=cusip_sic["cusip"])
 
     for date in dates:
-        true_sub_df = pd.read_pickle(os.path.join(DATA_PATH, "y", f"{date}.pkl"))
-        pred_sub_df = pd.read_pickle(os.path.join(window_path, "predict", f"{date}.pkl"))
+        with open(os.path.join(DATA_PATH, "y", f"{date}.pkl"), "rb") as handle:
+            true_sub_df = pickle.load(handle)
+        with open(os.path.join(window_path, "predict", f"{date}.pkl"), "rb") as handle:
+            pred_sub_df = pickle.load(handle)
         true_sub_df = true_sub_df.rename(columns={"target": date})
         pred_sub_df = pred_sub_df.rename(columns={"target": date})
         true_df = true_df.join(true_sub_df, how="left")
