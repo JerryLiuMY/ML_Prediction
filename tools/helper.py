@@ -7,7 +7,7 @@ import nvsmi
 # tmux attach -t ml_prediction
 # sinteractive --partition=gpu2 --ntasks=26 --nodes=1 --gres=gpu:2 --time=36:00:00
 # module load python/anaconda-2020.02
-# module load cuda/11.2
+# module load cuda/11.0
 # conda activate base
 # cd /project2/dachxiu/mingyuliu
 
@@ -15,9 +15,10 @@ import nvsmi
 # ssh risklab.chicagobooth.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
 # conda activate ml_prediction
-# cd /project2/mingyuliu
+# cd /project/mingyuliu
 
 # check CUDA
+# nvidia-smi
 print(f"CUDA version: {torch.version.cuda}")
 print(f"GPU availability: {torch.cuda.is_available()}")
 print(f"GPU counts: {torch.cuda.device_count()}")
