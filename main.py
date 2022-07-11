@@ -14,6 +14,7 @@ import os
 def run_experiment(model_name, num_proc):
     """ Perform experiment for a particular model
     :param model_name: model name
+    :param num_proc: number of parallel processes
     """
 
     # make directory for the model
@@ -75,5 +76,4 @@ def experiment_proc(window, model_name, horizon, params):
 
 
 if __name__ == "__main__":
-    model_name = "autogluon"
-    run_experiment(model_name, num_proc=4)
+    run_experiment(model_name="autogluon", num_proc=4)
