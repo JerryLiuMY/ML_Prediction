@@ -39,14 +39,14 @@ def run_experiment(model_name):
     # perform experiments
     horizon = horizon_dict["horizon"]
     window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-    partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
-    pool = multiprocessing.Pool(4)  # number of processes
-    pool.map(partial_func, window_gen, chunksize=1)
-    pool.close()
-    pool.join()
+    # partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
+    # pool = multiprocessing.Pool(4)  # number of processes
+    # pool.map(partial_func, window_gen, chunksize=1)
+    # pool.close()
+    # pool.join()
 
-    # for window in window_gen:
-    #     experiment_proc(window, model_name, horizon, params)
+    for window in window_gen:
+        experiment_proc(window, model_name, horizon, params)
 
     plot_correlation(model_name)
 
