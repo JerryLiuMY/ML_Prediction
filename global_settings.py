@@ -29,6 +29,7 @@ date0_max = "2022-06-14"
 
 
 # TODO
+# Set plotting legend
 # US daily alpha / ETF
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage

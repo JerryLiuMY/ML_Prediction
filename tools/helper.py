@@ -5,7 +5,7 @@ import nvsmi
 # RCC
 # ssh midway2.rcc.uchicago.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
-# sinteractive --partition=gpu2 --ntasks=50 --nodes=2 --gres=gpu:2 --time=36:00:00
+# sinteractive --partition=gpu2 --ntasks=26 --nodes=1 --gres=gpu:2 --time=36:00:00
 # module load python/anaconda-2020.02
 # module load cuda/11.2
 # conda activate base
