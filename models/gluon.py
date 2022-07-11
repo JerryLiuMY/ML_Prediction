@@ -17,6 +17,9 @@ def fit_autogluon(train_data, valid_data, params, window_path):
     excluded = params["excluded"]
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
+    # if validation data unspecified
+    if valid_data.shape[0] == 0:
+        valid_data = None
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
     model = predictor.fit(train_data, tuning_data=valid_data, presets=presets, excluded_model_types=excluded,
                           ag_args_fit={"num_gpus": 1}, use_bag_holdout=True, verbosity=2)
