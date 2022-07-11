@@ -2,16 +2,14 @@ import psutil
 import torch
 import nvsmi
 
-# RCC anaconda
-# module load python
-# conda env list
-# conda create --prefix=/project2/dachxiu/mingyuliu/env --clone base
-# source activate /project2/dachxiu/mingyuliu/env
 
 # RCC
+# ssh midway2.rcc.uchicago.edu -l mingyuliu -p 22
+# module load python
+# module load cuda/11.2
 # sinteractive --partition=gpu2 --gres=gpu:1 --time=36:00:00
 
-# virtual env
+# Risklab
 # ssh risklab.chicagobooth.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
 # conda activate ml_prediction
