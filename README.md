@@ -22,11 +22,11 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 **Correlation decay:** `0-6 days: 1.67%`, `6-12 days: 0.20%`, `12-18 days: -0.33%`, `18-24 days: 0.34%`, `24-30 days: 0.60%`, `30-36 days: 1.48%`, `36-42 days: 0.82%`, `42-48 days: 0.27%`, `48-54 days: 1.02%`, `54-60 days: 0.25%`
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`
-- Result with `presets=high_quality`
-- Result with `train_window=960`
-- Result with `test_window=20`
-- Result with `valid_window` sampling from `train_window`
-- Result with `horizon=2`
+- Results with `presets=high_quality`
+- Results with `train_window=960`
+- Results with `test_window=20`
+- Results with `valid_window` sampling from `train_window`
+- Results with `horizon=2`
 
 ## TODO
 - Ensemble learning: multiple ML models
