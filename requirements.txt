@@ -20,7 +20,3 @@ keras==2.8.0
 autogluon==0.5.0
 nvsmi==0.4.2
 pickle5==0.0.11
-
-# conda install -c anaconda cudatoolkit=10.2
-# pip install "mxnet_cu101<2.0.0, >=1.7.0"
-# pip install lightgbm --install=--gpu
