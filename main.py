@@ -11,7 +11,7 @@ import json
 import os
 
 
-def run_experiment(model_name):
+def run_experiment(model_name, num_proc):
     """ Perform experiment for a particular model
     :param model_name: model name
     """
@@ -39,14 +39,16 @@ def run_experiment(model_name):
     # perform experiments
     horizon = horizon_dict["horizon"]
     window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
-    # partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
-    # pool = multiprocessing.Pool(4)  # number of processes
-    # pool.map(partial_func, window_gen, chunksize=1)
-    # pool.close()
-    # pool.join()
 
-    for window in window_gen:
-        experiment_proc(window, model_name, horizon, params)
+    if num_proc == 1:
+        for window in window_gen:
+            experiment_proc(window, model_name, horizon, params)
+    else:
+        partial_func = functools.partial(experiment_proc, model_name=model_name, horizon=horizon, params=params)
+        pool = multiprocessing.Pool(num_proc)  # number of processes
+        pool.map(partial_func, window_gen, chunksize=1)
+        pool.close()
+        pool.join()
 
     plot_correlation(model_name)
 
@@ -74,4 +76,4 @@ def experiment_proc(window, model_name, horizon, params):
 
 if __name__ == "__main__":
     model_name = "autogluon"
-    run_experiment(model_name)
+    run_experiment(model_name, num_proc=4)
