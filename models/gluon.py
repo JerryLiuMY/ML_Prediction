@@ -19,16 +19,10 @@ def fit_autogluon(train_data, valid_data, params, window_path):
     valid_data.reset_index(drop=True, inplace=True)
     predictor = TabularPredictor(label="target", path=os.path.join(window_path, "model"))
 
-    if valid_data.shape[0] == 0:
-        eval_data = train_data
-        valid_data = None
-    else:
-        eval_data = valid_data
-
     # fit the predictors and perform evaluation
     model = predictor.fit(train_data, tuning_data=valid_data, presets=presets, excluded_model_types=excluded,
                           ag_args_fit={"num_gpus": 1}, use_bag_holdout=True, verbosity=2)
-    perf = model.evaluate(eval_data, auxiliary_metrics=True, silent=True)
+    perf = model.evaluate(valid_data, auxiliary_metrics=True, silent=True)
     model.save_space()
     metric = {"pearsonr": perf["pearsonr"], "RMSE": -perf["root_mean_squared_error"], "r2": perf["r2"]}
 

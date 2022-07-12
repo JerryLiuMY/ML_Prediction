@@ -34,3 +34,6 @@ date0_max = "2022-06-14"
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
 # Ultra high frequency
+
+# modify the sampling scheme
+# plotting sync x_label
