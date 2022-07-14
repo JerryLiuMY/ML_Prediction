@@ -26,7 +26,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Results with `train_window=960`
 - <a href="./__resources__/autogluon/test_window=20.pdf" target="_blank">Results</a> with `test_window=20`
 - Results with `valid_window` sampling from `train_window`
-- Results with `horizon=2`
+- <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 
 ## TODO
 - Ensemble learning: multiple ML models
