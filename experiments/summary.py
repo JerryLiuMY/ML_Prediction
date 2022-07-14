@@ -17,7 +17,7 @@ def summarize(model_name, window):
     """
 
     # find dates in the directory
-    window_path = os.path.join(OUTPUT_PATH, model_name, window["X"][0][0])
+    window_path = os.path.join(OUTPUT_PATH, model_name, window["name"])
     file_names = [_.split("/")[-1] for _ in glob.glob(os.path.join(window_path, "predict", "*.pkl"))]
     dates = sorted([_.split(".")[0] for _ in file_names])
 

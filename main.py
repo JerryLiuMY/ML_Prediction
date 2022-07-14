@@ -64,7 +64,7 @@ def experiment_proc(window, model_name, horizon, params):
 
     # make directory for the window
     model_path = os.path.join(OUTPUT_PATH, model_name)
-    window_path = os.path.join(model_path, window["X"][0][0])
+    window_path = os.path.join(model_path, window["name"])
 
     if not os.path.isdir(window_path):
         os.mkdir(window_path)
