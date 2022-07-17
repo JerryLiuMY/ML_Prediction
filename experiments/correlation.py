@@ -123,6 +123,7 @@ def plot_correlation(model_name):
     ax1.legend(handles=[ax1_legend_mean, ax1_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
     ax1.set_xticklabels([])
     ax1.set_ylabel("Pearson")
+    ax1.set_ylim([-0.30, 0.70])
 
     # ax2: spearman correlation
     spearman_mean = round(corr_df["spearman"].mean() * 100, 2)
@@ -134,6 +135,7 @@ def plot_correlation(model_name):
     ax2.legend(handles=[ax2_legend_mean, ax2_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
     ax2.set_xticklabels([])
     ax2.set_ylabel("Spearman")
+    ax2.set_ylim([-0.30, 0.70])
 
     # ax3: cumulative spearman correlation
     ax3.plot(index, np.log(np.cumprod(corr_df["pearson"].values + 1)), color="#6E6E6E", label="pearson")
