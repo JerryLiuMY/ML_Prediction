@@ -41,12 +41,16 @@ def experiment(model_name, horizon, params, window):
     train_data = load_data(trddt_train_X, trddt_train_y, data_type)
     valid_data = load_data(trddt_valid_X, trddt_valid_y, data_type)
 
+    print(f"trddt_train_X: {trddt_train_X}"), print(f"trddt_train_y: {trddt_train_y}")
+    print(f"trddt_valid_X: {trddt_valid_X}"), print(f"trddt_valid_y: {trddt_valid_y}")
+
     model, metric = fit_func(train_data, valid_data, params, window_path)
     with open(os.path.join(window_path, "info", "metric.json"), "w") as handle:
         json.dump(metric, handle)
 
     # make predictions
     for t_test_X, t_test_y in zip(trddt_test_X, trddt_test_y):
+        print(f"t_test_X: {t_test_X}, t_test_y: {t_test_y}")
         test_data = load_data([t_test_X], [t_test_y], data_type)
         target = pre_func(model, test_data)
         target.index.name = "cusip"
