@@ -37,4 +37,3 @@ date0_max = "2022-06-14"
 
 # modify the sampling scheme
 # plotting sync x_label
-# kaggle sampling data trick
