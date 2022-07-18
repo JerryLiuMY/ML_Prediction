@@ -16,14 +16,16 @@ def generate_window(window_dict, date0_min, date0_max, horizon):
     valid_win = window_dict["valid_win"]
     test_win = window_dict["test_win"]
     resample = window_dict["resample"]
+    shift = horizon - 1
 
-    for i in range(0, len(trddt) - test_win - horizon + 1, test_win - valid_win):
+    # X six days ahead shall not be used
+    for i in range(0, len(trddt) - test_win - shift + 1, test_win - valid_win):
         trddt_train_X = trddt[i: i + train_win]
-        trddt_valid_X = trddt[i + train_win: i + valid_win]
+        trddt_valid_X = trddt[i + train_win: i + valid_win - 6]
         trddt_test_X = trddt[i + valid_win: i + test_win]
-        trddt_train_y = trddt[i + horizon: i + horizon + train_win]
-        trddt_valid_y = trddt[i + horizon + train_win: i + horizon + valid_win]
-        trddt_test_y = trddt[i + horizon + valid_win: i + horizon + test_win]
+        trddt_train_y = trddt[i + shift: i + shift + train_win]
+        trddt_valid_y = trddt[i + shift + train_win: i + shift + valid_win - 6]
+        trddt_test_y = trddt[i + shift + valid_win: i + shift + test_win]
         trddt_name = trddt_train_X[0]
 
         if resample:
