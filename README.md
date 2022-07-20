@@ -1,8 +1,7 @@
 # ML_Prediction
 <p>
     <a href="https://www.python.org/">
-        <img src="https://img.shields.io/badge/python-v3-brightgreen.svg"
-             alt="python"></a> &nbsp;
+    <img src="https://img.shields.io/badge/python-v3-brightgreen.svg" alt="python"></a> &nbsp;
 </p>
 
 ## Data Information
