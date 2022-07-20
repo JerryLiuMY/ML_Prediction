@@ -72,9 +72,9 @@ def plot_correlation(model_name):
 
     # build and filter correlation results
     corr_ind_df, decay_df, corr_df = build_correlation(model_name)
-    corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
-    decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
-    corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
+    # corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
+    # decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
+    # corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
 
     # initialize correlation plot
     test_size = window_dict["test_win"] - window_dict["valid_win"]
