@@ -23,7 +23,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def fit_transformer(train_data):
-    model.train()  # Turn on the train mode \o/
+    model.train()
     total_loss = 0.
     start_time = time.time()
 
@@ -37,6 +37,7 @@ def fit_transformer(train_data):
         optimizer.step()
 
         total_loss += loss.item()
+
         log_interval = int(len(train_data) / batch_size / 5)
         if batch % log_interval == 0 and batch > 0:
             cur_loss = total_loss / log_interval
@@ -63,8 +64,6 @@ def pre_transformer(eval_model, data_source):
 class PositionalEncoding(nn.Module):
     def __init__(self, d_model, max_len=5000):
         super(PositionalEncoding, self).__init__()
-        pe = torch.zeros(max_len, d_model)
-
         position = torch.arange(max_len).unsqueeze(1)
         div_term = torch.exp(torch.arange(0, d_model, 2) * (-math.log(10000.0) / d_model))
         pe = torch.zeros(max_len, 1, d_model)
@@ -114,8 +113,6 @@ class TransAm(nn.Module):
 # if window is 100 and prediction step is 1
 # in -> [0..99]
 # target -> [1..100]
-
-
 train_data, val_data = get_data()
 model = TransAm().to(device)
 criterion = nn.MSELoss()
@@ -131,12 +128,4 @@ best_model = None
 for epoch in range(1, epochs + 1):
     epoch_start_time = time.time()
     fit_transformer(train_data)
-
-    # if val_loss < best_val_loss:
-    #    best_val_loss = val_loss
-    #    best_model = model
-
     scheduler.step()
-
-# src = torch.rand(input_window, batch_size, 1) # (source sequence length,batch size,feature number)
-# out = model(src)
