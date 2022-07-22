@@ -183,17 +183,6 @@ def plot_and_loss(eval_model, data_source, epoch):
             test_result = torch.cat((test_result, output[-1].view(-1).cpu()), 0)
             truth = torch.cat((truth, target[-1].view(-1).cpu()), 0)
 
-    # test_result = test_result.cpu().numpy() -> no need to detach stuff..
-    len(test_result)
-
-    pyplot.plot(test_result, color="red")
-    pyplot.plot(truth[:500], color="blue")
-    pyplot.plot(test_result - truth, color="green")
-    pyplot.grid(True, which='both')
-    pyplot.axhline(y=0, color='k')
-    pyplot.savefig('graph/transformer-epoch%d.png' % epoch)
-    pyplot.close()
-
     return total_loss / i
 
 
@@ -206,6 +195,7 @@ def evaluate(eval_model, data_source):
             data, targets = get_batch(data_source, i, eval_batch_size)
             output = eval_model(data)
             total_loss += len(data[0]) * criterion(output, targets).cpu().item()
+
     return total_loss / len(data_source)
 
 
