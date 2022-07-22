@@ -17,7 +17,14 @@ np.random.seed(0)
 # out = transformer_model(src, tgt)
 
 
-def fit_transformer(train_data, params):
+def fit_transformer(train_data, valid_data, params, window_path):
+    """ Fit autogluon model and report evaluation metric
+    :param train_data: dataframe of training data
+    :param valid_data: dataframe of validation data
+    :param params: dictionary of parameters
+    :param window_path: path to the particular window
+    :return model: fitted model
+    """
 
     epochs = params["epochs"]
     batch_size = params["batch_size"]
@@ -44,10 +51,16 @@ def fit_transformer(train_data, params):
 
 
 # predict the next n steps based on the input data
-def pre_transformer(eval_model, test_data):
-    eval_model.eval()
+def pre_transformer(model, test_data):
+    """ Make predictions with autogluon model
+    :param model: fitted model
+    :param test_data: dataframe of testing data
+    :return target: predicted target
+    """
+
+    model.eval()
     with torch.no_grad():
-        target = eval_model(test_data)
+        target = model(test_data)
 
     return target
 

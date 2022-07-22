@@ -31,6 +31,8 @@ def fit_autogluon(train_data, valid_data, params, window_path):
 
 def pre_autogluon(model, test_data):
     """ Make predictions with autogluon model
+    :param model: fitted model
+    :param test_data: dataframe of testing data
     :return target: predicted target
     """
 
