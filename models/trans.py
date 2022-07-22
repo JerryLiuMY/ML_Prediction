@@ -44,34 +44,24 @@ def fit_transformer(train_data):
             print('| epoch {:3d} | {:5d}/{:5d} batches | '
                   'lr {:02.6f} | {:5.2f} ms | '
                   'loss {:5.5f} | ppl {:8.2f}'.format(
-                epoch, batch, len(train_data) // batch_size, scheduler.get_lr()[0],
-                              elapsed * 1000 / log_interval,
+                epoch, batch, len(train_data) // batch_size, scheduler.get_last_lr()[0], elapsed * 1000 / log_interval,
                 cur_loss, math.exp(cur_loss)))
             total_loss = 0
             start_time = time.time()
 
 
 # predict the next n steps based on the input data
-def pre_transformer(eval_model, data_source, steps):
+def pre_transformer(eval_model, data_source):
     eval_model.eval()
     total_loss = 0.
     test_result = torch.Tensor(0)
     truth = torch.Tensor(0)
     data, _ = get_batch(data_source, 0, 1)
     with torch.no_grad():
-        for i in range(0, steps):
-            output = eval_model(data[-input_window:])
-            data = torch.cat((data, output[-1:]))
+        output = eval_model(data[-input_window:])
+        data = torch.cat((data, output[-1:]))
 
     data = data.cpu().view(-1)
-
-    # I used this plot to visualize if the model pics up any long therm struccture within the data.
-    pyplot.plot(data, color="red")
-    pyplot.plot(data[:input_window], color="blue")
-    pyplot.grid(True, which='both')
-    pyplot.axhline(y=0, color='k')
-    pyplot.savefig('graph/transformer-future%d.png' % steps)
-    pyplot.close()
 
 
 class PositionalEncoding(nn.Module):
@@ -116,6 +106,7 @@ class TransAm(nn.Module):
         src = self.pos_encoder(src)
         output = self.transformer_encoder(src, self.src_mask)  # , self.src_mask)
         output = self.decoder(output)
+
         return output
 
     @staticmethod
@@ -175,6 +166,7 @@ def get_batch(source, i, batch_size):
     data = source[i:i + seq_len]
     input = torch.stack(torch.stack([item[0] for item in data]).chunk(input_window, 1))  # 1 is feature size
     target = torch.stack(torch.stack([item[1] for item in data]).chunk(input_window, 1))
+
     return input, target
 
 
@@ -219,32 +211,30 @@ def evaluate(eval_model, data_source):
 
 train_data, val_data = get_data()
 model = TransAm().to(device)
-
 criterion = nn.MSELoss()
 lr = 0.005
-# optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+
 optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1.0, gamma=0.95)
+scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
 
 best_val_loss = float("inf")
 epochs = 100  # The number of epochs
-best_model = None
 
+best_model = None
 for epoch in range(1, epochs + 1):
     epoch_start_time = time.time()
     fit_transformer(train_data)
 
     if (epoch % 10 is 0):
         val_loss = plot_and_loss(model, val_data, epoch)
-        pre_transformer(model, val_data, 200)
+        pre_transformer(model, val_data)
     else:
         val_loss = evaluate(model, val_data)
 
     print('-' * 89)
     print('| end of epoch {:3d} | time: {:5.2f}s | valid loss {:5.5f} | valid ppl {:8.2f}'.format(epoch, (
-                time.time() - epoch_start_time),
-                                                                                                  val_loss,
-                                                                                                  math.exp(val_loss)))
+                time.time() - epoch_start_time), val_loss, math.exp(val_loss))
+          )
     print('-' * 89)
 
     # if val_loss < best_val_loss:
