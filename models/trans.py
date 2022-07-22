@@ -1,9 +1,8 @@
 import torch
 import torch.nn as nn
 import numpy as np
-import time
 import math
-from data_loader.loader import get_data, get_batch
+from data_loader.loader import get_batch
 
 torch.manual_seed(0)
 np.random.seed(0)
@@ -19,36 +18,31 @@ np.random.seed(0)
 
 seq_len = 100  # number of input steps
 batch_size = 10
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def fit_transformer(train_data):
-    model.train()
-    total_loss = 0.
-    start_time = time.time()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = TransAm().to(device)
+    criterion = nn.MSELoss()
 
-    for batch, i in enumerate(range(0, len(train_data) - 1, batch_size)):
-        data, targets = get_batch(train_data, i, batch_size)
-        optimizer.zero_grad()
-        output = model(data)
-        loss = criterion(output, targets)
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
-        optimizer.step()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=0.005)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
+    epochs = 100  # The number of epochs
+    for epoch in range(epochs):
+        model.train()
+        total_loss = 0.
 
-        total_loss += loss.item()
+        for batch, i in enumerate(range(0, len(train_data) - 1, batch_size)):
+            data, targets = get_batch(train_data, i, batch_size)
+            optimizer.zero_grad()
+            output = model(data)
+            loss = criterion(output, targets)
+            loss.backward()
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
+            optimizer.step()
+            total_loss += loss.item()
 
-        log_interval = int(len(train_data) / batch_size / 5)
-        if batch % log_interval == 0 and batch > 0:
-            cur_loss = total_loss / log_interval
-            elapsed = time.time() - start_time
-            print('| epoch {:3d} | {:5d}/{:5d} batches | '
-                  'lr {:02.6f} | {:5.2f} ms | '
-                  'loss {:5.5f} | ppl {:8.2f}'.format(
-                epoch, batch, len(train_data) // batch_size, scheduler.get_last_lr()[0], elapsed * 1000 / log_interval,
-                cur_loss, math.exp(cur_loss)))
-            total_loss = 0
-            start_time = time.time()
+        scheduler.step()
 
 
 # predict the next n steps based on the input data
@@ -106,26 +100,5 @@ class TransAm(nn.Module):
     @staticmethod
     def _generate_square_subsequent_mask(sz):
         mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
-        mask = mask.float().masked_fill(mask == 0, float('-inf')).masked_fill(mask == 1, float(0.0))
+        mask = mask.float().masked_fill(mask == 0, float("-inf")).masked_fill(mask == 1, float(0.0))
         return mask
-
-
-# if window is 100 and prediction step is 1
-# in -> [0..99]
-# target -> [1..100]
-train_data, val_data = get_data()
-model = TransAm().to(device)
-criterion = nn.MSELoss()
-lr = 0.005
-
-optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
-scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
-
-best_val_loss = float("inf")
-epochs = 100  # The number of epochs
-
-best_model = None
-for epoch in range(1, epochs + 1):
-    epoch_start_time = time.time()
-    fit_transformer(train_data)
-    scheduler.step()

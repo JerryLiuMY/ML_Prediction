@@ -39,6 +39,10 @@ def load_df(trddt_X, trddt_y):
     return data_df
 
 
+# train_data, val_data = get_data()
+# if window is 100 and prediction step is 1
+# in -> [0..99]
+# target -> [1..100]
 def get_data():
     # construct a littel toy dataset
     time = np.arange(0, 400, 0.1)
