@@ -3,18 +3,8 @@ import torch.nn as nn
 import numpy as np
 import math
 from data_loader.loader import get_batch
-
 torch.manual_seed(0)
 np.random.seed(0)
-
-# S is the source sequence length
-# T is the target sequence length
-# N is the batch size
-# E is the feature number
-
-# src = torch.rand((10, 32, 512)) # (S,N,E)
-# tgt = torch.rand((20, 32, 512)) # (T,N,E)
-# out = transformer_model(src, tgt)
 
 
 def fit_transformer(train_data, valid_data, params, window_path):
@@ -112,3 +102,12 @@ class TransAm(nn.Module):
         mask = (torch.triu(torch.ones(sz, sz)) == 1).transpose(0, 1)
         mask = mask.float().masked_fill(mask == 0, float("-inf")).masked_fill(mask == 1, float(0.0))
         return mask
+
+# S is the source sequence length
+# T is the target sequence length
+# N is the batch size
+# E is the feature number
+
+# src = torch.rand((10, 32, 512)) # (S,N,E)
+# tgt = torch.rand((20, 32, 512)) # (T,N,E)
+# out = transformer_model(src, tgt)
