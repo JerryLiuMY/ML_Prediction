@@ -40,7 +40,6 @@ def fit_transformer(train_data, valid_data, params, window_path):
         scheduler.step()
 
 
-# predict the next n steps based on the input data
 def pre_transformer(model, test_data):
     """ Make predictions with autogluon model
     :param model: fitted model
