@@ -16,22 +16,21 @@ np.random.seed(0)
 # tgt = torch.rand((20, 32, 512)) # (T,N,E)
 # out = transformer_model(src, tgt)
 
-seq_len = 100  # number of input steps
-batch_size = 10
 
+def fit_transformer(train_data, params):
 
-def fit_transformer(train_data):
+    epochs = params["epochs"]
+    batch_size = params["batch_size"]
+    lr = params["lr"]
+
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = TransAm().to(device)
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
     criterion = nn.MSELoss()
 
-    optimizer = torch.optim.AdamW(model.parameters(), lr=0.005)
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
-    epochs = 100  # The number of epochs
     for epoch in range(epochs):
         model.train()
-        total_loss = 0.
-
         for batch, i in enumerate(range(0, len(train_data) - 1, batch_size)):
             data, targets = get_batch(train_data, i, batch_size)
             optimizer.zero_grad()
@@ -40,17 +39,15 @@ def fit_transformer(train_data):
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
             optimizer.step()
-            total_loss += loss.item()
 
         scheduler.step()
 
 
 # predict the next n steps based on the input data
-def pre_transformer(eval_model, data_source):
+def pre_transformer(eval_model, test_data):
     eval_model.eval()
-    data, _ = get_batch(data_source, 0, 1)
     with torch.no_grad():
-        target = eval_model(data[-seq_len:])
+        target = eval_model(test_data)
 
     return target
 
