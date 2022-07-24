@@ -32,8 +32,8 @@ def fit_transformer(train_data, valid_data, params, window_path):
 
     # training loop
     for epoch in range(epochs):
-        model.train()
         print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Training Transformer on epoch {epoch}...")
+        model.train()
         for train_X, train_y, _ in train_data:
             train_X, train_y = train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
@@ -44,14 +44,14 @@ def fit_transformer(train_data, valid_data, params, window_path):
             optimizer.step()
         scheduler.step()
 
-        mse = eval_transformer(model, valid_data)
+        mse = eval_func(model, valid_data)
         print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Finished epoch {epoch} with MSE={mse}")
 
     # save model and evaluation
     print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Saving model and performing evaluation...")
     save_path = os.path.join(window_path, "model")
     torch.save(model, os.path.join(save_path, "model.pth"))
-    mse = eval_transformer(model, valid_data)
+    mse = eval_func(model, valid_data)
     metric = {"MSE": mse}
 
     return model, metric
@@ -75,7 +75,7 @@ def pre_transformer(model, test_data):
     return target
 
 
-def eval_transformer(model, valid_data):
+def eval_func(model, valid_data):
     """ Perform evaluation of the trained transformer model
     :param model: fitted model
     :param valid_data: generator of validation data
