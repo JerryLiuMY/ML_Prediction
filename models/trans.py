@@ -32,7 +32,7 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # training loop
     for epoch in range(epochs):
         model.train()
-        for train_X, train_y in train_data:
+        for train_X, train_y, _ in train_data:
             train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
             pred_y = model(train_X)
@@ -49,7 +49,7 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # model evaluation
     mse_li = []
     model.eval()
-    for valid_X, valid_y in valid_data:
+    for valid_X, valid_y, _ in valid_data:
         with torch.no_grad():
             mse_li.append(criterion(model(valid_X), valid_y))
 
@@ -68,9 +68,9 @@ def pre_transformer(model, test_data):
     target = pd.DataFrame(columns=["target"])
     model.eval()
     with torch.no_grad():
-        for test_X, _ in test_data:
+        for test_X, _, index in test_data:
             output = model(test_X).cpu().detach().numpy().reshape(-1)
-            target = pd.concat([target, pd.DataFrame(data=output, index=test_X.index, columns=["target"])], axis=0)
+            target = pd.concat([target, pd.DataFrame(data=output, index=index, columns=["target"])], axis=0)
 
     return target
 

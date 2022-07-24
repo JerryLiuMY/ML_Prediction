@@ -68,5 +68,6 @@ def load_dg(trddt_X, trddt_y):
             y_dg = data_df_dg["target"].values.reshape(data_df_dg.shape[0], -1)
             X_dg = torch.FloatTensor(X_dg)
             y_dg = torch.FloatTensor(y_dg)
+            index = data_df_dg.index
 
-            yield X_dg, y_dg
+            yield X_dg, y_dg, index
