@@ -20,8 +20,9 @@ def build_correlation(model_name):
     # define windows and industries
     model_path = os.path.join(OUTPUT_PATH, model_name)
     test_size = window_dict["test_win"] - window_dict["valid_win"]
-    windows = sorted([_[1] for _ in os.walk(model_path)][0])
-    windows = [_ for _ in windows if "correlation" and "params" not in _]
+    windows = [_[1] for _ in os.walk(model_path)][0]
+    windows = sorted([str(_) for _ in windows])
+    windows = [_ for _ in windows if "-" in _]
     inds = sorted(set([_ for _ in list(cusip_sic["sic"].apply(lambda _: str(_)[:2]))]))
 
     # industry correlation
@@ -68,7 +69,7 @@ def plot_correlation(model_name):
     params_path = os.path.join(model_path, "params")
     with open(os.path.join(params_path, "horizon.json"), "r") as handle:
         horizon_dict = json.load(handle)
-    horizon = horizon_dict["horizon"]
+        horizon = horizon_dict["horizon"]
 
     # build and filter correlation results
     corr_ind_df, decay_df, corr_df = build_correlation(model_name)
@@ -157,4 +158,4 @@ def plot_correlation(model_name):
     corr_path = os.path.join(model_path, "correlation")
     if not os.path.isdir(corr_path):
         os.mkdir(corr_path)
-    fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
+        fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")

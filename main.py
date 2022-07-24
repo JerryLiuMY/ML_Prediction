@@ -27,15 +27,12 @@ def run_experiment(model_name, num_proc):
     params_path = os.path.join(model_path, "params")
     if not os.path.isdir(params_path):
         os.mkdir(params_path)
-
-    with open(os.path.join(params_path, "window.json"), "w") as handle:
-        json.dump(window_dict, handle)
-
-    with open(os.path.join(params_path, "params.json"), "w") as handle:
-        json.dump(params, handle)
-
-    with open(os.path.join(params_path, "horizon.json"), "w") as handle:
-        json.dump(horizon_dict, handle)
+        with open(os.path.join(params_path, "window.json"), "w") as handle:
+            json.dump(window_dict, handle)
+        with open(os.path.join(params_path, "params.json"), "w") as handle:
+            json.dump(params, handle)
+        with open(os.path.join(params_path, "horizon.json"), "w") as handle:
+            json.dump(horizon_dict, handle)
 
     # perform experiments
     seq_len, horizon = params["seq_len"], horizon_dict["horizon"]
@@ -69,6 +66,7 @@ def experiment_proc(window, model_name, horizon, params):
     if not os.path.isdir(window_path):
         os.mkdir(window_path)
         os.mkdir(os.path.join(window_path, "info"))
+        os.mkdir(os.path.join(window_path, "model"))
         os.mkdir(os.path.join(window_path, "predict"))
         os.mkdir(os.path.join(window_path, "summary"))
         experiment(model_name, horizon, params, window)
