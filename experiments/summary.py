@@ -54,13 +54,6 @@ def summarize(model_name, window):
         pearson_corr[date] = true_df[date].corr(pred_df[date], method="pearson")
         spearman_corr[date] = true_df[date].corr(pred_df[date], method="spearman")
 
-    # get time-series correlation
-    cusip_corr = {}
-    for cusip in cusip_sic["cusip"].values:
-        true_df_row = true_df.loc[cusip, true_df.columns != "industry"]
-        pred_df_row = pred_df.loc[cusip, pred_df.columns != "industry"]
-        cusip_corr[cusip] = true_df_row.corr(pred_df_row, method="pearson")
-
     with open(os.path.join(window_path, "summary", "corr_ind.json"), "w") as handle:
         json.dump(daily_corr_ind, handle)
 
@@ -69,6 +62,3 @@ def summarize(model_name, window):
 
     with open(os.path.join(window_path, "summary", "spearman_corr.json"), "w") as handle:
         json.dump(spearman_corr, handle)
-
-    with open(os.path.join(window_path, "summary", "cusip_corr.json"), "w") as handle:
-        json.dump(cusip_corr, handle)
