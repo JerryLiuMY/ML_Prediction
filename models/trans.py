@@ -9,8 +9,8 @@ np.random.seed(0)
 
 def fit_transformer(train_data, valid_data, params, window_path):
     """ Fit transformer model and report evaluation metric
-    :param train_data: dataframe of training data
-    :param valid_data: dataframe of validation data
+    :param train_data: generator of training data
+    :param valid_data: generator of validation data
     :param params: dictionary of parameters
     :param window_path: path to the particular window
     :return model: fitted model
@@ -60,14 +60,18 @@ def fit_transformer(train_data, valid_data, params, window_path):
 def pre_transformer(model, test_data):
     """ Make predictions with transformer model
     :param model: fitted model
-    :param test_data: dataframe of testing data
+    :param test_data: generator of testing data
     :return target: predicted target
     """
 
+    target = torch.Tensor(0)
     model.eval()
     with torch.no_grad():
         for test_X, _ in test_data:
-            target = model(test_X)
+            target = torch.cat((target, model(test_X)), dim=0)
+
+    target = target.cpu().detach().numpy()
+    target = target.reshape(-1)
 
     return target
 
