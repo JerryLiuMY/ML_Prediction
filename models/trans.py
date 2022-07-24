@@ -39,7 +39,6 @@ def fit_transformer(train_data, valid_data, params, window_path):
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
             optimizer.step()
-
         scheduler.step()
 
     # save model
