@@ -12,7 +12,8 @@ window_dict = {
 }
 
 params_dict = {
-    "autogluon": {"presets": "medium_quality", "excluded": ["RF"]}  # ["medium", "good", "high", "best"]
+    "autogluon": {"presets": "medium_quality", "excluded": ["RF"]},  # ["medium", "good", "high", "best"]
+    "transformer": {"epochs": 50, "batch_size": 512, "lr": 0.01}
 }
 
 horizon_dict = {"horizon": 1}
