@@ -46,8 +46,8 @@ def fit_transformer(train_data, valid_data, params, window_path):
     torch.save(model, os.path.join(save_path, "model.pth"))
 
     # model evaluation
-    model.eval()
     mse_li = []
+    model.eval()
     for valid_X, valid_y in valid_data:
         with torch.no_grad():
             mse_li.append(criterion(model(valid_X), valid_y))
@@ -84,9 +84,8 @@ class PositionalEncoding(nn.Module):
         self.register_buffer("pe", pe)
 
     def forward(self, x):
-        x = x + self.pe[:x.size(0), :]
 
-        return x
+        return x + self.pe[:x.size(0), :]
 
 
 class TransAm(nn.Module):
@@ -97,6 +96,7 @@ class TransAm(nn.Module):
         self.layer = nn.TransformerEncoderLayer(nhead=nhead, d_model=d_model, dropout=dropout)
 
         # build transformer
+        self.embedding = nn.Linear(798, d_model)
         self.position = PositionalEncoding(d_model)
         self.encoder = nn.TransformerEncoder(self.layer, num_layers=num_layers)
         self.decoder = nn.Linear(d_model, 1)
@@ -115,6 +115,7 @@ class TransAm(nn.Module):
             mask = self._generate_square_subsequent_mask(len(src)).to(device)
             self.src_mask = mask
 
+        src = self.embedding(src)
         src = self.position(src)
         output = self.encoder(src, self.src_mask)
         output = torch.mean(output, dim=0)
