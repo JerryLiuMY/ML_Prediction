@@ -29,11 +29,11 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # training loop
     for epoch in range(epochs):
         model.train()
-        for train_x, target in train_data:
-            train_x.to(device), target.to(device)
+        for train_X, train_y in train_data:
+            train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
-            output = model(train_x)
-            loss = criterion(output, target)
+            pred_y = model(train_X)
+            loss = criterion(pred_y, train_y)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 0.7)
             optimizer.step()
@@ -79,10 +79,12 @@ class TransAm(nn.Module):
         self.src_mask = None
         self.layer = nn.TransformerEncoderLayer(nhead=nhead, d_model=d_model, dropout=dropout)
 
+        # build transformer
         self.position = PositionalEncoding(d_model)
         self.encoder = nn.TransformerEncoder(self.layer, num_layers=num_layers)
         self.decoder = nn.Linear(d_model, 1)
 
+        # initialize weights
         self.init_weights()
 
     def init_weights(self):
