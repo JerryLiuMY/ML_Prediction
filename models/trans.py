@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import numpy as np
 import math
-from data_loader.loader import get_batch
 torch.manual_seed(0)
 np.random.seed(0)
 
@@ -17,11 +16,12 @@ def fit_transformer(train_data, valid_data, params, window_path):
     """
 
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    epochs = params["epochs"]
-    lr = params["lr"]
+    num_layers, nhead = params["num_layers"], params["nhead"]
+    d_model, dropout = params["d_model"], params["dropout"]
+    epochs, lr = params["epochs"], params["lr"]
 
     # define configurations
-    model = TransAm().to(device)
+    model = TransAm(num_layers, nhead, d_model, dropout).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
     criterion = nn.MSELoss()
@@ -39,8 +39,6 @@ def fit_transformer(train_data, valid_data, params, window_path):
             optimizer.step()
 
         scheduler.step()
-
-    # saving & perform validation
 
 
 def pre_transformer(model, test_data):
@@ -75,7 +73,7 @@ class PositionalEncoding(nn.Module):
 
 
 class TransAm(nn.Module):
-    def __init__(self, num_layers=1, nhead=10, d_model=250, dropout=0.1):
+    def __init__(self, num_layers, nhead, d_model, dropout):
         super(TransAm, self).__init__()
         self.model_type = "Transformer"
         self.src_mask = None
