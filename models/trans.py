@@ -15,12 +15,13 @@ def fit_transformer(train_data, valid_data, params, window_path):
     :return model: fitted model
     """
 
+    # load parameters
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     num_layers, nhead = params["num_layers"], params["nhead"]
     d_model, dropout = params["d_model"], params["dropout"]
     epochs, lr = params["epochs"], params["lr"]
 
-    # define configurations
+    # build model
     model = TransAm(num_layers, nhead, d_model, dropout).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.95)
@@ -39,6 +40,8 @@ def fit_transformer(train_data, valid_data, params, window_path):
             optimizer.step()
 
         scheduler.step()
+
+    # perform evaluation
 
 
 def pre_transformer(model, test_data):

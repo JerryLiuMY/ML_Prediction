@@ -1,4 +1,4 @@
-from data_loader.loader import load_data
+from experiments.loader import load_data
 from models.gluon import fit_autogluon, pre_autogluon
 from models.trans import fit_transformer, pre_transformer
 from global_settings import OUTPUT_PATH
