@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from tools.data_tools import iterable_wrapper
 from global_settings import DATA_PATH
 import pickle5 as pickle
 import os
@@ -41,6 +42,7 @@ def load_df(trddt_X, trddt_y):
     return data_df
 
 
+@iterable_wrapper
 def load_dg(trddt_X, trddt_y):
     """ Prepare data generator corresponding to trddt_X and trddt_y
     :param trddt_X: trading dates for X
@@ -61,6 +63,7 @@ def load_dg(trddt_X, trddt_y):
 
         data_df_sub = pd.concat(X_sub_li, axis=1, join="inner")
         data_df_sub = pd.concat([data_df_sub, y_sub], axis=1, join="inner")
+        data_df_sub.dropna(axis=0, how="any", inplace=True)
 
         for idx in range(0, data_df_sub.shape[0], batch_size):
             data_df_dg = data_df_sub.iloc[idx: idx + batch_size, :]
