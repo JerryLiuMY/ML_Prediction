@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import pandas as pd
 import math
 import os
 torch.manual_seed(0)
@@ -64,14 +65,12 @@ def pre_transformer(model, test_data):
     :return target: predicted target
     """
 
-    target = torch.Tensor(0)
+    target = pd.DataFrame(columns=["target"])
     model.eval()
     with torch.no_grad():
         for test_X, _ in test_data:
-            target = torch.cat((target, model(test_X)), dim=0)
-
-    target = target.cpu().detach().numpy()
-    target = target.reshape(-1)
+            output = model(test_X).cpu().detach().numpy().reshape(-1)
+            target = pd.concat([target, pd.DataFrame(data=output, index=test_X.index, columns=["target"])], axis=0)
 
     return target
 
