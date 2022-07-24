@@ -1,7 +1,7 @@
 from global_settings import date0_min, date0_max
 from params.params import window_dict, params_dict, horizon_dict
 from experiments.experiment import experiment
-from experiments.generator import generate_window
+from data_loader.generator import generate_window
 from experiments.summary import summarize
 from experiments.correlation import plot_correlation
 from global_settings import OUTPUT_PATH
@@ -38,8 +38,8 @@ def run_experiment(model_name, num_proc):
         json.dump(horizon_dict, handle)
 
     # perform experiments
-    horizon = horizon_dict["horizon"]
-    window_gen = list(generate_window(window_dict, date0_min, date0_max, horizon))
+    seq_len, horizon = params["seq_len"], horizon_dict["horizon"]
+    window_gen = list(generate_window(window_dict, date0_min, date0_max, seq_len, horizon))
 
     if num_proc == 1:
         for window in window_gen:

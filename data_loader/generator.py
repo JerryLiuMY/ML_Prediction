@@ -2,16 +2,24 @@ from global_settings import trddt_all
 import numpy as np
 
 
-def generate_window(window_dict, date0_min, date0_max, horizon):
+def generate_window(window_dict, date0_min, date0_max, seq_len, horizon):
     """ generate rolling windows for a set of experiments
     :param window_dict: dictionary of window related parameters
     :param date0_min: earliest date in the enriched data
     :param date0_max: latest date in the enriched data
+    :param seq_len: sequence length
     :param horizon: predictive horizon
     """
 
-    trddt = trddt_all[(trddt_all >= date0_min) & (trddt_all <= date0_max)].tolist()
+    # build rolling chunks
+    trddt = trddt_all.tolist()
+    trddt_roll_X = np.array([trddt[i: i + seq_len] for i in range(len(trddt) - (seq_len - 1))])
+    trddt_roll_y = np.array(trddt[(seq_len - 1):])
+    roll_index = tuple([(trddt_roll_y >= date0_min) & (trddt_roll_y <= date0_max)])
+    trddt_roll_X = trddt_roll_X[roll_index].tolist()
+    trddt_roll_y = trddt_roll_y[roll_index].tolist()
 
+    # fetch hyper-parameters
     train_win = window_dict["train_win"]
     valid_win = window_dict["valid_win"]
     test_win = window_dict["test_win"]
@@ -19,14 +27,14 @@ def generate_window(window_dict, date0_min, date0_max, horizon):
     shift = horizon - 1
 
     # X six days ahead shall not be used
-    for i in range(0, len(trddt) - test_win - shift + 1, test_win - valid_win):
-        trddt_train_X = trddt[i: i + train_win]
-        trddt_valid_X = trddt[i + train_win: i + valid_win - 6]
-        trddt_test_X = trddt[i + valid_win: i + test_win]
-        trddt_train_y = trddt[i + shift: i + shift + train_win]
-        trddt_valid_y = trddt[i + shift + train_win: i + shift + valid_win - 6]
-        trddt_test_y = trddt[i + shift + valid_win: i + shift + test_win]
-        trddt_name = trddt_train_X[0]
+    for i in range(0, len(trddt_roll_X) - test_win - shift + 1, test_win - valid_win):
+        trddt_train_X = trddt_roll_X[i: i + train_win]
+        trddt_valid_X = trddt_roll_X[i + train_win: i + valid_win - 6]
+        trddt_test_X = trddt_roll_X[i + valid_win: i + test_win]
+        trddt_train_y = trddt_roll_y[i + shift: i + shift + train_win]
+        trddt_valid_y = trddt_roll_y[i + shift + train_win: i + shift + valid_win - 6]
+        trddt_test_y = trddt_roll_y[i + shift + valid_win: i + shift + test_win]
+        trddt_name = trddt_roll_y[i]
 
         if resample:
             np.random.seed(0)

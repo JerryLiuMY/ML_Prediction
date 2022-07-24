@@ -7,7 +7,7 @@ import os
 # define directories
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
-    SEAGATE_PATH = "/Volumes/Sumsung_1T/5_Projects/ML_Prediction"
+    SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
     DATA_PATH = os.path.join(SEAGATE_PATH, "shared")
     OUTPUT_PATH = os.path.join(SEAGATE_PATH, "result")
 else:
@@ -24,7 +24,7 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))
 cusip_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "cusip_all.pkl")))
 cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespace=True)
-date0_min = "2010-01-04"
+date0_min = "2010-03-31"
 date0_max = "2022-06-14"
 
 
@@ -37,3 +37,4 @@ date0_max = "2022-06-14"
 
 # modify the sampling scheme
 # plotting sync x_label
+# rewrite data loading pipeline
