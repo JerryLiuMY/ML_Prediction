@@ -2,12 +2,13 @@ import torch
 import torch.nn as nn
 import numpy as np
 import math
+import os
 torch.manual_seed(0)
 np.random.seed(0)
 
 
 def fit_transformer(train_data, valid_data, params, window_path):
-    """ Fit autogluon model and report evaluation metric
+    """ Fit transformer model and report evaluation metric
     :param train_data: dataframe of training data
     :param valid_data: dataframe of validation data
     :param params: dictionary of parameters
@@ -41,11 +42,24 @@ def fit_transformer(train_data, valid_data, params, window_path):
 
         scheduler.step()
 
-    # perform evaluation
+    # save model
+    save_path = os.path.join(window_path, "model")
+    torch.save(model, os.path.join(save_path, "model.pth"))
+
+    # model evaluation
+    model.eval()
+    mse_li = []
+    for valid_X, valid_y in valid_data:
+        with torch.no_grad():
+            mse_li.append(criterion(model(valid_X), valid_y))
+
+    metric = {"MSE": np.mean(mse_li)}
+
+    return model, metric
 
 
 def pre_transformer(model, test_data):
-    """ Make predictions with autogluon model
+    """ Make predictions with transformer model
     :param model: fitted model
     :param test_data: dataframe of testing data
     :return target: predicted target
