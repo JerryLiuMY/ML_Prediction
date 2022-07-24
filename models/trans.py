@@ -7,6 +7,7 @@ import os
 from datetime import datetime
 torch.manual_seed(0)
 np.random.seed(0)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def fit_transformer(train_data, valid_data, params, window_path):
@@ -19,7 +20,6 @@ def fit_transformer(train_data, valid_data, params, window_path):
     """
 
     # load parameters
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     num_layers, nhead = params["num_layers"], params["nhead"]
     d_model, dropout = params["d_model"], params["dropout"]
     epochs, lr = params["epochs"], params["lr"]
@@ -33,9 +33,9 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # training loop
     for epoch in range(epochs):
         model.train()
-        for batch, (train_X, train_y, _) in enumerate(train_data):
-            print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on epoch {epoch} batch {batch}")
-            train_X.to(device), train_y.to(device)
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on epoch {epoch}...")
+        for train_X, train_y, _ in train_data:
+            train_X, train_y = train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
             pred_y = model(train_X)
             loss = criterion(pred_y, train_y)
@@ -44,19 +44,15 @@ def fit_transformer(train_data, valid_data, params, window_path):
             optimizer.step()
         scheduler.step()
 
-    # save model
+        mse = eval_transformer(model, valid_data)
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Finished epoch {epoch} with MSE={mse}")
+
+    # save model and evaluation
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Saving model and performing evaluation...")
     save_path = os.path.join(window_path, "model")
     torch.save(model, os.path.join(save_path, "model.pth"))
-
-    # model evaluation
-    mse_li = []
-    model.eval()
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on validation")
-    for valid_X, valid_y, _ in valid_data:
-        with torch.no_grad():
-            mse_li.append(criterion(model(valid_X), valid_y))
-
-    metric = {"MSE": np.mean(mse_li)}
+    mse = eval_transformer(model, valid_data)
+    metric = {"MSE": mse}
 
     return model, metric
 
@@ -72,10 +68,32 @@ def pre_transformer(model, test_data):
     model.eval()
     with torch.no_grad():
         for test_X, _, index in test_data:
+            test_X = test_X.to(device)
             output = model(test_X).cpu().detach().numpy().reshape(-1)
             target = pd.concat([target, pd.DataFrame(data=output, index=index, columns=["target"])], axis=0)
 
     return target
+
+
+def eval_transformer(model, valid_data):
+    """ Perform evaluation of the trained transformer model
+    :param model: fitted model
+    :param valid_data: generator of validation data
+    :return target: predicted target
+    """
+
+    criterion = nn.MSELoss()
+    mse_li = []
+    model.eval()
+
+    for valid_X, valid_y, _ in valid_data:
+        with torch.no_grad():
+            valid_X, valid_y = valid_X.to(device), valid_y.to(device)
+            mse_li.append(criterion(model(valid_X), valid_y).cpu().detach().numpy())
+
+    mse = np.mean(mse_li)
+
+    return mse
 
 
 class PositionalEncoding(nn.Module):
