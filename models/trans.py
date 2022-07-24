@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import math
 import os
+from datetime import datetime
 torch.manual_seed(0)
 np.random.seed(0)
 
@@ -32,6 +33,7 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # training loop
     for epoch in range(epochs):
         model.train()
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on epoch {epoch}")
         for train_X, train_y, _ in train_data:
             train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
@@ -49,6 +51,7 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # model evaluation
     mse_li = []
     model.eval()
+    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on validation")
     for valid_X, valid_y, _ in valid_data:
         with torch.no_grad():
             mse_li.append(criterion(model(valid_X), valid_y))
