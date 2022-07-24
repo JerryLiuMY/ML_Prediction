@@ -66,7 +66,8 @@ def pre_transformer(model, test_data):
 
     model.eval()
     with torch.no_grad():
-        target = model(test_data)
+        for test_X, _ in test_data:
+            target = model(test_X)
 
     return target
 
