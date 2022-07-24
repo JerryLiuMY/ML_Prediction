@@ -1,8 +1,8 @@
 from data_loader.loader import load_data
 from models.gluon import fit_autogluon, pre_autogluon
+from models.trans import fit_transformer, pre_transformer
 from global_settings import OUTPUT_PATH
 from datetime import datetime
-import pandas as pd
 import pickle
 import json
 import os
@@ -18,9 +18,11 @@ def experiment(model_name, horizon, params, window):
 
     # define data_type, fit_func and pre_func
     if model_name == "autogluon":
-        data_type = pd.DataFrame
         fit_func = fit_autogluon
         pre_func = pre_autogluon
+    elif model_name == "transformer":
+        fit_func = fit_transformer
+        pre_func = pre_transformer
     else:
         raise ValueError("Invalid model name")
 
@@ -38,8 +40,8 @@ def experiment(model_name, horizon, params, window):
     with open(os.path.join(window_path, "info", "window.pkl"), "wb") as handle:
         pickle.dump(window, handle)
 
-    train_data = load_data(trddt_train_X, trddt_train_y, data_type)
-    valid_data = load_data(trddt_valid_X, trddt_valid_y, data_type)
+    train_data = load_data(trddt_train_X, trddt_train_y, model_name)
+    valid_data = load_data(trddt_valid_X, trddt_valid_y, model_name)
 
     print(f"trddt_train_X: {trddt_train_X}"), print(f"trddt_train_y: {trddt_train_y}")
     print(f"trddt_valid_X: {trddt_valid_X}"), print(f"trddt_valid_y: {trddt_valid_y}")
@@ -51,7 +53,7 @@ def experiment(model_name, horizon, params, window):
     # make predictions
     for t_test_X, t_test_y in zip(trddt_test_X, trddt_test_y):
         print(f"t_test_X: {t_test_X}, t_test_y: {t_test_y}")
-        test_data = load_data([t_test_X], [t_test_y], data_type)
+        test_data = load_data([t_test_X], [t_test_y], model_name)
         target = pre_func(model, test_data)
         target.index.name = "cusip"
         target.to_pickle(os.path.join(window_path, "predict", f"{t_test_y}.pkl"))
