@@ -20,7 +20,7 @@ def fit_transformer(train_data, valid_data, params, window_path):
     """
 
     # load parameters
-    nlayer, nhead = params["num_layers"], params["nhead"]
+    nlayer, nhead = params["nlayer"], params["nhead"]
     d_model, dropout = params["d_model"], params["dropout"]
     epochs, lr = params["epochs"], params["lr"]
 
@@ -91,7 +91,7 @@ def eval_func(model, valid_data):
             valid_X, valid_y = valid_X.to(device), valid_y.to(device)
             mse_li.append(criterion(model(valid_X), valid_y).cpu().detach().numpy())
 
-    mse = np.mean(mse_li)
+    mse = float(np.mean(mse_li))
 
     return mse
 
