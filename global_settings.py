@@ -37,4 +37,4 @@ date0_max = "2022-06-14"
 
 # modify the sampling scheme
 # plotting sync x_label
-# rewrite data loading pipeline
+# mask input with nan values
