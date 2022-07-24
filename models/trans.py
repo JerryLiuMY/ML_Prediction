@@ -33,8 +33,8 @@ def fit_transformer(train_data, valid_data, params, window_path):
     # training loop
     for epoch in range(epochs):
         model.train()
-        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on epoch {epoch}")
-        for train_X, train_y, _ in train_data:
+        for batch, (train_X, train_y, _) in enumerate(train_data):
+            print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Working on epoch {epoch} batch {batch}")
             train_X.to(device), train_y.to(device)
             optimizer.zero_grad()
             pred_y = model(train_X)
