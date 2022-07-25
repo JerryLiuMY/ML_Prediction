@@ -46,6 +46,7 @@ def build_correlation(model_name):
     pearson_df = pd.DataFrame.from_dict(pearson_corr, columns=["pearson"], orient="index")
     spearman_df = pd.DataFrame.from_dict(spearman_corr, columns=["spearman"], orient="index")
     corr_df = pd.concat([pearson_df, spearman_df], axis=1)
+    corr_df = corr_df.fillna(0, inplace=False)
 
     # decay correlation
     decay_df = pd.DataFrame(index=range(0, test_size))

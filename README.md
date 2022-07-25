@@ -15,7 +15,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Predictive horizon
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/1elTNSDXkk9FjIR_8WyOvj1yvwk0LbNPM?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/1i5NAy-udEmN8g6bnyG1g76HTcsVvPd4J?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
 ![alt text](./__resources__/autogluon/baseline.jpg?raw=true "Title")
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `resampling=True`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`
@@ -26,6 +26,8 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 
 ## Transformer
+![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
+
 **Parameters:** The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=32`, `d_model=4096`, `dropout=0.05`, `epochs=5`, `lr=0.01`
 
 ## TODO
