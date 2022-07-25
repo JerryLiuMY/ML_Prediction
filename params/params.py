@@ -13,7 +13,7 @@ window_dict = {
 
 params_dict = {
     "autogluon": {"seq_len": 1, "presets": "medium_quality", "excluded": ["RF"]},  # ["medium", "good", "high", "best"]
-    "transformer": {"seq_len": 5, "nlayer": 2, "nhead": 16, "d_model": 2048, "dropout": 0.05, "epochs": 5, "lr": 0.01}
+    "transformer": {"seq_len": 7, "nlayer": 2, "nhead": 16, "d_model": 4096, "dropout": 0.05, "epochs": 5, "lr": 0.01}
 }
 
 horizon_dict = {"horizon": 1}
