@@ -26,7 +26,8 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 
 ## Transformer
-The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=32`, `d_model=4096`, `dropout=0.05`, `epochs=5`, `lr=0.01`
+**Parameters:** The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=32`, `d_model=4096`, `dropout=0.05`, `epochs=5`, `lr=0.01`
+
 ## TODO
 - Ensemble learning: multiple ML models
 - Ensemble learning: based on particular by metric (e.g. pearsonr, r2, volatility)
