@@ -3,6 +3,7 @@ from global_settings import cusip_sic
 import matplotlib.pyplot as plt
 from params.params import window_dict
 import matplotlib.patches as mpatches
+import statsmodels.api as sm
 import seaborn as sns
 import pandas as pd
 import numpy as np
@@ -118,22 +119,30 @@ def plot_correlation(model_name):
     # ax1: pearson correlation
     pearson_mean = round(corr_df["pearson"].mean() * 100, 2)
     pearson_sharpe = round(corr_df["pearson"].mean() / corr_df["pearson"].std() * np.sqrt(252), 3)
+    pearson_acf_l1 = round(sm.tsa.acf(corr_df["pearson"].values)[1], 3)
     ax1_legend_mean = mpatches.Patch(color="#A9A9A9", label=f"ave={pearson_mean:.2f}%")
     ax1_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={pearson_sharpe:.3f}")
+    ax1_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"sharpe={pearson_acf_l1:.3f}")
+    handles = [ax1_legend_mean, ax1_legend_sharpe, ax1_legend_acf_l1]
+
     ax1.stem(index, corr_df["pearson"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax1.scatter(index, corr_df["pearson"].values, color="#899499", marker=".")
-    ax1.legend(handles=[ax1_legend_mean, ax1_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
+    ax1.legend(handles=handles, loc="upper left", handlelength=0.2, handletextpad=0.5)
     ax1.set_xticklabels([])
     ax1.set_ylabel("Pearson")
 
     # ax2: spearman correlation
     spearman_mean = round(corr_df["spearman"].mean() * 100, 2)
     spearman_sharpe = round(corr_df["spearman"].mean() / corr_df["spearman"].std() * np.sqrt(252), 3)
+    spearman_acf_l1 = round(sm.tsa.acf(corr_df["spearman"].values)[1], 3)
     ax2_legend_mean = mpatches.Patch(color="#A9A9A9", label=f"ave={spearman_mean:.2f}%")
     ax2_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={spearman_sharpe:.3f}")
+    ax2_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"sharpe={spearman_acf_l1:.3f}")
+    handles = [ax2_legend_mean, ax2_legend_sharpe, ax2_legend_acf_l1]
+    
     ax2.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
-    ax2.legend(handles=[ax2_legend_mean, ax2_legend_sharpe], loc="upper left", handlelength=0.2, handletextpad=0.5)
+    ax2.legend(handles=handles, loc="upper left", handlelength=0.2, handletextpad=0.5)
     ax2.set_xticklabels([])
     ax2.set_ylabel("Spearman")
 
