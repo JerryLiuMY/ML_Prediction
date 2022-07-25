@@ -25,7 +25,9 @@ def fit_transformer(train_data, valid_data, params, window_path):
     epochs, lr = params["epochs"], params["lr"]
 
     # build model
-    model = TransAm(nlayer, nhead, d_model, dropout).to(device)
+    model = TransAm(nlayer, nhead, d_model, dropout)
+    model = nn.DataParallel(model)
+    model = model.to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, 1, gamma=0.8)
     criterion = nn.MSELoss()
