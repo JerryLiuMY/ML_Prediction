@@ -122,7 +122,7 @@ def plot_correlation(model_name):
     pearson_acf_l1 = round(sm.tsa.acf(corr_df["pearson"].values)[1], 3)
     ax1_legend_mean = mpatches.Patch(color="#A9A9A9", label=f"ave={pearson_mean:.2f}%")
     ax1_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={pearson_sharpe:.3f}")
-    ax1_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"sharpe={pearson_acf_l1:.3f}")
+    ax1_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"acf_l1={pearson_acf_l1:.3f}")
     handles = [ax1_legend_mean, ax1_legend_sharpe, ax1_legend_acf_l1]
 
     ax1.stem(index, corr_df["pearson"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
@@ -137,9 +137,9 @@ def plot_correlation(model_name):
     spearman_acf_l1 = round(sm.tsa.acf(corr_df["spearman"].values)[1], 3)
     ax2_legend_mean = mpatches.Patch(color="#A9A9A9", label=f"ave={spearman_mean:.2f}%")
     ax2_legend_sharpe = mpatches.Patch(color="#A9A9A9", label=f"sharpe={spearman_sharpe:.3f}")
-    ax2_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"sharpe={spearman_acf_l1:.3f}")
+    ax2_legend_acf_l1 = mpatches.Patch(color="#A9A9A9", label=f"acf_l1={spearman_acf_l1:.3f}")
     handles = [ax2_legend_mean, ax2_legend_sharpe, ax2_legend_acf_l1]
-    
+
     ax2.stem(index, corr_df["spearman"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(index, corr_df["spearman"].values, color="#899499", marker=".")
     ax2.legend(handles=handles, loc="upper left", handlelength=0.2, handletextpad=0.5)
