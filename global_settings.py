@@ -39,3 +39,5 @@ date0_max = "2022-06-14"
 # plotting sync x_label
 # mask input with nan values -- drop directly
 # check for NaN values in correlation
+# model weights
+# informer/autoformer
