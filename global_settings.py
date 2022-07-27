@@ -5,13 +5,14 @@ import os
 
 
 # define directories
+DATA_TYPE = "daily"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
-    DATA_PATH = os.path.join(SEAGATE_PATH, "shared")
+    DATA_PATH = os.path.join(SEAGATE_PATH, DATA_TYPE)
     OUTPUT_PATH = os.path.join(SEAGATE_PATH, "result")
 else:
-    DATA_PATH = os.path.join(DESKTOP_PATH, "shared")
+    DATA_PATH = os.path.join(DESKTOP_PATH, DATA_TYPE)
     OUTPUT_PATH = os.path.join(DESKTOP_PATH, "result")
 LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 
@@ -20,7 +21,6 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 # trddt_all: intersection between X and y
 # cusip_all: intersection between union(X) and union(y)
 # cusip_all: cusip_all with match to sic code
-
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))
 cusip_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "cusip_all.pkl")))
 cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespace=True)
