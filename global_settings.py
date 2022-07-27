@@ -35,9 +35,10 @@ date0_max = "2022-06-14"
 # Crypto statistical arbitrage
 # Ultra high frequency
 
-# find model weights
+
+# optuna for parameter tuning
 # modify the sampling scheme
 # mask input with nan values -- drop directly
 # check for NaN values in correlation
+# autogluon find model weights
 # informer/autoformer
-# optuna for parameter tuning
