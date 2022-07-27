@@ -3,7 +3,7 @@ from models.gluon import fit_autogluon, pre_autogluon
 from models.trans import fit_transformer, pre_transformer
 from global_settings import OUTPUT_PATH
 from datetime import datetime
-import pickle
+import pickle5 as pickle
 import json
 import os
 
@@ -40,7 +40,7 @@ def experiment(model_name, horizon, params, window):
 
     # train model with validation
     with open(os.path.join(window_path, "info", "window.pkl"), "wb") as handle:
-        pickle.dump(window, handle)
+        pickle.dump(window, handle, protocol=4)
 
     train_data = load_data(trddt_train_X, trddt_train_y, model_name)
     valid_data = load_data(trddt_valid_X, trddt_valid_y, model_name)
@@ -54,4 +54,4 @@ def experiment(model_name, horizon, params, window):
         test_data = load_data([t_test_X], [t_test_y], model_name)
         target = pre_func(model, test_data)
         target.index.name = "cusip"
-        target.to_pickle(os.path.join(window_path, "predict", f"{t_test_y}.pkl"))
+        target.to_pickle(os.path.join(window_path, "predict", f"{t_test_y}.pkl"), protocol=4)

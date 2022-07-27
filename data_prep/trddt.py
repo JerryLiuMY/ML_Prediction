@@ -1,5 +1,5 @@
 from global_settings import DATA_PATH
-import pickle
+import pickle5 as pickle
 import glob
 import os
 
@@ -23,4 +23,4 @@ def build_trddt():
     trddt_all = sorted(set(X_dates) & set(y_dates))
 
     with open(os.path.join(DATA_PATH, "trddt_all.pkl"), "wb") as f:
-        pickle.dump(trddt_all, f)
+        pickle.dump(trddt_all, f, protocol=4)

@@ -1,6 +1,6 @@
 from global_settings import DATA_PATH
 import pandas as pd
-import pickle
+import pickle5 as pickle
 import glob
 import os
 
@@ -27,4 +27,4 @@ def build_cusip():
     # find intersection
     cusip_all = list(cusip_X & cusip_y)
     with open(os.path.join(DATA_PATH, "cusip_all.pkl"), "wb") as f:
-        pickle.dump(cusip_all, f)
+        pickle.dump(cusip_all, f, protocol=4)

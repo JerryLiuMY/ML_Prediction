@@ -1,7 +1,7 @@
-import os
-import pickle
 from datetime import datetime
 from global_settings import DATA_PATH
+import pickle5 as pickle
+import os
 
 
 def split_data():
@@ -24,9 +24,9 @@ def split_data():
     X_index = sorted(set(X.index.get_level_values(0)))
     y_index = sorted(set(y.index.get_level_values(0)))
     with open(os.path.join(X_path, "X_index.pkl"), "wb") as f:
-        pickle.dump(X_index, f)
+        pickle.dump(X_index, f, protocol=4)
     with open(os.path.join(y_path, "y_index.pkl"), "wb") as f:
-        pickle.dump(y_index, f)
+        pickle.dump(y_index, f, protocol=4)
 
     # split X
     X_index_0 = X.index.get_level_values(0)
