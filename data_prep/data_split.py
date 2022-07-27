@@ -37,6 +37,7 @@ def split_data():
 
     # split y
     for y_idx in y_index:
-        y_sub = y.loc[y_idx]
+        y_sub = pd.DataFrame(y.loc[y_idx])
+        y_sub.columns = ["target"]
         date = datetime.strftime(y_idx, "%Y-%m-%d")
         y_sub.to_pickle(os.path.join(y_path, f"{date}.pkl"), protocol=4)
