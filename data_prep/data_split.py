@@ -1,16 +1,14 @@
 from datetime import datetime
 from global_settings import DATA_PATH
 import pickle5 as pickle
+import pandas as pd
 import os
 
 
 def split_data():
     # load X/y and define indices
-    with open(os.path.join(DATA_PATH, "X.p"), "rb") as handle:
-        X = pickle.load(handle)
-
-    with open(os.path.join(DATA_PATH, "y.p"), "rb") as handle:
-        y = pickle.load(handle)
+    X = pd.read_pickle(os.path.join(DATA_PATH, "X.p"))
+    y = pd.read_pickle(os.path.join(DATA_PATH, "y.p"))
 
     # make directories
     X_path = os.path.join(DATA_PATH, "X")
@@ -35,10 +33,10 @@ def split_data():
         iloc = [i for i, _ in enumerate(X_index_0 == X_idx) if _]
         X_sub = X.iloc[iloc[0]: iloc[-1] + 1].droplevel("date")
         date = datetime.strftime(X_idx, "%Y-%m-%d")
-        X_sub.to_pickle(os.path.join(X_path, f"{date}.pkl"))
+        X_sub.to_pickle(os.path.join(X_path, f"{date}.pkl"), protocol=4)
 
     # split y
     for y_idx in y_index:
         y_sub = y.loc[y_idx]
         date = datetime.strftime(y_idx, "%Y-%m-%d")
-        y_sub.to_pickle(os.path.join(y_path, f"{date}.pkl"))
+        y_sub.to_pickle(os.path.join(y_path, f"{date}.pkl"), protocol=4)
