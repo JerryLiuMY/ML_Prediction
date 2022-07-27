@@ -29,17 +29,15 @@ date0_max = "2022-06-14"
 
 
 # TODO
-# Set plotting legend
 # US daily alpha / ETF
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
 # Ultra high frequency
 
 
-# standardize pickle load/dump
 # optuna for parameter tuning
-# modify the sampling scheme
 # mask input with nan values -- drop directly
 # check for NaN values in correlation
 # autogluon find model weights
-# informer/autoformer
+# other transformers
+# modify the sampling scheme
