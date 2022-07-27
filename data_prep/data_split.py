@@ -8,8 +8,8 @@ from global_settings import DATA_PATH
 # load X/y and define indices
 X = pd.read_pickle(os.path.join(DATA_PATH, "X.p"))
 y = pd.read_pickle(os.path.join(DATA_PATH, "y.p"))
-y_index = sorted(set(y.index.get_level_values(0)))
 X_index = sorted(set(X.index.get_level_values(0)))
+y_index = sorted(set(y.index.get_level_values(0)))
 X_path = os.path.join(DATA_PATH, "X")
 y_path = os.path.join(DATA_PATH, "y")
 
@@ -23,7 +23,7 @@ if not os.path.isdir(y_path):
 
 # save indices
 def save_indices():
-    """Save indices for X and y"""
+    """ Save indices for X and y """
 
     with open(os.path.join(X_path, "X_index.pkl"), "wb") as f:
         pickle.dump(X_index, f)
@@ -34,7 +34,7 @@ def save_indices():
 
 # split X
 def split_X():
-    """Split X based on date"""
+    """ Split X based on date """
 
     X_index_0 = X.index.get_level_values(0)
     for X_idx in X_index:
@@ -47,7 +47,7 @@ def split_X():
 
 # split y
 def split_y():
-    """Split y based on date"""
+    """ Split y based on date """
 
     for y_idx in y_index:
         y_sub = y.loc[y_idx]
