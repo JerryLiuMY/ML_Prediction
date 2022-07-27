@@ -6,7 +6,7 @@ import os
 
 
 def build_cusip():
-    """Build cusip information"""
+    """ Build cusip information """
 
     # union of cusip for X
     cusip_X = set()

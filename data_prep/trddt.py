@@ -5,7 +5,7 @@ import os
 
 
 def build_trddt():
-    """Check for dates overlap in the X and y dataframes"""
+    """ Check for dates overlap in the X and y dataframes """
 
     X_dates = []
     for file in glob.glob(os.path.join(DATA_PATH, "X", "*.pkl")):
