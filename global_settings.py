@@ -36,6 +36,6 @@ date0_max = "2022-06-14"
 
 
 # optuna for parameter tuning
-# impute/mask nan values
+# data imputation values
 # other transformers
 # modify the sampling scheme
