@@ -5,7 +5,7 @@ import os
 
 
 # define directories
-DATA_TYPE = "daily"
+DATA_TYPE = "weekly"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
@@ -36,8 +36,6 @@ date0_max = "2022-06-14"
 
 
 # optuna for parameter tuning
-# mask input with nan values -- drop directly
-# check for NaN values in correlation
-# autogluon find model weights
+# impute/mask nan values
 # other transformers
 # modify the sampling scheme

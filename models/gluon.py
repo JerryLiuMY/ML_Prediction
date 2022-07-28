@@ -42,7 +42,7 @@ def pre_autogluon(model, test_data):
 
 
 # def get_leaderboard(model, test_data):
-#     """ Get the leaderboard of models in the ensemble
+#     """ Get the ensemble model leaderboard / model weights
 #     :return: leaderboard
 #     """
 #
