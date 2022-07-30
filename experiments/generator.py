@@ -2,13 +2,13 @@ from global_settings import trddt_all
 import numpy as np
 
 
-def generate_window(window_dict, date0_min, date0_max, seq_len, horizon):
+def generate_window(date0_min, date0_max, seq_len, horizon, data_dict):
     """ generate rolling windows for a set of experiments
-    :param window_dict: dictionary of window related parameters
     :param date0_min: earliest date in the enriched data
     :param date0_max: latest date in the enriched data
     :param seq_len: sequence length
     :param horizon: predictive horizon
+    :param data_dict: dictionary of data related parameters
     """
 
     # build rolling chunks
@@ -20,10 +20,10 @@ def generate_window(window_dict, date0_min, date0_max, seq_len, horizon):
     trddt_roll_y = trddt_roll_y[roll_index].tolist()
 
     # fetch hyper-parameters
-    train_win = window_dict["train_win"]
-    valid_win = window_dict["valid_win"]
-    test_win = window_dict["test_win"]
-    resample = window_dict["resample"]
+    train_win = data_dict["train_win"]
+    valid_win = data_dict["valid_win"]
+    test_win = data_dict["test_win"]
+    resample = data_dict["resample"]
     shift = horizon - 1
 
     # X six days ahead shall not be used

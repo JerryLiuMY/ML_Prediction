@@ -1,7 +1,7 @@
 from global_settings import OUTPUT_PATH
 from global_settings import cusip_sic
 import matplotlib.pyplot as plt
-from params.params import window_dict
+from params.params import data_dict
 import matplotlib.patches as mpatches
 import statsmodels.api as sm
 import seaborn as sns
@@ -20,7 +20,7 @@ def build_correlation(model_name):
 
     # define windows and industries
     model_path = os.path.join(OUTPUT_PATH, model_name)
-    test_size = window_dict["test_win"] - window_dict["valid_win"]
+    test_size = data_dict["test_win"] - data_dict["valid_win"]
     windows = [_[1] for _ in os.walk(model_path)][0]
     windows = sorted([str(_) for _ in windows])
     windows = [_ for _ in windows if "-" in _]
@@ -80,7 +80,7 @@ def plot_correlation(model_name):
     # corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
 
     # initialize correlation plot
-    test_size = window_dict["test_win"] - window_dict["valid_win"]
+    test_size = data_dict["test_win"] - data_dict["valid_win"]
     fig = plt.figure(figsize=(15, 13))
     gs = fig.add_gridspec(9, 10)
     axa = fig.add_subplot(gs[0:4, :])

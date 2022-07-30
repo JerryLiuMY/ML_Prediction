@@ -4,11 +4,12 @@
 #     "test_win": 240 + 120 + 60,
 # }
 
-window_dict = {
+data_dict = {
     "train_win": 240,
     "valid_win": 240 + 120,
     "test_win": 240 + 120 + 60,
-    "resample": True
+    "resample": True,
+    "imputation": "zero"  # ["default", "zero", "drop"]
 }
 
 params_dict = {

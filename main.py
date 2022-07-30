@@ -1,5 +1,5 @@
 from global_settings import date0_min, date0_max
-from params.params import window_dict, params_dict, horizon_dict
+from params.params import data_dict, params_dict, horizon_dict
 from experiments.experiment import experiment
 from experiments.generator import generate_window
 from experiments.summary import summarize
@@ -27,8 +27,8 @@ def run_experiment(model_name, num_proc):
     params_path = os.path.join(model_path, "params")
     if not os.path.isdir(params_path):
         os.mkdir(params_path)
-        with open(os.path.join(params_path, "window.json"), "w") as handle:
-            json.dump(window_dict, handle)
+        with open(os.path.join(params_path, "data.json"), "w") as handle:
+            json.dump(data_dict, handle)
         with open(os.path.join(params_path, "params.json"), "w") as handle:
             json.dump(params, handle)
         with open(os.path.join(params_path, "horizon.json"), "w") as handle:
@@ -36,7 +36,7 @@ def run_experiment(model_name, num_proc):
 
     # perform experiments
     seq_len, horizon = params["seq_len"], horizon_dict["horizon"]
-    window_gen = list(generate_window(window_dict, date0_min, date0_max, seq_len, horizon))
+    window_gen = list(generate_window(date0_min, date0_max, seq_len, horizon, data_dict))
 
     if num_proc == 1:
         for window in window_gen:
