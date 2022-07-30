@@ -56,14 +56,12 @@ def plot_correlation(model_name):
     """
 
     # get predictive horizon
+    decay_df, corr_df = build_correlation(model_name)
     model_path = os.path.join(OUTPUT_PATH, model_name)
     params_path = os.path.join(model_path, "params")
     with open(os.path.join(params_path, "horizon.json"), "r") as handle:
         horizon_dict = json.load(handle)
         horizon = horizon_dict["horizon"]
-
-    # build correlation
-    decay_df, corr_df = build_correlation(model_name)
 
     # initialize correlation plot
     test_size = data_dict["test_win"] - data_dict["valid_win"]
