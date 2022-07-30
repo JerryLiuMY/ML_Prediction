@@ -1,5 +1,4 @@
 from global_settings import OUTPUT_PATH
-from global_settings import cusip_sic
 import matplotlib.pyplot as plt
 from params.params import data_dict
 import matplotlib.patches as mpatches
@@ -24,16 +23,6 @@ def build_correlation(model_name):
     windows = [_[1] for _ in os.walk(model_path)][0]
     windows = sorted([str(_) for _ in windows])
     windows = [_ for _ in windows if "-" in _]
-    inds = sorted(set([_ for _ in list(cusip_sic["sic"].apply(lambda _: str(_)[:2]))]))
-
-    # industry correlation
-    corr_ind_df = pd.DataFrame(index=inds, columns=windows).astype("float32")
-    for window in windows:
-        window_path = os.path.join(model_path, str(window))
-        with open(os.path.join(window_path, "summary", "corr_ind.json"), "r") as handle:
-            corr_ind = json.load(handle)
-        for ind in inds:
-            corr_ind_df.loc[ind, window] = np.nanmean(list(corr_ind[ind].values()))
 
     # daily correlation
     pearson_corr = {}
@@ -57,7 +46,7 @@ def build_correlation(model_name):
         decay_df = pd.concat([decay_df, decay_df_sub], axis=1)
     decay_df = decay_df.groupby(np.arange(decay_df.shape[0]) // 6).mean()
 
-    return corr_ind_df, decay_df, corr_df
+    return decay_df, corr_df
 
 
 def plot_correlation(model_name):
@@ -73,41 +62,28 @@ def plot_correlation(model_name):
         horizon_dict = json.load(handle)
         horizon = horizon_dict["horizon"]
 
-    # build and filter correlation results
-    corr_ind_df, decay_df, corr_df = build_correlation(model_name)
-    # corr_ind_df = corr_ind_df.loc[:, corr_ind_df.apply(lambda _: _.name[:4] < "2020")]
-    # decay_df = decay_df.loc[:, decay_df.apply(lambda _: _.name[:4] < "2020")]
-    # corr_df = corr_df.loc[corr_df.apply(lambda _: _.name[:4] < "2020", axis=1), :]
+    # build correlation
+    decay_df, corr_df = build_correlation(model_name)
 
     # initialize correlation plot
     test_size = data_dict["test_win"] - data_dict["valid_win"]
     fig = plt.figure(figsize=(15, 13))
-    gs = fig.add_gridspec(9, 10)
-    axa = fig.add_subplot(gs[0:4, :])
-    axb = fig.add_subplot(gs[4:5, :])
-    ax1 = fig.add_subplot(gs[5:6, :8])
-    ax2 = fig.add_subplot(gs[6:7, :8])
-    ax3 = fig.add_subplot(gs[7:8, :8])
-    ax4 = fig.add_subplot(gs[8:9, :8])
+    gs = fig.add_gridspec(5, 10)
+    axa = fig.add_subplot(gs[0:1, :])
+    ax1 = fig.add_subplot(gs[1:2, :8])
+    ax2 = fig.add_subplot(gs[2:3, :8])
+    ax3 = fig.add_subplot(gs[3:4, :8])
+    ax4 = fig.add_subplot(gs[4:5, :8])
 
-    # axa: industrial correlation
-    yticks = np.arange(len(corr_ind_df.index))
-    ylabels = [_ if int(_) % 10 == 0 else "" for _ in corr_ind_df.index]
-    sns.heatmap(corr_ind_df.values, cmap="YlGnBu", ax=axa)
-    axa.get_xaxis().set_visible(False)
-    axa.set_yticks(yticks)
-    axa.set_yticklabels(ylabels)
-    axa.set_ylabel("SIC Industrial Code")
-    axa.set_title(f"Model {model_name} with horizon={horizon}" + "\n", fontsize=13)
-
-    # axb: correlation over times
+    # axa: correlation over times
     yticks = np.arange(len(decay_df.index))
     ylabels = [_ * 6 if int(_) % 2 == 0 else "" for _ in yticks]
-    sns.heatmap(decay_df.values, cmap="coolwarm", ax=axb)
-    axb.get_xaxis().set_visible(False)
-    axb.set_yticks(yticks)
-    axb.set_yticklabels(ylabels, rotation=0)
-    axb.set_ylabel("Decay")
+    sns.heatmap(decay_df.values, cmap="coolwarm", ax=axa)
+    axa.get_xaxis().set_visible(False)
+    axa.set_yticks(yticks)
+    axa.set_yticklabels(ylabels, rotation=0)
+    axa.set_ylabel("Decay")
+    axa.set_title(f"Model {model_name} with horizon={horizon}" + "\n", fontsize=13)
 
     # define indices
     index = range(len(corr_df.index))
