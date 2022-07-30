@@ -34,6 +34,7 @@ def load_df(trddt_X, trddt_y):
         X_sub = pd.read_pickle(os.path.join(DATA_PATH, "X", f"{t_X[0]}.pkl"))
         y_sub = pd.read_pickle(os.path.join(DATA_PATH, "y", f"{t_y}.pkl"))
         data_df_sub = pd.concat([X_sub, y_sub], axis=1, join="inner")
+        data_df_sub = data_df_sub.fillna(value=0, inplace=False)
         data_df = pd.concat([data_df, data_df_sub], axis=0)
 
     return data_df
@@ -58,7 +59,7 @@ def load_dg(trddt_X, trddt_y):
 
         data_df_sub = pd.concat(X_sub_li, axis=1, join="inner")
         data_df_sub = pd.concat([data_df_sub, y_sub], axis=1, join="inner")
-        data_df_sub.dropna(axis=0, how="any", inplace=True)
+        data_df_sub = data_df_sub.fillna(value=0, inplace=False)
 
         for idx in range(0, data_df_sub.shape[0], batch_size):
             data_df_dg = data_df_sub.iloc[idx: idx + batch_size, :]
