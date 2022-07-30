@@ -123,15 +123,18 @@ class TransAm(nn.Module):
         self.embedding = nn.Linear(798, d_model)
         self.position = PositionalEncoding(d_model)
         self.encoder = nn.TransformerEncoder(self.layer, num_layers=num_layers)
-        self.decoder = nn.Linear(d_model, 1)
+        self.decoder_1 = nn.Linear(d_model, d_model)
+        self.decoder_2 = nn.Linear(d_model, 1)
 
         # initialize weights
         self.init_weights()
 
     def init_weights(self):
         init_range = 0.1
-        self.decoder.bias.data.zero_()
-        self.decoder.weight.data.uniform_(-init_range, init_range)
+        self.decoder_1.bias.data.zero_()
+        self.decoder_1.weight.data.uniform_(-init_range, init_range)
+        self.decoder_2.bias.data.zero_()
+        self.decoder_2.weight.data.uniform_(-init_range, init_range)
 
     def forward(self, src):
         if self.src_mask is None or self.src_mask.size(0) != len(src):
@@ -142,7 +145,8 @@ class TransAm(nn.Module):
         src = self.position(src)
         output = self.encoder(src, self.src_mask)
         output = torch.mean(output, dim=0)
-        output = self.decoder(output)
+        output = self.decoder_1(output)
+        output = self.decoder_2(output)
 
         return output
 
