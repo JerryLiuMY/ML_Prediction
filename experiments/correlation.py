@@ -65,7 +65,7 @@ def plot_correlation(model_name):
 
     # initialize correlation plot
     test_size = data_dict["test_win"] - data_dict["valid_win"]
-    fig = plt.figure(figsize=(15, 13))
+    fig = plt.figure(figsize=(15, 9))
     gs = fig.add_gridspec(5, 10)
     axa = fig.add_subplot(gs[0:1, :])
     ax1 = fig.add_subplot(gs[1:2, :8])
