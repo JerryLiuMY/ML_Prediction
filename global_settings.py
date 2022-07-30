@@ -5,7 +5,7 @@ import os
 
 
 # define directories
-DATA_TYPE = "weekly"
+DATA_TYPE = "daily"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"

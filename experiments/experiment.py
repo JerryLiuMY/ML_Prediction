@@ -1,6 +1,7 @@
 from experiments.loader import load_data
 from models.gluon import fit_autogluon, pre_autogluon
 from models.trans import fit_transformer, pre_transformer
+from params.params import data_dict
 from global_settings import OUTPUT_PATH
 from datetime import datetime
 import pickle5 as pickle
@@ -42,8 +43,8 @@ def experiment(model_name, horizon, params, window):
     with open(os.path.join(window_path, "info", "window.pkl"), "wb") as handle:
         pickle.dump(window, handle, protocol=4)
 
-    train_data = load_data(trddt_train_X, trddt_train_y, model_name)
-    valid_data = load_data(trddt_valid_X, trddt_valid_y, model_name)
+    train_data = load_data(trddt_train_X, trddt_train_y, model_name, data_dict)
+    valid_data = load_data(trddt_valid_X, trddt_valid_y, model_name, data_dict)
     model, metric = fit_func(train_data, valid_data, params, window_path)
     with open(os.path.join(window_path, "info", "metric.json"), "w") as handle:
         json.dump(metric, handle)
@@ -51,7 +52,7 @@ def experiment(model_name, horizon, params, window):
     # make predictions
     for t_test_X, t_test_y in zip(trddt_test_X, trddt_test_y):
         print(f"t_test_X: {t_test_X}, t_test_y: {t_test_y}")
-        test_data = load_data([t_test_X], [t_test_y], model_name)
+        test_data = load_data([t_test_X], [t_test_y], model_name, data_dict)
         target = pre_func(model, test_data)
         target.index.name = "cusip"
         target.to_pickle(os.path.join(window_path, "predict", f"{t_test_y}.pkl"), protocol=4)
