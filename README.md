@@ -19,7 +19,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 ![alt text](./__resources__/autogluon/baseline.jpg?raw=true "Title")
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `DATA_TYPE=WEEKLY`, `resampling=True`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`
-- Results with `DATA_TYPE=DAILY`
+- Results with `DATA_TYPE=daily`
 - <a href="./__resources__/autogluon/resampling=False.pdf" target="_blank">Results</a> with `resampling=False`
 - Results with `presets=high_quality`
 - Results with `train_window=960`
