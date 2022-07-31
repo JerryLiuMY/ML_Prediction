@@ -25,7 +25,9 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Results with `test_window=20`
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 - Results with `imputation=zero`
-- Results with `DATA_TYPE=daily`
+
+#### Results with `DATA_TYPE=y2`
+![alt text](./__resources__/autogluon/baseline2.jpg?raw=true "Title")
 
 ## Transformer
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
