@@ -25,9 +25,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Results with `train_window=960`
 - Results with `test_window=20`
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
-
-#### Results with `DATA_TYPE=y2`
-![alt text](./__resources__/autogluon/baseline2.jpg?raw=true "Title")
+- <a href="./__resources__/autogluon/DATA_TYPE=y2.pdf" target="_blank">Results</a> with `DATA_TYPE=y2`
 
 ## Transformer
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")

@@ -10,7 +10,7 @@ DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
     DATA_PATH = os.path.join(SEAGATE_PATH, DATA_TYPE)
-    OUTPUT_PATH = os.path.join(SEAGATE_PATH, "result")
+    OUTPUT_PATH = os.path.join(SEAGATE_PATH, "temp")
 else:
     DATA_PATH = os.path.join(DESKTOP_PATH, DATA_TYPE)
     OUTPUT_PATH = os.path.join(DESKTOP_PATH, "result")
