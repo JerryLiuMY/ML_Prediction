@@ -1,3 +1,4 @@
+from global_settings import DATA_TYPE
 from global_settings import trddt_all
 import numpy as np
 
@@ -25,14 +26,15 @@ def generate_window(date0_min, date0_max, seq_len, horizon, data_dict):
     test_win = data_dict["test_win"]
     resample = data_dict["resample"]
     shift = horizon - 1
+    hide = 6 if DATA_TYPE == "weekly" else 6
 
     # X six days ahead shall not be used
     for i in range(0, len(trddt_roll_X) - test_win - shift + 1, test_win - valid_win):
         trddt_train_X = trddt_roll_X[i: i + train_win]
-        trddt_valid_X = trddt_roll_X[i + train_win: i + valid_win - 6]
+        trddt_valid_X = trddt_roll_X[i + train_win: i + valid_win - hide]
         trddt_test_X = trddt_roll_X[i + valid_win: i + test_win]
         trddt_train_y = trddt_roll_y[i + shift: i + shift + train_win]
-        trddt_valid_y = trddt_roll_y[i + shift + train_win: i + shift + valid_win - 6]
+        trddt_valid_y = trddt_roll_y[i + shift + train_win: i + shift + valid_win - hide]
         trddt_test_y = trddt_roll_y[i + shift + valid_win: i + shift + test_win]
         trddt_name = trddt_roll_y[i]
 
