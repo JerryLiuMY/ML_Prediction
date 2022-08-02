@@ -87,8 +87,8 @@ def plot_correlation(model_name):
     index = range(len(corr_df.index))
     xticks = [idx for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
     xlabels = [_ for idx, _ in enumerate(corr_df.index) if idx % (test_size * 2) == 0]
-    # xticks = xticks + [len(corr_df.index) - 1]
-    # xlabels = xlabels + [corr_df.index[-1]]
+    xticks = xticks + [len(corr_df.index) - 1]
+    xlabels = xlabels + [corr_df.index[-1]]
 
     # ax1: pearson correlation
     pearson_mean = round(corr_df["pearson"].mean() * 100, 2)
