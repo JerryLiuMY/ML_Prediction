@@ -2,8 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy as np
-from global_settings import DATA_PATH
-from global_settings import LOG_PATH
+from global_settings import DATA_PATH, LOG_PATH
+from global_settings import date0_min, date0_max
 from tqdm import tqdm_notebook
 import os
 sns.set()
@@ -43,6 +43,10 @@ def build_missing(trddt_all):
 def plot_exploration(count_df, missing_df):
     """ Plot the number of unique cusip in the X and y dataframes """
 
+    # filter dataframe
+    count_df = count_df.loc[(count_df["date"] > date0_min) & (count_df["date"] < date0_max)]
+    missing_df = missing_df.loc[(missing_df["date"] > date0_min) & (missing_df["date"] < date0_max)]
+
     # define xticks and xticklabels
     xticks = [0]
     years_s0 = [date.split("-")[0] for date in count_df["date"]]
@@ -65,20 +69,20 @@ def plot_exploration(count_df, missing_df):
     sns.barplot(x=index, y=count_df["X"], color="green", linewidth=0.0, label="X", ax=ax1)
     sns.barplot(x=index, y=count_df["common"], color="#FF3131", linewidth=0.0, label="common", ax=ax1)
     ax1.set_xticklabels([])
-    ax1.set_xlabel("Date")
     ax1.set_ylabel("Count")
     ax1.legend(loc="upper right")
 
     # plot the percentage of missing data
-    ax2.stem(index, missing_df["stock_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax2.scatter(index, missing_df["stock_perc"].values, color="#899499", marker=".")
+    ax2.stem(index, missing_df["stocks_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax2.scatter(index, missing_df["stocks_perc"].values, color="#899499", marker=".")
     ax2.set_xticklabels([])
     ax2.set_ylabel("Missing Stocks")
 
-    ax3.stem(index, missing_df["missing_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax3.scatter(index, missing_df["missing_perc"].values, color="#899499", marker=".")
+    ax3.stem(index, missing_df["entries_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax3.scatter(index, missing_df["entries_perc"].values, color="#899499", marker=".")
     ax3.set_xticks(xticks)
-    ax3.set_xticklabels(xticklables)
+    ax3.set_xticklabels(xticklables, rotation=25)
+    ax3.set_xlabel("Date")
     ax3.set_ylabel("Missing Entries")
 
     # save figure
