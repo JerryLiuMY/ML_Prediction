@@ -9,7 +9,7 @@ sns.set()
 
 
 def build_count(trddt_all):
-    """Count for the number of unique cusip in the X and y dataframes"""
+    """ Count for the number of unique cusip in the X and y dataframes """
 
     # build count_df
     count_df = pd.DataFrame(columns=["X", "y", "common"], index=trddt_all)
@@ -25,8 +25,22 @@ def build_count(trddt_all):
     count_df.to_csv(os.path.join(LOG_PATH, "count.csv"))
 
 
-def plot_count(count_df):
-    """Plot the number of unique cusip in the X and y dataframes"""
+def build_missing(trddt_all):
+    """ Build percentage for missing data in the X variable """
+
+    # build missing_df
+    missing_df = pd.DataFrame(columns=["stock_perc", "missing_perc"], index=trddt_all)
+    for date in trddt_all:
+        X = pd.read_pickle(os.path.join(DATA_PATH, "X", f"{date}.pkl"))
+        missing_df.loc[date, "stock_perc"] = X[X.isnull().any(axis=1)].shape[0] / X.shape[0]
+        missing_df.loc[date, "missing_perc"] = X.isna().sum().sum() / (X.shape[0] * X.shape[1])
+    missing_df.index.name = "date"
+    missing_df.reset_index(drop=False, inplace=True)
+    missing_df.to_csv(os.path.join(LOG_PATH, "missing.csv"))
+
+
+def plot_exploration(count_df):
+    """ Plot the number of unique cusip in the X and y dataframes """
 
     # define xticks and xticklabels
     xticks = [0]
