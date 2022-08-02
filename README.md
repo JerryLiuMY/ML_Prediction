@@ -5,7 +5,7 @@
 </p>
 
 ## Data Information
-<a href="https://drive.google.com/drive/folders/1_kVqZ4fuh0trXCv8wdsJBbYmLFj-Spm9?usp=sharing" target="_blank">Repository</a> for the processed daily data and <a href="https://drive.google.com/drive/folders/19Ehs8GjoDrOkIO_Il7I6c3KRZ3R7JV1j?usp=sharing" target="_blank">repository</a> for the processed weekly data. <a href="https://drive.google.com/drive/folders/19ItSnvSwf3g6C0AQVetpFKySiHH9HBpi?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of number of stocks in `X`, `y` and shared between `X & y` and missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
+<a href="https://drive.google.com/drive/folders/1_kVqZ4fuh0trXCv8wdsJBbYmLFj-Spm9?usp=sharing" target="_blank">Repository</a> for the processed daily data and <a href="https://drive.google.com/drive/folders/19Ehs8GjoDrOkIO_Il7I6c3KRZ3R7JV1j?usp=sharing" target="_blank">repository</a> for the processed weekly data. <a href="https://drive.google.com/drive/folders/19ItSnvSwf3g6C0AQVetpFKySiHH9HBpi?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
 
 #### Tuning scheme
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
