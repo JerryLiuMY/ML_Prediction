@@ -30,11 +30,11 @@ def build_missing(trddt_all):
     """ Build percentage for missing data in the X variable """
 
     # build missing_df
-    missing_df = pd.DataFrame(columns=["stock_perc", "missing_perc"], index=trddt_all)
+    missing_df = pd.DataFrame(columns=["stocks_perc", "entries_perc"], index=trddt_all)
     for date in tqdm_notebook(trddt_all):
         X = pd.read_pickle(os.path.join(DATA_PATH, "X", f"{date}.pkl"))
-        missing_df.loc[date, "stock_perc"] = X[X.isnull().any(axis=1)].shape[0] / X.shape[0]
-        missing_df.loc[date, "overall_perc"] = X.isna().sum().sum() / (X.shape[0] * X.shape[1])
+        missing_df.loc[date, "stocks_perc"] = X[X.isnull().any(axis=1)].shape[0] / X.shape[0]
+        missing_df.loc[date, "entries_perc"] = X.isna().sum().sum() / (X.shape[0] * X.shape[1])
     missing_df.index.name = "date"
     missing_df.reset_index(drop=False, inplace=True)
     missing_df.to_csv(os.path.join(LOG_PATH, "missing.csv"))
@@ -54,11 +54,11 @@ def plot_exploration(count_df, missing_df):
 
     # initialize figure
     index = np.arange(len(count_df["date"]))
-    fig, ax = plt.subplots(figsize=(16, 10))
+    fig = plt.figure(figsize=(15, 9))
     gs = fig.add_gridspec(5, 8)
-    ax1 = fig.add_subplot(gs[1:3, :])
-    ax2 = fig.add_subplot(gs[3:4, :])
-    ax3 = fig.add_subplot(gs[4:5, :])
+    ax1 = fig.add_subplot(gs[0:3, :8])
+    ax2 = fig.add_subplot(gs[3:4, :8])
+    ax3 = fig.add_subplot(gs[4:5, :8])
 
     # plot the number of stocks
     sns.barplot(x=index, y=count_df["y"], color="#3F00FF", linewidth=0.0, label="y", ax=ax1)
@@ -73,14 +73,13 @@ def plot_exploration(count_df, missing_df):
     ax2.stem(index, missing_df["stock_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax2.scatter(index, missing_df["stock_perc"].values, color="#899499", marker=".")
     ax2.set_xticklabels([])
-    ax2.set_ylabel("Stock missing percentage")
+    ax2.set_ylabel("Missing Stocks")
 
     ax3.stem(index, missing_df["missing_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
     ax3.scatter(index, missing_df["missing_perc"].values, color="#899499", marker=".")
     ax3.set_xticks(xticks)
     ax3.set_xticklabels(xticklables)
-    ax3.set_ylabel("Overall missing percentage")
+    ax3.set_ylabel("Missing Entries")
 
     # save figure
-    fig.tight_layout()
     fig.savefig(os.path.join(LOG_PATH, "exploration.pdf"), bbox_inches="tight")
