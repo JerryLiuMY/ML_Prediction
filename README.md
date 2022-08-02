@@ -5,7 +5,7 @@
 </p>
 
 ## Data Information
-<a href="https://drive.google.com/drive/folders/1_kVqZ4fuh0trXCv8wdsJBbYmLFj-Spm9?usp=sharing" target="_blank">Repository</a> for the processed daily data and <a href="https://drive.google.com/drive/folders/19Ehs8GjoDrOkIO_Il7I6c3KRZ3R7JV1j?usp=sharing" target="_blank">repository</a> for the processed weekly data. <a href="https://drive.google.com/drive/folders/19ItSnvSwf3g6C0AQVetpFKySiHH9HBpi?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
+<a href="https://drive.google.com/drive/folders/1b5Si0ZjUl78nMVzHeCJQh-vPEwEjJTOH?usp=sharing" target="_blank">Repository</a> for the processed weekly data. <a href="https://drive.google.com/drive/folders/1Jnjj4y-4WlYbI_t-tksIOokurVGVV3gQ?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
 
 #### Tuning scheme
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
@@ -15,7 +15,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Predictive horizon
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/1i5NAy-udEmN8g6bnyG1g76HTcsVvPd4J?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/1JnUK7RvF0wJbantbDZ_N-V0gxjTIGlny?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
 ![alt text](./__resources__/autogluon/baseline.jpg?raw=true "Title")
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `resample=True`, `imputation=default`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`, `horizon=1`

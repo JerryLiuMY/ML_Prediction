@@ -38,5 +38,4 @@ date0_max = "2022-06-14"
 # optuna for parameter tuning
 # other transformers
 # modify the sampling scheme
-# data processing scheme
-# missing data pattern
+# data imputation scheme
