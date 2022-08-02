@@ -58,7 +58,7 @@ def plot_exploration(count_df, missing_df):
 
     # initialize figure
     index = np.arange(len(count_df["date"]))
-    fig = plt.figure(figsize=(15, 9))
+    fig = plt.figure(figsize=(14, 11))
     gs = fig.add_gridspec(5, 8)
     ax1 = fig.add_subplot(gs[0:3, :8])
     ax2 = fig.add_subplot(gs[3:4, :8])
