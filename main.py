@@ -1,10 +1,12 @@
 from global_settings import date0_min, date0_max
 from params.params import data_dict, params_dict, horizon_dict
+from global_settings import DATA_TYPE
 from experiments.experiment import experiment
 from experiments.generator import generate_window
 from experiments.summary import summarize
 from experiments.correlation import plot_correlation
 from global_settings import OUTPUT_PATH
+import pickle5 as pickle
 import multiprocessing
 import functools
 import json
@@ -27,6 +29,8 @@ def run_experiment(model_name, num_proc):
     params_path = os.path.join(model_path, "params")
     if not os.path.isdir(params_path):
         os.mkdir(params_path)
+        with open(os.path.join(params_path, "DATA_TYPE.pkl"), "wb") as handle:
+            pickle.dump(DATA_TYPE, handle, protocol=4)
         with open(os.path.join(params_path, "data.json"), "w") as handle:
             json.dump(data_dict, handle)
         with open(os.path.join(params_path, "params.json"), "w") as handle:
