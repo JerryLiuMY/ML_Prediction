@@ -73,17 +73,17 @@ def plot_exploration(count_df, missing_df):
     ax1.legend(loc="upper right")
 
     # plot the percentage of missing data
-    ax2.stem(index, missing_df["stocks_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax2.scatter(index, missing_df["stocks_perc"].values, color="#899499", marker=".")
+    ax2.stem(index, missing_df["stocks_perc"].values * 100, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax2.scatter(index, missing_df["stocks_perc"].values * 100, color="#899499", marker=".")
     ax2.set_xticklabels([])
-    ax2.set_ylabel("Missing Stocks")
+    ax2.set_ylabel("Missing Stocks (%)")
 
-    ax3.stem(index, missing_df["entries_perc"].values, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
-    ax3.scatter(index, missing_df["entries_perc"].values, color="#899499", marker=".")
+    ax3.stem(index, missing_df["entries_perc"].values * 100, linefmt="#A9A9A9", markerfmt=" ", basefmt=" ")
+    ax3.scatter(index, missing_df["entries_perc"].values * 100, color="#899499", marker=".")
     ax3.set_xticks(xticks)
-    ax3.set_xticklabels(xticklables, rotation=25)
+    ax3.set_xticklabels(xticklables, rotation=20)
     ax3.set_xlabel("Date")
-    ax3.set_ylabel("Missing Entries")
+    ax3.set_ylabel("Missing Entries (%)")
 
     # save figure
     fig.savefig(os.path.join(LOG_PATH, "exploration.pdf"), bbox_inches="tight")
