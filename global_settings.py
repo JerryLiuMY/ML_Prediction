@@ -5,7 +5,7 @@ import os
 
 
 # define directories
-DATA_TYPE = "weekly"
+DATA_TYPE = "set1_data2"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
@@ -35,6 +35,7 @@ date0_max = "2022-06-14"
 # Ultra high frequency
 
 
+# new data
 # optuna for parameter tuning
 # other transformers
 # modify the sampling scheme
