@@ -21,7 +21,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `resample=True`, `imputation=default`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`, `horizon=1`
 - <a href="./__resources__/autogluon/resample=False.pdf" target="_blank">Results</a> with `resample=False`
 - <a href="./__resources__/autogluon/imputation=zero.pdf" target="_blank">Results</a> with `imputation=zero`
-- Results with `imputation=drop`
+- <a href="./__resources__/autogluon/imputation=drop.pdf" target="_blank">Results</a> with `imputation=drop`
 - <a href="./__resources__/autogluon/presets=high_quality.pdf" target="_blank">Results</a> with `presets=high_quality`
 - Results with `train_window=960`
 - <a href="./__resources__/autogluon/test_window=20.pdf" target="_blank">Results</a> with `test_window=20`
