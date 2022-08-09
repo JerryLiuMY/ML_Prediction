@@ -6,10 +6,6 @@ import os
 
 
 def split_data():
-    # load X/y and define indices
-    X = pd.read_pickle(os.path.join(DATA_PATH, "X.p"))
-    y = pd.read_pickle(os.path.join(DATA_PATH, "y.p"))
-
     # make directories
     X_path = os.path.join(DATA_PATH, "X")
     y_path = os.path.join(DATA_PATH, "y")
@@ -17,6 +13,10 @@ def split_data():
         os.mkdir(X_path)
     if not os.path.isdir(y_path):
         os.mkdir(y_path)
+
+    # load X/y
+    X = pd.read_pickle(os.path.join(DATA_PATH, "X.p"))
+    y = pd.read_pickle(os.path.join(DATA_PATH, "y.p"))
 
     # save indices
     X_index = sorted(set(X.index.get_level_values(0)))
