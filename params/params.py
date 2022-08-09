@@ -5,9 +5,9 @@
 # }
 
 data_dict = {
-    "train_win": 960,
-    "valid_win": 960 + 120,
-    "test_win": 960 + 120 + 60,
+    "train_win": 240,
+    "valid_win": 240 + 120,
+    "test_win": 240 + 120 + 60,
     "resample": True,
     "imputation": "default"  # ["default", "zero", "drop"]
 }
