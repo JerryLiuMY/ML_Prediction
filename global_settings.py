@@ -35,7 +35,7 @@ date0_max = "2022-06-14"
 # Ultra high frequency
 
 
+# modify the sampling scheme
 # optuna for parameter tuning
 # other transformers
-# modify the sampling scheme
 # https://keras.io/examples/timeseries/timeseries_transformer_classification/
