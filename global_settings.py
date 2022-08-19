@@ -8,7 +8,7 @@ import os
 DATA_TYPE = "set2_data"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
-    SEAGATE_PATH = "/Volumes/Sumsung_1T/Projects/ML_Prediction"
+    SEAGATE_PATH = "/Volumes/SanDisk_2T/ML_Prediction"
     DATA_PATH = os.path.join(SEAGATE_PATH, DATA_TYPE)
     OUTPUT_PATH = os.path.join(SEAGATE_PATH, "temp")
 else:
