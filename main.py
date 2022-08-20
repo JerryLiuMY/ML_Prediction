@@ -56,7 +56,7 @@ def run_experiment(model_name, num_proc):
 
 
 def experiment_proc(window, model_name, horizon, params):
-    """ Multi-processing for experiments
+    """ Multiprocessing for experiments
     :param window: [trddt_train, trddt_valid, trddt_test] window
     :param model_name: model name
     :param horizon: horizon for prediction

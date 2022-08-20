@@ -25,6 +25,7 @@ print(f"GPU counts: {torch.cuda.device_count()}")
 
 # check memory and CPU usage
 # mpstat -P ALL 1
+# ps -eo pcpu,pid,user,args | sort -k 1 -r | head -5
 print(f"CPU usage: {psutil.cpu_percent()}")
 print(f"Mem usage: {psutil.virtual_memory().percent}")
 
