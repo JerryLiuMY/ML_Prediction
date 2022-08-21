@@ -46,7 +46,7 @@ def pre_autogluon(model, test_data):
 #     :return: leaderboard
 #     """
 #
-#     model = TabularPredictor.load("model_path")
 #     leaderboard = model.leaderboard(test_data, silent=True)
+#     importance = model.feature_importance(test_data)
 #
-#     return leaderboard
+#     return leaderboard, importance
