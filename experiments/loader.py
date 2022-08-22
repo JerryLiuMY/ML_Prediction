@@ -1,10 +1,9 @@
 import pandas as pd
 import numpy as np
 from tools.utils import iterable_wrapper
-from global_settings import DATA_PATH
+from global_settings import DATA_PATH, num_ft
 import os
 import torch
-num_ft = 798
 
 
 def load_data(trddt_X, trddt_y, model_name, data_dict):
