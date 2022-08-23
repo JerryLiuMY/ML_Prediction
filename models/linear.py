@@ -15,12 +15,11 @@ def fit_linear(train_data, valid_data, params, window_path):
 
     # columns
     fit_intercept = params["fit_intercept"]
-    normalize = params["normalize"]
     train_data.reset_index(drop=True, inplace=True)
     valid_data.reset_index(drop=True, inplace=True)
     X = train_data.loc[:, train_data.columns != "target"].values
     y = train_data.loc[:, "target"].values
-    predictor = LinearRegression(fit_intercept=fit_intercept, normalize=normalize)
+    predictor = LinearRegression(fit_intercept=fit_intercept)
 
     # fit the predictors and perform evaluation
     model = predictor.fit(X, y)
@@ -44,7 +43,6 @@ def pre_linear(model, test_data):
     """
 
     X_test = test_data.loc[:, test_data.columns != "target"].values
-    target = pd.DataFrame(model.predict(X_test))
-    target.columns = ["target"]
+    target = pd.DataFrame(data=model.predict(X_test), columns=["target"])
 
     return target
