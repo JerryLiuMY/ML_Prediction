@@ -1,4 +1,3 @@
-from datetime import datetime
 from pathlib import Path
 import numpy as np
 import pandas as pd
@@ -6,7 +5,7 @@ import os
 
 
 # define directories
-DATA_TYPE = "set1_data"
+DATA_TYPE = "set2_data"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/SanDisk_2T/ML_Prediction"
@@ -22,7 +21,7 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 # trddt_all: intersection between X and y
 # cusip_all: intersection between union(X) and union(y)
 # cusip_all: cusip_all with match to sic code
-print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} Available GPU devices cuda:{os.environ['CUDA_VISIBLE_DEVICES']}")
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))
 cusip_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "cusip_all.pkl")))
 cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespace=True)
