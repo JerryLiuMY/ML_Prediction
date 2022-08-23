@@ -5,7 +5,7 @@ import os
 
 
 # define directories
-DATA_TYPE = "set2_data"
+DATA_TYPE = "set1_data"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/SanDisk_2T/ML_Prediction"
