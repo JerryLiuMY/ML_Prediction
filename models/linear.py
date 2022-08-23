@@ -43,6 +43,6 @@ def pre_linear(model, test_data):
     """
 
     X_test = test_data.loc[:, test_data.columns != "target"].values
-    target = pd.DataFrame(data=model.predict(X_test), columns=["target"])
+    target = pd.DataFrame(data=model.predict(X_test), index=test_data.index, columns=["target"])
 
     return target
