@@ -9,7 +9,7 @@ data_dict = {
     "valid_win": 240 + 120,
     "test_win": 240 + 120 + 60,
     "resample": True,
-    "imputation": "zero"  # ["default", "zero", "drop"]
+    "imputation": "default"  # ["default", "zero", "drop"]
 }
 
 params_dict = {
