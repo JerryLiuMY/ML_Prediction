@@ -5,9 +5,9 @@ import pandas as pd
 import math
 import os
 from datetime import datetime
+from global_settings import device
 torch.manual_seed(0)
 np.random.seed(0)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def fit_transformer(train_data, valid_data, params, window_path):

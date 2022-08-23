@@ -1,7 +1,11 @@
 from pathlib import Path
 import numpy as np
 import pandas as pd
+import torch
 import os
+
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # define directories
@@ -21,7 +25,6 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 # trddt_all: intersection between X and y
 # cusip_all: intersection between union(X) and union(y)
 # cusip_all: cusip_all with match to sic code
-os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))
 cusip_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "cusip_all.pkl")))
 cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespace=True)
