@@ -15,7 +15,7 @@ def load_data(trddt_X, trddt_y, model_name, data_dict):
     :return: data df or generator
     """
 
-    if model_name == "autogluon":
+    if model_name == "linear" or model_name == "autogluon":
         data_df = load_df(trddt_X, trddt_y, data_dict)
         return data_df
     elif model_name == "transformer":

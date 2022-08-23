@@ -1,4 +1,5 @@
 from experiments.loader import load_data
+from models.linear import fit_linear, pre_linear
 from models.gluon import fit_autogluon, pre_autogluon
 from models.trans import fit_transformer, pre_transformer
 from params.params import data_dict
@@ -18,7 +19,10 @@ def experiment(model_name, horizon, params, window):
     """
 
     # define data_type, fit_func and pre_func
-    if model_name == "autogluon":
+    if model_name == "linear":
+        fit_func = fit_linear
+        pre_func = pre_linear
+    elif model_name == "autogluon":
         fit_func = fit_autogluon
         pre_func = pre_autogluon
     elif model_name == "transformer":

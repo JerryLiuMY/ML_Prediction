@@ -27,7 +27,6 @@ cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespa
 num_ft = pd.read_pickle(os.path.join(DATA_PATH, "num_ft.pkl"))
 date0_min = "2010-03-31"
 date0_max = "2022-06-14"
-# num_ft = 798
 
 
 # TODO
@@ -41,4 +40,3 @@ date0_max = "2022-06-14"
 # optuna for parameter tuning
 # other transformers
 # https://keras.io/examples/timeseries/timeseries_transformer_classification/
-
