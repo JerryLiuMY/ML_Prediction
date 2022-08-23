@@ -13,7 +13,7 @@ data_dict = {
 }
 
 params_dict = {
-    "linear": {"fit_intercept": True, "normalize": False},
+    "linear": {"seq_len": 1, "fit_intercept": True, "normalize": False},
     "autogluon": {"seq_len": 1, "presets": "medium_quality", "excluded": ["RF"]},  # ["medium", "good", "high", "best"]
     "transformer": {"seq_len": 5, "nlayer": 2, "nhead": 6, "d_model": 6144, "dropout": 0.1, "epochs": 10, "lr": 0.01}
 }
