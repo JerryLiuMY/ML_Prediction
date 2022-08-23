@@ -28,7 +28,9 @@ def fit_linear(train_data, valid_data, params, window_path):
     with open(os.path.join(save_path, "model.pkl"), "wb") as f:
         pickle.dump(model, f)
 
-    score = model.score(valid_data.loc[:, valid_data.columns != "target"].values, valid_data.loc[:, "target"].values)
+    X_valid = valid_data.loc[:, valid_data.columns != "target"].values
+    y_valid = valid_data.loc[:, "target"].values
+    score = model.score(X_valid, y_valid)
     metric = {"score": score}
 
     return model, metric
@@ -41,6 +43,8 @@ def pre_linear(model, test_data):
     :return target: predicted target
     """
 
-    target = pd.DataFrame(model.predict(test_data.loc[:, test_data.columns != "target"].values))
+    X_test = test_data.loc[:, test_data.columns != "target"].values
+    target = pd.DataFrame(model.predict(X_test))
+    target.columns = ["target"]
 
     return target
