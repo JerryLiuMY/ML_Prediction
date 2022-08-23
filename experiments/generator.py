@@ -1,4 +1,4 @@
-from global_settings import trddt_all
+from global_settings import trddt_all, DATA_TYPE
 import numpy as np
 
 
@@ -24,7 +24,12 @@ def generate_window(date0_min, date0_max, seq_len, horizon, data_dict):
     valid_win = data_dict["valid_win"]
     test_win = data_dict["test_win"]
     resample = data_dict["resample"]
-    shift = horizon - 1
+    if DATA_TYPE == "set_data" or DATA_TYPE == "set_data2":
+        shift = horizon - 1
+    elif DATA_TYPE == "set2_data" or DATA_TYPE == "set2_data2":
+        shift = horizon
+    else:
+        raise ValueError("Invalid DATA_TYPE encountered")
     hide = 6
 
     # X six days ahead shall not be used
