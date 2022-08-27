@@ -27,7 +27,6 @@ LOG_PATH = os.path.join(OUTPUT_PATH, "log")
 # cusip_all: cusip_all with match to sic code
 trddt_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "trddt_all.pkl")))
 cusip_all = np.asarray(pd.read_pickle(os.path.join(DATA_PATH, "cusip_all.pkl")))
-cusip_sic = pd.read_csv(os.path.join(DATA_PATH, "cusip_sic.txt"), delim_whitespace=True)
 num_ft = pd.read_pickle(os.path.join(DATA_PATH, "num_ft.pkl"))
 date0_min = "2010-03-31"
 date0_max = "2022-06-14"
