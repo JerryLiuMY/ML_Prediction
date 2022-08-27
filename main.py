@@ -80,13 +80,13 @@ def experiment_proc(window, model_name, horizon, params):
 # if __name__ == "__main__":
 #     from data_prep.data_split import split_data
 #     from data_prep.cusip import build_cusip
-#     from data_prep.num_ft import build_num_ft
 #     from data_prep.trddt import build_trddt
+#     from data_prep.num_ft import build_num_ft
 #
 #     split_data()
 #     build_cusip()
-#     build_num_ft()
 #     build_trddt()
+#     build_num_ft()
 
 if __name__ == "__main__":
     run_experiment(model_name="autogluon", num_proc=1)
