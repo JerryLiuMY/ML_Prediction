@@ -40,4 +40,5 @@ def split_data():
         y_sub = pd.DataFrame(y.loc[y_idx])
         y_sub.columns = ["target"]
         date = datetime.strftime(y_idx, "%Y-%m-%d")
+        y_sub = y_sub.dropna(axis=0, how="any", inplace=False)
         y_sub.to_pickle(os.path.join(y_path, f"{date}.pkl"), protocol=4)
