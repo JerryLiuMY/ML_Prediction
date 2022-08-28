@@ -9,7 +9,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 # define directories
-DATA_TYPE = "set2_data"
+DATA_TYPE = "set2_data2"
 DESKTOP_PATH = str(Path(os.getcwd()).parent.absolute())
 if DESKTOP_PATH == "/Users/mingyu/Desktop":
     SEAGATE_PATH = "/Volumes/SanDisk_2T/ML_Prediction"
