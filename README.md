@@ -23,11 +23,12 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - <a href="./__resources__/autogluon/imputation=zero.pdf" target="_blank">Results</a> with `imputation=zero`
 - <a href="./__resources__/autogluon/imputation=drop.pdf" target="_blank">Results</a> with `imputation=drop`
 - <a href="./__resources__/autogluon/presets=high_quality.pdf" target="_blank">Results</a> with `presets=high_quality`
-- Results with `train_window=960`
+- <a href="./__resources__/autogluon/train_window=960.pdf" target="_blank">Results</a> with `train_window=960`
 - <a href="./__resources__/autogluon/test_window=20.pdf" target="_blank">Results</a> with `test_window=20`
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 - <a href="./__resources__/autogluon/DATA_TYPE=set1_data2.pdf" target="_blank">Results</a> with `DATA_TYPE=set1_data2`
 - Results with `DATA_TYPE=set2_data`
+
 
 ## Transformer
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
