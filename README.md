@@ -4,6 +4,7 @@
     <img src="https://img.shields.io/badge/python-v3-brightgreen.svg" alt="python"></a> &nbsp;
 </p>
 
+
 ## Data Information
 Repositories for the data: <a href="https://drive.google.com/drive/folders/1mnn6lLWGSudLeWrNvC8aSzwGEvCxG3V1?usp=sharing">raw_data</a>, <a href="https://drive.google.com/drive/folders/15_uPaEnbewDlTv-vlYVxQicbdF9cwyrR?usp=sharing">set1_data</a>, <a href="https://drive.google.com/drive/folders/17-T_YKH8DINJAQ4L5S3pk9CVjQWZCYzT?usp=sharing">set1_data2</a>, <a href="https://drive.google.com/drive/folders/13BR955HTHuEzNB8v1Irf8Yu-mTJo9IHi?usp=sharing">set2_data</a>, <a href="https://drive.google.com/drive/folders/1ST6G7gWZe0eqS2mlugXH99OD1lQo6baY?usp=sharing">set2_data2</a>. <a href="https://drive.google.com/drive/folders/17KIh6DNflulVJ2Ivar5TkVY7UJ44nlQJ?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
 
@@ -13,6 +14,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Reduce testing window
 - Obtain validation data from training window
 - Predictive horizon
+
 
 ## AutoGluon
 <a href="https://drive.google.com/drive/folders/174vaHteTtcNFIO9xRVcpFESngPQXJPBE?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
@@ -34,6 +36,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
 
 **Parameters:** The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=8`, `d_model=4096`, `dropout=0.1`, `epochs=7`, `lr=0.05`
+
 
 ## TODO
 - Ensemble learning: multiple ML models
