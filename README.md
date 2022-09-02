@@ -5,7 +5,7 @@
 </p>
 
 ## Data Information
-Repositories for the data: <a href="https://drive.google.com/drive/folders/1Q6RdPsg0gzi-mVQa0tbWmwmgvWBzDema?usp=sharing">raw_data</a>, <a href="https://drive.google.com/drive/folders/1b5Si0ZjUl78nMVzHeCJQh-vPEwEjJTOH?usp=sharing">set1_data</a>, <a href="https://drive.google.com/drive/folders/1gdaehHfcI3wpyoIfdlUwbZJFdWnOZsVM?usp=sharing">set1_data2</a>, <a href="https://drive.google.com/drive/folders/1dAUZQu9DKwng1GkS-a7oM0LiypLVh-6c?usp=sharing">set2_data</a>. <a href="https://drive.google.com/drive/folders/1Jnjj4y-4WlYbI_t-tksIOokurVGVV3gQ?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
+Repositories for the data: <a href="https://drive.google.com/drive/folders/1mnn6lLWGSudLeWrNvC8aSzwGEvCxG3V1?usp=sharing">raw_data</a>, <a href="https://drive.google.com/drive/folders/15_uPaEnbewDlTv-vlYVxQicbdF9cwyrR?usp=sharing">set1_data</a>, <a href="https://drive.google.com/drive/folders/17-T_YKH8DINJAQ4L5S3pk9CVjQWZCYzT?usp=sharing">set1_data2</a>, <a href="https://drive.google.com/drive/folders/13BR955HTHuEzNB8v1Irf8Yu-mTJo9IHi?usp=sharing">set2_data</a>, <a href="https://drive.google.com/drive/folders/1mnn6lLWGSudLeWrNvC8aSzwGEvCxG3V1?usp=sharing">set2_data2</a>. <a href="https://drive.google.com/drive/folders/17KIh6DNflulVJ2Ivar5TkVY7UJ44nlQJ?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
 
 #### Tuning scheme
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
@@ -15,7 +15,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - Predictive horizon
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/1JnUK7RvF0wJbantbDZ_N-V0gxjTIGlny?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/174vaHteTtcNFIO9xRVcpFESngPQXJPBE?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
 ![alt text](./__resources__/autogluon/baseline.jpg?raw=true "Title")
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `resample=True`, `imputation=default`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`, `horizon=1`
