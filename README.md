@@ -30,6 +30,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 - <a href="./__resources__/autogluon/horizon=2.pdf" target="_blank">Results</a> with `horizon=2`
 - <a href="./__resources__/autogluon/DATA_TYPE=set1_data2.pdf" target="_blank">Results</a> with `DATA_TYPE=set1_data2`
 - Results with `DATA_TYPE=set2_data`
+- Results with `DATA_TYPE=set2_data2`
 
 
 ## Transformer
