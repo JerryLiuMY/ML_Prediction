@@ -37,7 +37,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
 
 **Parameters:** The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=8`, `d_model=4096`, `dropout=0.1`, `epochs=7`, `lr=0.05`
-
+ 
 
 ## TODO
 - Ensemble learning: multiple ML models
