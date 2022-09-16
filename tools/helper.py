@@ -35,8 +35,8 @@ print(list(nvsmi.get_gpus())[1])
 # RCC setup
 # ssh midway2.rcc.uchicago.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
-# module load python
-# module load cuda/11.2
+# module load python/anaconda-2020.02
+# module load cuda/11.0
 # conda activate base
 # pip install -r requirements.txt
 # pip install "mxnet_cu101<2.0.0, >=1.7.0"
