@@ -33,13 +33,14 @@ date0_max = "2022-06-14"
 
 
 # TODO
+# modify the sampling scheme
+# optuna for parameter tuning
+# other transformers
+# ML Prediction — DATA_TYPE=set2_data2
+# ML Prediction — high_accuracy
+
+# TODO
 # US daily alpha / ETF
 # Chinese daily alpha / stock index option
 # Crypto statistical arbitrage
 # Ultra high frequency
-
-
-# modify the sampling scheme
-# optuna for parameter tuning
-# other transformers
-# https://keras.io/examples/timeseries/timeseries_transformer_classification/
