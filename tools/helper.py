@@ -5,7 +5,8 @@ import nvsmi
 # RCC
 # ssh midway2.rcc.uchicago.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
-# sinteractive --partition=gpu2 --ntasks=28 --nodes=1 --gres=gpu:1 --time=36:00:00
+# sinteractive --partition=gpu2 --nodes=1 --gres=gpu:1 --ntasks=1 --cpus-per-task=28 --time=36:00:00
+# module unload python
 # module load python/anaconda-2021.05
 # conda activate base
 # cd /project2/dachxiu/mingyuliu
@@ -34,6 +35,7 @@ print(list(nvsmi.get_gpus())[1])
 # RCC setup
 # ssh midway2.rcc.uchicago.edu -l mingyuliu -p 22
 # tmux attach -t ml_prediction
+# module unload python
 # module load python/anaconda-2021.05
 # conda activate base
 # pip install -r requirements.txt
