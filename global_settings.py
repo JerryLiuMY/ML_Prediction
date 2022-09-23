@@ -36,8 +36,6 @@ date0_max = "2022-06-14"
 # modify the sampling scheme
 # optuna for parameter tuning
 # other transformers
-# ML Prediction — DATA_TYPE=set2_data2
-# ML Prediction — high_accuracy
 
 # TODO
 # US daily alpha / ETF
