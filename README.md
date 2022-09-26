@@ -9,7 +9,7 @@
 Repositories for the data: <a href="https://drive.google.com/drive/folders/1mnn6lLWGSudLeWrNvC8aSzwGEvCxG3V1?usp=sharing">raw_data</a>, <a href="https://drive.google.com/drive/folders/15_uPaEnbewDlTv-vlYVxQicbdF9cwyrR?usp=sharing">set1_data</a>, <a href="https://drive.google.com/drive/folders/17-T_YKH8DINJAQ4L5S3pk9CVjQWZCYzT?usp=sharing">set1_data2</a>, <a href="https://drive.google.com/drive/folders/13BR955HTHuEzNB8v1Irf8Yu-mTJo9IHi?usp=sharing">set2_data</a>, <a href="https://drive.google.com/drive/folders/1ST6G7gWZe0eqS2mlugXH99OD1lQo6baY?usp=sharing">set2_data2</a>. <a href="https://drive.google.com/drive/folders/17KIh6DNflulVJ2Ivar5TkVY7UJ44nlQJ?usp=sharing">Folder</a> for data information. <a href="__resources__/exploration.pdf" target="_blank">Summary</a> of a) the number of stocks in `X`, `y` and shared between `X & y` b) missing pattern in `X` from *Jan 2010* to *Jun 2022*. The features `x0 - x797` has been demeaned and standardized daily.
 
 - <a href="https://drive.google.com/drive/folders/16z4Lo84l1bXbSKnrSylF-mM2e1V6ZVv9?usp=sharing">Repository</a> for logging information, trained models, predictions and metrics
-- <a href="https://drive.google.com/drive/folders/1mnn6lLWGSudLeWrNvC8aSzwGEvCxG3V1?usp=sharing">Repository</a> for summarizing all predictions
+- <a href="https://drive.google.com/drive/folders/1qha7XVG7cAP1I7eN2A6hiCasoqg284DX?usp=sharing">Repository</a> for summarizing all predictions
 
 #### Tuning scheme
 Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/params/params.py
