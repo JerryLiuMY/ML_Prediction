@@ -20,9 +20,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 
 
 ## AutoGluon
-<a href="https://drive.google.com/drive/folders/174vaHteTtcNFIO9xRVcpFESngPQXJPBE?usp=sharing" target="_blank">Folder</a> for the trained models, evaluation metrics and predictions. <a href="https://drive.google.com/drive/folders/1qjI-W0_ppC-gqcNWrAu2mHPuD-psHL8V?usp=sharing" target="_blank">Folder</a> for predictions. 
-
-
+<a href="https://drive.google.com/drive/folders/174vaHteTtcNFIO9xRVcpFESngPQXJPBE?usp=sharing" target="_blank">Folder</a> for the trained models & evaluation metrics and <a href="https://drive.google.com/drive/folders/1qjI-W0_ppC-gqcNWrAu2mHPuD-psHL8V?usp=sharing" target="_blank">folder</a> for predictions.
 ![alt text](./__resources__/autogluon/baseline.jpg?raw=true "Title")
 
 **Parameters:** `Random Forest` excluded due to high computational costs (cannot be GPU accelerated) and uncompetitive performance. The benchmark parameters are `resample=True`, `imputation=default`, `presets=medium_quality`, `train_window=240`, `valid_window=120`, `test_window=60`, `horizon=1`
@@ -39,7 +37,7 @@ Dictionary of parameters: https://github.com/xiubooth/ML_Prediction/blob/main/pa
 
 
 ## Transformer
-<a href="https://drive.google.com/drive/folders/1mpALA-anX8W8VuDaG9MDE5AUiQdZ2WYh?usp=sharing" target="_blank">Repository</a> for the trained models, evaluation metrics and predictions. 
+<a href="https://drive.google.com/drive/folders/1mpALA-anX8W8VuDaG9MDE5AUiQdZ2WYh?usp=sharing" target="_blank">Folder</a> for the trained models & evaluation metrics and folder for predictions. 
 ![alt text](./__resources__/transformer/baseline.jpg?raw=true "Title")
 
 **Parameters:** The benchmark parameters are `seq_len=5`, `nlayer=2`, `nhead=8`, `d_model=4096`, `dropout=0.1`, `epochs=7`, `lr=0.05`
