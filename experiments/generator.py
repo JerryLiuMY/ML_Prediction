@@ -24,7 +24,7 @@ def generate_window(date0_min, date0_max, seq_len, horizon, data_dict):
     valid_win = data_dict["valid_win"]
     test_win = data_dict["test_win"]
     resample = data_dict["resample"]
-    if DATA_TYPE == "set_data" or DATA_TYPE == "set_data2":
+    if DATA_TYPE == "set1_data" or DATA_TYPE == "set1_data2":
         shift = horizon - 1
     elif DATA_TYPE == "set2_data" or DATA_TYPE == "set2_data2":
         shift = horizon

@@ -89,5 +89,5 @@ def experiment_proc(window, model_name, horizon, params):
 #     build_num_ft()
 
 if __name__ == "__main__":
-    # run_experiment(model_name="autogluon", num_proc=1)
+    run_experiment(model_name="autogluon", num_proc=4)
     plot_correlation("autogluon")
