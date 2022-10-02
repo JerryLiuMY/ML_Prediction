@@ -140,4 +140,6 @@ def plot_correlation(model_name):
     # save plotted figure
     model_path = os.path.join(OUTPUT_PATH, model_name)
     corr_path = os.path.join(model_path, "correlation")
-    fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
+    if not os.path.isdir(corr_path):
+        os.mkdir(corr_path)
+        fig.savefig(os.path.join(corr_path, "correlation.pdf"), bbox_inches="tight")
